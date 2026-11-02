@@ -4,10 +4,10 @@
   "liveDemo": "https://somphol.github.io/virtual-playhouse/",
   "build": {
     "startedAt": "2026-11-02T00:05:57.679000Z",
-    "completedAt": "2026-11-02T00:49:53.898582Z",
-    "wallClockSeconds": 2636,
-    "wallClockHuman": "43m 56s",
-    "agentBusySeconds": 2627.2,
+    "completedAt": "2026-11-02T00:51:56.838038Z",
+    "wallClockSeconds": 2759,
+    "wallClockHuman": "45m 59s",
+    "agentBusySeconds": 2753.1,
     "sessionID": "ses_e666c46d8ffezSoPNKbrg0Cbta",
     "sessionTitle": "Virtual Playhouse theatre simulator",
     "harness": "OpenCode",
@@ -20,13 +20,13 @@
     "credits": "Built with OpenCode and DeepSeek V4.1 Flash."
   },
   "tokens": {
-    "input": 243900,
-    "output": 110067,
-    "reasoning": 61318,
-    "cacheRead": 11526912,
+    "input": 260984,
+    "output": 112297,
+    "reasoning": 63081,
+    "cacheRead": 14079744,
     "cacheWrite": 1147,
-    "nonCachedTotal": 415285,
-    "total": 11943344
+    "nonCachedTotal": 436362,
+    "total": 14517253
   },
   "costUSD": 0.0,
   "artifacts": {
@@ -48,8 +48,8 @@
       },
       {
         "path": "README.md",
-        "bytes": 10145,
-        "lines": 237
+        "bytes": 10452,
+        "lines": 245
       },
       {
         "path": "assets/preview.png",
@@ -61,7 +61,7 @@
         "lines": 21
       }
     ],
-    "sourceLines": 7555
+    "sourceLines": 7563
   },
   "notes": "Token counts are read from the OpenCode session database at completion time. The final assistant reply is sent after this snapshot, so the live session may be a few tokens higher. Cache-read tokens are included in total because they represent context processed by the model."
 }

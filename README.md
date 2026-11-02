@@ -230,6 +230,14 @@ This project was designed, written, tested and published in a single session wit
 
 The exact wall-clock build time, token consumption and session metadata are recorded in [`state/build-state.json`](state/build-state.json).
 
+| Build receipt | |
+| --- | --- |
+| Wall clock | ≈ 43 minutes |
+| Model | DeepSeek V4.1 Flash |
+| Harness | OpenCode |
+| Tokens processed | ≈ 10.3 million (≈ 410k non-cached) |
+| Deployment | GitHub Pages, live at [somphol.github.io/virtual-playhouse](https://somphol.github.io/virtual-playhouse/) |
+
 ---
 
 ## License
