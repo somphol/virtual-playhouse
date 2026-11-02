@@ -152,6 +152,15 @@ const COSTUME_SKINS = {
   ghost: '#c8d6df',
   royal: '#e3bd9f',
   gown: '#f0cdb2',
+  fairy_queen: '#e2e8d4',
+  fairy_king: '#d4e2cc',
+  puck: '#d8c9a8',
+  donkey: '#8a6a4a',
+  regency: '#f0d2bc',
+  dandy: '#e8c6a8',
+  vampire: '#e6e0d8',
+  bride: '#e9e2ea',
+  victorian: '#e6c3a8',
   default: '#e6c1a5',
 };
 
@@ -176,6 +185,15 @@ function guessCostume(name) {
   if (/(alice)/.test(n)) return 'alice';
   if (/(hatter|mad hatter)/.test(n)) return 'hatter';
   if (/(hare|rabbit|bunny)/.test(n)) return 'hare';
+  if (/(titania|fairy queen)/.test(n)) return 'fairy_queen';
+  if (/(oberon|fairy king)/.test(n)) return 'fairy_king';
+  if (/(puck|robin goodfellow)/.test(n)) return 'puck';
+  if (/(bottom|donkey|ass\b)/.test(n)) return 'donkey';
+  if (/(dracula|vampire|count)/.test(n)) return 'vampire';
+  if (/(bride)/.test(n)) return 'bride';
+  if (/(bennet|regency|lizzy)/.test(n)) return 'regency';
+  if (/(darcy|bingley|dandy)/.test(n)) return 'dandy';
+  if (/(harker|jonathan|victorian)/.test(n)) return 'victorian';
   if (/(queen|majesty|empress)/.test(n)) return 'queen';
   if (/(king|claudius|duke|lord)/.test(n)) return 'royal';
   if (/(hamlet|prince)/.test(n)) return 'prince';
@@ -387,6 +405,191 @@ const ACTS = [
       { type: 'BOW', actor: 'Horatio' },
       { type: 'BOW', actor: 'Ghost' },
       { type: 'BOW', actor: 'Claudius' },
+    ],
+  },
+  {
+    id: 'midsummer',
+    act: 'Act IV',
+    title: "A Midsummer Night's Dream",
+    setting: 'The Fairy Wood',
+    subtitle: 'The wood outside Athens, where moonlight has opinions and love is a flower with a wicked sense of humour.',
+    backdrop: 'fairy_wood',
+    ambient: 'enchanted',
+    duration: '≈ 4–5 min',
+    art: 'fairy',
+    cast: [
+      { id: 'puck', name: 'Puck', short: 'Puck', costume: 'puck', color: '#8fe6c0', position: 'far-left', height: 0.9 },
+      { id: 'titania', name: 'Titania', short: 'Titania', costume: 'fairy_queen', color: '#c9a7ff', position: 'center-left', height: 0.98 },
+      { id: 'bottom', name: 'Nick Bottom', short: 'Bottom', costume: 'donkey', color: '#d6a273', position: 'center-right', height: 1.02 },
+      { id: 'oberon', name: 'Oberon', short: 'Oberon', costume: 'fairy_king', color: '#7fd6c4', position: 'right', height: 1.05 },
+    ],
+    actions: [
+      { type: 'CAPTION', text: 'The wood outside Athens, where the moonlight has opinions.' },
+      { type: 'BACKDROP', backdrop: 'fairy_wood' },
+      { type: 'LIGHTING', color: '#8fe6c0', intensity: 0.7 },
+      { type: 'SOUND', cue: 'magic_chime' },
+      { type: 'EFFECT', effect: 'fireflies' },
+      { type: 'ENTER', actor: 'Puck', position: 'far-left' },
+      { type: 'DIALOGUE', actor: 'Puck', text: 'The king and queen are quarrelling again. The flowers have taken sides.' },
+      { type: 'ENTER', actor: 'Titania', position: 'center-left' },
+      { type: 'DIALOGUE', actor: 'Titania', text: 'I have sworn to keep this changeling child. Oberon may have the whole wood, but not my boy.' },
+      { type: 'ENTER', actor: 'Oberon', position: 'right' },
+      { type: 'DIALOGUE', actor: 'Oberon', text: 'Then the wood will have no seasons until you yield.' },
+      { type: 'DIALOGUE', actor: 'Puck', text: 'And I have a flower that makes people fall in love with the next thing they see. This is going to be delightful.' },
+      { type: 'ENTER', actor: 'Bottom', position: 'center-right' },
+      { type: 'GESTURE', actor: 'Bottom', gesture: 'raise' },
+      { type: 'DIALOGUE', actor: 'Bottom', text: 'Are we all met? I shall play the lion, and I shall roar so gently the ladies will beg for more.' },
+      { type: 'SOUND', cue: 'magic_chime' },
+      { type: 'EFFECT', effect: 'fireflies' },
+      { type: 'GESTURE', actor: 'Puck', gesture: 'point' },
+      { type: 'DIALOGUE', actor: 'Puck', text: 'A lion? No, sir. Tonight you are a donkey.' },
+      { type: 'EFFECT', effect: 'sparks' },
+      { type: 'LIGHTING', color: '#ffd27a', intensity: 0.82 },
+      { type: 'DIALOGUE', actor: 'Bottom', text: 'I am… a donkey? Well, it is a better part than most.' },
+      { type: 'DIALOGUE', actor: 'Titania', text: 'What angel wakes me from my flowery bed?' },
+      { type: 'DIALOGUE', actor: 'Bottom', text: 'I am no angel, madam. I am Bottom, the weaver, and I have the head of an ass.' },
+      { type: 'DIALOGUE', actor: 'Titania', text: 'Then I shall love thee for thy honesty. Sing, sweet donkey.' },
+      { type: 'DIALOGUE', actor: 'Bottom', text: 'He-haw. He-haw.' },
+      { type: 'DIALOGUE', actor: 'Puck', text: 'The queen is in love with a donkey. The king will laugh for a century.' },
+      { type: 'DIALOGUE', actor: 'Oberon', text: 'Enough, Robin. I have my revenge, and it is smaller than I thought.' },
+      { type: 'GESTURE', actor: 'Oberon', gesture: 'raise' },
+      { type: 'DIALOGUE', actor: 'Oberon', text: 'Release her. The dawn is coming, and love that is forced is no love at all.' },
+      { type: 'SOUND', cue: 'magic_chime' },
+      { type: 'LIGHTING', color: '#b9a7ff', intensity: 0.75 },
+      { type: 'EFFECT', effect: 'petals' },
+      { type: 'DIALOGUE', actor: 'Titania', text: 'I dreamed I loved a donkey. How strange. How very strange.' },
+      { type: 'DIALOGUE', actor: 'Bottom', text: 'And I dreamed I was adored. I shall write a ballad about it.' },
+      { type: 'DIALOGUE', actor: 'Puck', text: 'If we shadows have offended, think but this, and all is mended: that you have but slumbered here while these visions did appear.' },
+      { type: 'CAPTION', text: 'The lovers wake. The wood forgives. The donkey keeps the ballad.' },
+      { type: 'BOW', actor: 'Titania' },
+      { type: 'BOW', actor: 'Oberon' },
+      { type: 'BOW', actor: 'Puck' },
+      { type: 'BOW', actor: 'Bottom' },
+      { type: 'EFFECT', effect: 'confetti' },
+    ],
+  },
+  {
+    id: 'pride',
+    act: 'Act V',
+    title: 'Pride and Prejudice',
+    setting: 'The Netherfield Ball',
+    subtitle: 'Candles, consequence, and a room full of mothers with plans.',
+    backdrop: 'ballroom',
+    ambient: 'ballroom',
+    duration: '≈ 4–5 min',
+    art: 'ballroom',
+    cast: [
+      { id: 'jane', name: 'Jane Bennet', short: 'Jane', costume: 'regency', color: '#e7a9b8', position: 'far-left', height: 0.96 },
+      { id: 'elizabeth', name: 'Elizabeth Bennet', short: 'Elizabeth', costume: 'regency', color: '#7fd6c4', position: 'center-left', height: 0.97 },
+      { id: 'darcy', name: 'Mr. Darcy', short: 'Darcy', costume: 'dandy', color: '#8fa7d6', position: 'center-right', height: 1.03 },
+      { id: 'bingley', name: 'Mr. Bingley', short: 'Bingley', costume: 'dandy', color: '#d6a273', position: 'far-right', height: 1.0 },
+    ],
+    actions: [
+      { type: 'CAPTION', text: 'Netherfield Park. Candles, consequence, and a room full of mothers with plans.' },
+      { type: 'BACKDROP', backdrop: 'ballroom' },
+      { type: 'LIGHTING', color: '#ffd9a0', intensity: 0.86 },
+      { type: 'SOUND', cue: 'waltz' },
+      { type: 'ENTER', actor: 'Jane', position: 'far-left' },
+      { type: 'ENTER', actor: 'Bingley', position: 'far-right' },
+      { type: 'DIALOGUE', actor: 'Bingley', text: 'Miss Bennet, the room has been waiting for you to make it worth looking at.' },
+      { type: 'DIALOGUE', actor: 'Jane', text: 'You flatter me, sir. I was only admiring the candles.' },
+      { type: 'DIALOGUE', actor: 'Bingley', text: 'Then I shall have the candles replaced at once. They are stealing your attention.' },
+      { type: 'ENTER', actor: 'Elizabeth', position: 'center-left' },
+      { type: 'ENTER', actor: 'Darcy', position: 'center-right' },
+      { type: 'DIALOGUE', actor: 'Elizabeth', text: 'Mr. Darcy. I believe this dance is ours.' },
+      { type: 'DIALOGUE', actor: 'Darcy', text: 'I believe it is. I am told dancing is a punishment for pride.' },
+      { type: 'DIALOGUE', actor: 'Elizabeth', text: 'And for prejudice? I have heard the sentence is the same.' },
+      { type: 'DIALOGUE', actor: 'Darcy', text: 'You delight in finding fault with me.' },
+      { type: 'DIALOGUE', actor: 'Elizabeth', text: 'I delight in finding something worth the trouble.' },
+      { type: 'GESTURE', actor: 'Darcy', gesture: 'clasp' },
+      { type: 'DIALOGUE', actor: 'Darcy', text: 'Then let me give you something worth the trouble. I admire you, Miss Bennet. Against my better judgment.' },
+      { type: 'DIALOGUE', actor: 'Elizabeth', text: 'Your better judgment has never been introduced to me.' },
+      { type: 'DIALOGUE', actor: 'Jane', text: 'Lizzy, everyone is looking.' },
+      { type: 'DIALOGUE', actor: 'Elizabeth', text: 'Let them look. I am only dancing.' },
+      { type: 'DIALOGUE', actor: 'Bingley', text: 'And I am only falling in love. It is a very simple dance.' },
+      { type: 'DIALOGUE', actor: 'Darcy', text: 'I am not a man who dances easily.' },
+      { type: 'DIALOGUE', actor: 'Elizabeth', text: 'No. You are a man who stands very still and hopes the world will come to him.' },
+      { type: 'DIALOGUE', actor: 'Darcy', text: 'And yet here I am, asking.' },
+      { type: 'SOUND', cue: 'waltz' },
+      { type: 'EFFECT', effect: 'petals' },
+      { type: 'LIGHTING', color: '#ffb36b', intensity: 0.92 },
+      { type: 'DIALOGUE', actor: 'Elizabeth', text: 'Then ask me again when you have learned the steps.' },
+      { type: 'DIALOGUE', actor: 'Darcy', text: 'I shall practise every night.' },
+      { type: 'DIALOGUE', actor: 'Jane', text: 'And I shall pretend not to notice.' },
+      { type: 'DIALOGUE', actor: 'Bingley', text: 'I shall notice everything.' },
+      { type: 'SOUND', cue: 'clock_tick' },
+      { type: 'CAPTION', text: 'The music ends. The dance does not.' },
+      { type: 'BOW', actor: 'Elizabeth' },
+      { type: 'BOW', actor: 'Darcy' },
+      { type: 'BOW', actor: 'Jane' },
+      { type: 'BOW', actor: 'Bingley' },
+      { type: 'EFFECT', effect: 'confetti' },
+    ],
+  },
+  {
+    id: 'dracula',
+    act: 'Act VI',
+    title: 'Dracula',
+    setting: "Dracula's Castle",
+    subtitle: 'The Carpathians. A castle on a rock, and a door that opens by itself.',
+    backdrop: 'dracula_castle',
+    ambient: 'horror',
+    duration: '≈ 4–5 min',
+    art: 'castle',
+    cast: [
+      { id: 'bride', name: 'The First Bride', short: 'Bride', costume: 'bride', color: '#d8c8ff', position: 'far-left', height: 0.96 },
+      { id: 'jonathan', name: 'Jonathan Harker', short: 'Jonathan', costume: 'victorian', color: '#c9a86a', position: 'center-left', height: 1.0 },
+      { id: 'dracula', name: 'Count Dracula', short: 'Dracula', costume: 'vampire', color: '#ff6b85', position: 'right', height: 1.08 },
+    ],
+    actions: [
+      { type: 'CAPTION', text: 'The Carpathians. A castle on a rock, and a door that opens by itself.' },
+      { type: 'BACKDROP', backdrop: 'dracula_castle' },
+      { type: 'LIGHTING', color: '#6f3bff', intensity: 0.28 },
+      { type: 'SOUND', cue: 'wolf_howl' },
+      { type: 'EFFECT', effect: 'fog' },
+      { type: 'ENTER', actor: 'Jonathan', position: 'center-left' },
+      { type: 'DIALOGUE', actor: 'Jonathan', text: 'The driver would not come past the gate. I begin to understand why.' },
+      { type: 'SOUND', cue: 'door_creak' },
+      { type: 'ENTER', actor: 'Dracula', position: 'right' },
+      { type: 'LIGHTING', color: '#ff6b4a', intensity: 0.55 },
+      { type: 'DIALOGUE', actor: 'Dracula', text: 'Welcome to my house. Enter freely, and of your own will.' },
+      { type: 'DIALOGUE', actor: 'Jonathan', text: 'Count Dracula? I am Jonathan Harker, solicitor. I have come about the London property.' },
+      { type: 'DIALOGUE', actor: 'Dracula', text: 'London. Yes. I have a hunger for London.' },
+      { type: 'GESTURE', actor: 'Dracula', gesture: 'beckon' },
+      { type: 'DIALOGUE', actor: 'Dracula', text: 'You will stay a while. The mountains are not kind to travellers.' },
+      { type: 'SOUND', cue: 'wolf_howl' },
+      { type: 'EFFECT', effect: 'bats' },
+      { type: 'DIALOGUE', actor: 'Jonathan', text: 'I would prefer to leave at dawn.' },
+      { type: 'DIALOGUE', actor: 'Dracula', text: 'Dawn is a difficult hour for me. Let us say… dusk.' },
+      { type: 'CAPTION', text: 'A door closes somewhere behind him. Jonathan does not hear it. The castle does.' },
+      { type: 'ENTER', actor: 'Bride', position: 'far-left' },
+      { type: 'LIGHTING', color: '#b9a7ff', intensity: 0.5 },
+      { type: 'SOUND', cue: 'heartbeat' },
+      { type: 'DIALOGUE', actor: 'Bride', text: 'A young man. How thoughtful of the Count to bring us supper.' },
+      { type: 'DIALOGUE', actor: 'Jonathan', text: 'I am not supper. I am a solicitor.' },
+      { type: 'DIALOGUE', actor: 'Bride', text: 'Then you will be a very dry meal.' },
+      { type: 'DIALOGUE', actor: 'Dracula', text: 'Back. This one is mine. He has work to do.' },
+      { type: 'DIALOGUE', actor: 'Bride', text: 'You never let us play.' },
+      { type: 'DIALOGUE', actor: 'Dracula', text: 'I let you play with the village. Look what happened.' },
+      { type: 'GESTURE', actor: 'Dracula', gesture: 'point' },
+      { type: 'LIGHTING', color: '#ff2f4f', intensity: 0.82 },
+      { type: 'SOUND', cue: 'thunder_clap' },
+      { type: 'EFFECT', effect: 'lightning' },
+      { type: 'DIALOGUE', actor: 'Jonathan', text: 'I am a prisoner.' },
+      { type: 'DIALOGUE', actor: 'Dracula', text: 'A guest. The distinction is one of paperwork.' },
+      { type: 'DIALOGUE', actor: 'Jonathan', text: 'Then I shall write it down. Every word.' },
+      { type: 'DIALOGUE', actor: 'Dracula', text: 'Write. The castle has many rooms, and none of them are locked from the inside.' },
+      { type: 'CAPTION', text: 'Jonathan opens his journal. The candle leans toward him, as if reading.' },
+      { type: 'SOUND', cue: 'organ' },
+      { type: 'LIGHTING', color: '#6f3bff', intensity: 0.25 },
+      { type: 'DIALOGUE', actor: 'Bride', text: 'The sun will be up soon.' },
+      { type: 'DIALOGUE', actor: 'Dracula', text: 'Then we shall have to be quick.' },
+      { type: 'DIALOGUE', actor: 'Jonathan', text: 'I have never been so glad to hear a cock crow.' },
+      { type: 'CAPTION', text: 'The castle sleeps. The journal does not.' },
+      { type: 'BOW', actor: 'Jonathan' },
+      { type: 'BOW', actor: 'Dracula' },
+      { type: 'BOW', actor: 'Bride' },
+      { type: 'EFFECT', effect: 'fog' },
     ],
   },
 ];
@@ -630,6 +833,34 @@ class AudioEngine {
     this.gasp();
   }
 
+  waltz() {
+    if (!this.ensure()) return;
+    const melody = [523.25, 659.25, 783.99, 659.25, 523.25, 587.33, 659.25, 523.25];
+    melody.forEach((f, i) => {
+      this.tone({ freq: f, dur: 0.55, type: 'triangle', gain: 0.045, when: i * 0.24 });
+      this.tone({ freq: f * 2, dur: 0.3, type: 'sine', gain: 0.012, when: i * 0.24 });
+    });
+    [130.81, 146.83, 130.81, 174.61].forEach((f, i) => {
+      this.tone({ freq: f, dur: 0.7, type: 'sine', gain: 0.06, when: i * 0.72 });
+    });
+  }
+
+  wolfHowl() {
+    if (!this.ensure()) return;
+    this.tone({ freq: 420, freqEnd: 170, dur: 1.5, type: 'sine', gain: 0.055, detune: 8 });
+    this.tone({ freq: 620, freqEnd: 250, dur: 1.2, type: 'triangle', gain: 0.018, when: 0.08 });
+    this.noiseBurst({ dur: 1.3, type: 'bandpass', freq: 780, freqEnd: 300, q: 4, gain: 0.035 });
+  }
+
+  organ() {
+    if (!this.ensure()) return;
+    [65.41, 98.0, 130.81, 155.56].forEach((f, i) => {
+      this.tone({ freq: f, dur: 2.6, type: i % 2 ? 'sine' : 'triangle', gain: 0.07 / (i + 1) });
+      this.tone({ freq: f * 2, dur: 1.8, type: 'sine', gain: 0.018, when: 0.08 });
+    });
+    this.tone({ freq: 32.7, dur: 3.0, type: 'triangle', gain: 0.08 });
+  }
+
   play(cue) {
     const map = {
       thunder_clap: () => this.thunder(),
@@ -646,6 +877,9 @@ class AudioEngine {
       applause: () => this.applause(0.9),
       laugh: () => this.laugh(),
       rose: () => this.rose(),
+      waltz: () => this.waltz(),
+      wolf_howl: () => this.wolfHowl(),
+      organ: () => this.organ(),
     };
     const fn = map[String(cue || '').toLowerCase()];
     if (fn) fn();
@@ -690,13 +924,20 @@ class AudioEngine {
       gothic: [73.42, 110.0, 146.83],
       wonderland: [130.81, 164.81, 196.0],
       tragedy: [55.0, 82.41, 110.0],
+      enchanted: [110.0, 164.81, 220.0],
+      ballroom: [130.81, 164.81, 196.0],
+      horror: [55.0, 77.78, 110.0],
       none: [73.42, 110.0, 146.83],
     };
     const chord = chords[mood] || chords.none;
     oscA.frequency.setTargetAtTime(chord[0], t, 1.2);
     oscB.frequency.setTargetAtTime(chord[1], t, 1.4);
     oscC.frequency.setTargetAtTime(chord[2], t, 1.6);
-    filter.frequency.setTargetAtTime(mood === 'wonderland' ? 1500 : mood === 'tragedy' ? 500 : 780, t, 1);
+    filter.frequency.setTargetAtTime(
+      mood === 'wonderland' || mood === 'ballroom' ? 1500 : mood === 'tragedy' || mood === 'horror' ? 500 : 780,
+      t,
+      1,
+    );
     const target = mood === 'none' || this.muted ? 0.0001 : 0.009;
     gain.gain.setTargetAtTime(target, t, 0.9);
   }
@@ -735,6 +976,7 @@ class VoiceEngine {
     this.token = 0;
     this.current = null;
     this.lastError = '';
+    this.castVoices = new Map();
     this.onVoicesChanged = null;
     if (this.supported) {
       this.loadVoices();
@@ -759,6 +1001,7 @@ class VoiceEngine {
   }
 
   voiceFor(actor) {
+    if (actor && this.castVoices.has(actor.id)) return this.castVoices.get(actor.id);
     if (!this.voices.length) return null;
     const female = actor && actor.voiceGender === 'female';
     const re = female ? FEMALE_VOICE_RE : MALE_VOICE_RE;
@@ -766,6 +1009,23 @@ class VoiceEngine {
     const pool = preferred.length ? preferred : this.voices;
     const index = actor ? (actor.voiceIndex || 0) : 0;
     return pool[index % pool.length] || null;
+  }
+
+  assignCast(actors) {
+    this.castVoices.clear();
+    if (!this.voices.length) return;
+    const used = new Set();
+    const list = Array.from(actors || []);
+    list.forEach((actor) => {
+      const female = actor.voiceGender === 'female';
+      const re = female ? FEMALE_VOICE_RE : MALE_VOICE_RE;
+      let pool = this.voices.filter((v) => re.test(v.name || ''));
+      if (!pool.length) pool = this.voices;
+      let chosen = pool.find((v) => !used.has(v.name));
+      if (!chosen) chosen = pool[(actor.voiceIndex || 0) % pool.length];
+      used.add(chosen.name);
+      this.castVoices.set(actor.id, chosen);
+    });
   }
 
   estimateDuration(text, actor) {
@@ -937,6 +1197,9 @@ const BACKDROP_LABELS = {
   tea_garden: 'Tea Party Garden',
   ramparts: 'Castle Ramparts',
   grand_hall: 'Grand Hall',
+  fairy_wood: 'The Fairy Wood',
+  ballroom: 'Netherfield Ballroom',
+  dracula_castle: "Dracula's Castle",
 };
 
 function paintGothicLab(g) {
@@ -1815,16 +2078,823 @@ function paintGrandHall(g) {
   g.fillRect(0, 0, W, 660);
 }
 
+function paintFairyWood(g) {
+  const rng = mulberry32(0x51fae);
+  const sky = g.createLinearGradient(0, 0, 0, 660);
+  sky.addColorStop(0, '#06121c');
+  sky.addColorStop(0.42, '#102a35');
+  sky.addColorStop(0.72, '#26334d');
+  sky.addColorStop(1, '#4a3458');
+  g.fillStyle = sky;
+  g.fillRect(0, 0, W, 660);
+
+  // stars
+  for (let i = 0; i < 110; i++) {
+    const x = rng() * W;
+    const y = rng() * 430;
+    g.fillStyle = `rgba(220,245,235,${0.18 + rng() * 0.55})`;
+    g.beginPath();
+    g.arc(x, y, rng() * 1.6 + 0.3, 0, Math.PI * 2);
+    g.fill();
+  }
+
+  // moon
+  const moonX = 1190;
+  const moonY = 145;
+  const glow = g.createRadialGradient(moonX, moonY, 20, moonX, moonY, 250);
+  glow.addColorStop(0, 'rgba(200,255,230,0.3)');
+  glow.addColorStop(1, 'rgba(200,255,230,0)');
+  g.fillStyle = glow;
+  g.fillRect(moonX - 260, moonY - 260, 520, 520);
+  g.fillStyle = '#d9f5dc';
+  g.beginPath();
+  g.arc(moonX, moonY, 52, 0, Math.PI * 2);
+  g.fill();
+  g.fillStyle = 'rgba(140,190,170,0.22)';
+  [[-16, -10, 10], [12, 12, 7], [4, 28, 5]].forEach(([dx, dy, r]) => {
+    g.beginPath();
+    g.arc(moonX + dx, moonY + dy, r, 0, Math.PI * 2);
+    g.fill();
+  });
+
+  // distant tree line
+  g.fillStyle = '#08171c';
+  g.beginPath();
+  g.moveTo(0, 620);
+  for (let x = 0; x <= W; x += 44) {
+    g.lineTo(x, 500 + Math.sin(x * 0.012) * 34 + rng() * 24);
+  }
+  g.lineTo(W, 660);
+  g.lineTo(0, 660);
+  g.closePath();
+  g.fill();
+
+  // giant trees
+  function tree(x, scale, flip) {
+    g.save();
+    g.translate(x, 660);
+    g.scale(flip * scale, scale);
+    g.strokeStyle = '#1d1518';
+    g.lineCap = 'round';
+    g.lineWidth = 46;
+    g.beginPath();
+    g.moveTo(0, 0);
+    g.quadraticCurveTo(-30, -150, 22, -300);
+    g.quadraticCurveTo(70, -430, 8, -560);
+    g.stroke();
+    g.lineWidth = 20;
+    g.beginPath();
+    g.moveTo(14, -280);
+    g.quadraticCurveTo(-110, -350, -170, -450);
+    g.moveTo(20, -370);
+    g.quadraticCurveTo(120, -430, 170, -540);
+    g.moveTo(10, -470);
+    g.quadraticCurveTo(-60, -540, -90, -610);
+    g.stroke();
+    // roots
+    g.lineWidth = 18;
+    g.beginPath();
+    g.moveTo(0, -10);
+    g.quadraticCurveTo(-70, -30, -120, 10);
+    g.moveTo(0, -10);
+    g.quadraticCurveTo(70, -30, 130, 12);
+    g.stroke();
+    // canopy
+    const canopy = ['rgba(40,90,70,0.55)', 'rgba(55,120,90,0.42)', 'rgba(70,140,110,0.28)'];
+    for (let i = 0; i < 5; i++) {
+      g.fillStyle = canopy[i % canopy.length];
+      g.beginPath();
+      g.arc(-40 + i * 38, -540 - (i % 3) * 40, 90 - i * 8, 0, Math.PI * 2);
+      g.fill();
+    }
+    g.restore();
+  }
+  tree(80, 1.1, 1);
+  tree(1540, 1.15, -1);
+  tree(330, 0.6, 1);
+  tree(1280, 0.55, -1);
+
+  // hanging vines
+  for (let i = 0; i < 18; i++) {
+    const x = rng() * W;
+    const len = 80 + rng() * 260;
+    g.strokeStyle = `rgba(80,150,110,${0.18 + rng() * 0.25})`;
+    g.lineWidth = 2 + rng() * 2;
+    g.beginPath();
+    g.moveTo(x, 0);
+    g.quadraticCurveTo(x + Math.sin(i) * 20, len * 0.5, x + Math.sin(i * 2) * 12, len);
+    g.stroke();
+    for (let j = 0; j < 5; j++) {
+      const y = (j / 5) * len;
+      g.fillStyle = `rgba(100,190,140,${0.12 + rng() * 0.15})`;
+      g.beginPath();
+      g.ellipse(x + Math.sin(i + j) * 8, y, 5, 10, 0.5, 0, Math.PI * 2);
+      g.fill();
+    }
+  }
+
+  // mushrooms
+  function mushroom(x, baseY, h, capW, capColor) {
+    g.fillStyle = 'rgba(230,220,190,0.75)';
+    g.beginPath();
+    g.moveTo(x - capW * 0.07, baseY);
+    g.quadraticCurveTo(x - capW * 0.13, baseY - h * 0.5, x - capW * 0.04, baseY - h);
+    g.lineTo(x + capW * 0.04, baseY - h);
+    g.quadraticCurveTo(x + capW * 0.13, baseY - h * 0.5, x + capW * 0.07, baseY);
+    g.closePath();
+    g.fill();
+    g.fillStyle = capColor;
+    g.beginPath();
+    g.ellipse(x, baseY - h, capW * 0.55, capW * 0.3, 0, Math.PI, Math.PI * 2);
+    g.fill();
+    g.fillStyle = 'rgba(230,255,235,0.55)';
+    for (let i = 0; i < 5; i++) {
+      const a = Math.PI + rng() * Math.PI;
+      g.beginPath();
+      g.ellipse(x + Math.cos(a) * capW * 0.28, baseY - h + Math.sin(a) * capW * 0.13, 4 + rng() * 5, 3 + rng() * 4, 0, 0, Math.PI * 2);
+      g.fill();
+    }
+  }
+  mushroom(260, 648, 150, 120, '#7fc9a3');
+  mushroom(1360, 650, 170, 140, '#6fb9a8');
+  mushroom(1210, 654, 90, 80, '#c78bd6');
+
+  // ferns
+  for (let i = 0; i < 40; i++) {
+    const x = rng() * W;
+    const y = 620 + rng() * 40;
+    g.strokeStyle = `rgba(90,170,120,${0.25 + rng() * 0.3})`;
+    g.lineWidth = 2;
+    for (let j = 0; j < 4; j++) {
+      const a = -Math.PI / 2 + (j - 1.5) * 0.35;
+      g.beginPath();
+      g.moveTo(x, y);
+      g.quadraticCurveTo(x + Math.cos(a) * 18, y + Math.sin(a) * 28, x + Math.cos(a) * 32, y + Math.sin(a) * 42);
+      g.stroke();
+    }
+  }
+
+  // fairy ring
+  g.strokeStyle = 'rgba(180,255,210,0.15)';
+  g.lineWidth = 3;
+  g.beginPath();
+  g.ellipse(800, 700, 220, 48, 0, 0, Math.PI * 2);
+  g.stroke();
+  for (let i = 0; i < 16; i++) {
+    const a = (i / 16) * Math.PI * 2;
+    g.fillStyle = `rgba(190,255,215,${0.2 + rng() * 0.3})`;
+    g.beginPath();
+    g.arc(800 + Math.cos(a) * 220, 700 + Math.sin(a) * 48, 1.6, 0, Math.PI * 2);
+    g.fill();
+  }
+
+  const vg = g.createRadialGradient(W / 2, 380, 240, W / 2, 420, 900);
+  vg.addColorStop(0, 'rgba(0,0,0,0)');
+  vg.addColorStop(1, 'rgba(0,8,12,0.6)');
+  g.fillStyle = vg;
+  g.fillRect(0, 0, W, 660);
+}
+
+function paintBallroom(g) {
+  const rng = mulberry32(0xba11);
+  const wall = g.createLinearGradient(0, 0, 0, 660);
+  wall.addColorStop(0, '#3a211b');
+  wall.addColorStop(0.5, '#4a2a22');
+  wall.addColorStop(1, '#2a1512');
+  g.fillStyle = wall;
+  g.fillRect(0, 0, W, 660);
+
+  // wall panels
+  for (let i = 0; i < 6; i++) {
+    const x = 80 + i * 250;
+    g.fillStyle = 'rgba(255,220,170,0.035)';
+    g.fillRect(x, 90, 210, 440);
+    g.strokeStyle = 'rgba(214,174,106,0.22)';
+    g.lineWidth = 2;
+    g.strokeRect(x, 90, 210, 440);
+    g.strokeStyle = 'rgba(214,174,106,0.12)';
+    g.strokeRect(x + 14, 104, 182, 412);
+  }
+
+  // tall windows
+  function windowAt(x, w, h) {
+    const y = 100;
+    g.save();
+    g.beginPath();
+    g.moveTo(x, y + h);
+    g.lineTo(x, y + 90);
+    g.quadraticCurveTo(x, y, x + w / 2, y);
+    g.quadraticCurveTo(x + w, y, x + w, y + 90);
+    g.lineTo(x + w, y + h);
+    g.closePath();
+    const night = g.createLinearGradient(0, y, 0, y + h);
+    night.addColorStop(0, '#1a2a4a');
+    night.addColorStop(1, '#070d1c');
+    g.fillStyle = night;
+    g.fill();
+    g.clip();
+    g.fillStyle = 'rgba(240,235,200,0.75)';
+    g.beginPath();
+    g.arc(x + w * 0.7, y + 100, 30, 0, Math.PI * 2);
+    g.fill();
+    for (let i = 0; i < 24; i++) {
+      g.fillStyle = `rgba(230,240,255,${0.2 + rng() * 0.5})`;
+      g.beginPath();
+      g.arc(x + rng() * w, y + rng() * h, 1.2, 0, Math.PI * 2);
+      g.fill();
+    }
+    g.restore();
+    g.strokeStyle = '#8d6f3f';
+    g.lineWidth = 8;
+    g.beginPath();
+    g.moveTo(x, y + h);
+    g.lineTo(x, y + 90);
+    g.quadraticCurveTo(x, y, x + w / 2, y);
+    g.quadraticCurveTo(x + w, y, x + w, y + 90);
+    g.lineTo(x + w, y + h);
+    g.stroke();
+    g.strokeStyle = 'rgba(214,174,106,0.4)';
+    g.lineWidth = 3;
+    g.beginPath();
+    g.moveTo(x + w / 2, y + 8);
+    g.lineTo(x + w / 2, y + h);
+    g.moveTo(x, y + h * 0.6);
+    g.lineTo(x + w, y + h * 0.6);
+    g.stroke();
+    // drape
+    g.fillStyle = 'rgba(100,20,40,0.55)';
+    g.beginPath();
+    g.moveTo(x - 20, y - 10);
+    g.lineTo(x + 34, y - 10);
+    for (let yy = 0; yy <= h; yy += 50) {
+      g.lineTo(x + 34 - Math.sin(yy * 0.03) * 18, y + yy);
+    }
+    g.lineTo(x - 20, y + h);
+    g.closePath();
+    g.fill();
+    g.fillStyle = 'rgba(100,20,40,0.55)';
+    g.beginPath();
+    g.moveTo(x + w + 20, y - 10);
+    g.lineTo(x + w - 34, y - 10);
+    for (let yy = 0; yy <= h; yy += 50) {
+      g.lineTo(x + w - 34 + Math.sin(yy * 0.03) * 18, y + yy);
+    }
+    g.lineTo(x + w + 20, y + h);
+    g.closePath();
+    g.fill();
+  }
+  windowAt(250, 180, 430);
+  windowAt(1170, 180, 430);
+
+  // columns
+  [150, 1450].forEach((cx) => {
+    const grad = g.createLinearGradient(cx - 30, 0, cx + 30, 0);
+    grad.addColorStop(0, '#6b4a2a');
+    grad.addColorStop(0.45, '#f0d49a');
+    grad.addColorStop(0.6, '#c9a15b');
+    grad.addColorStop(1, '#4a2c1a');
+    g.fillStyle = grad;
+    g.fillRect(cx - 28, 70, 56, 580);
+    g.fillStyle = '#d6ae6a';
+    g.fillRect(cx - 42, 58, 84, 20);
+    g.fillRect(cx - 40, 636, 80, 24);
+    g.strokeStyle = 'rgba(80,50,20,0.3)';
+    g.lineWidth = 2;
+    for (let i = -2; i <= 2; i++) {
+      g.beginPath();
+      g.moveTo(cx + i * 10, 86);
+      g.lineTo(cx + i * 10, 628);
+      g.stroke();
+    }
+  });
+
+  // chandeliers
+  function chandelier(cx, cy, scale) {
+    g.strokeStyle = 'rgba(214,174,106,0.5)';
+    g.lineWidth = 2;
+    g.beginPath();
+    g.moveTo(cx, 0);
+    g.lineTo(cx, cy - 20 * scale);
+    g.stroke();
+    const glow = g.createRadialGradient(cx, cy, 4, cx, cy, 130 * scale);
+    glow.addColorStop(0, 'rgba(255,220,150,0.22)');
+    glow.addColorStop(1, 'rgba(255,220,150,0)');
+    g.fillStyle = glow;
+    g.beginPath();
+    g.arc(cx, cy, 130 * scale, 0, Math.PI * 2);
+    g.fill();
+    g.fillStyle = 'rgba(214,174,106,0.65)';
+    g.beginPath();
+    g.ellipse(cx, cy, 80 * scale, 20 * scale, 0, 0, Math.PI * 2);
+    g.fill();
+    for (let i = 0; i < 7; i++) {
+      const a = (i / 7) * Math.PI * 2;
+      const x = cx + Math.cos(a) * 64 * scale;
+      const y = cy + Math.sin(a) * 14 * scale;
+      g.fillStyle = '#ffe8b0';
+      g.beginPath();
+      g.arc(x, y - 8 * scale, 4 * scale, 0, Math.PI * 2);
+      g.fill();
+      g.strokeStyle = 'rgba(214,174,106,0.5)';
+      g.beginPath();
+      g.moveTo(x, y);
+      g.lineTo(x, y - 18 * scale);
+      g.stroke();
+    }
+  }
+  chandelier(800, 170, 1.1);
+  chandelier(480, 140, 0.75);
+  chandelier(1120, 140, 0.75);
+
+  // sconces
+  [80, 1520].forEach((sx) => {
+    const glow = g.createRadialGradient(sx, 300, 2, sx, 300, 80);
+    glow.addColorStop(0, 'rgba(255,210,140,0.28)');
+    glow.addColorStop(1, 'rgba(255,210,140,0)');
+    g.fillStyle = glow;
+    g.beginPath();
+    g.arc(sx, 300, 80, 0, Math.PI * 2);
+    g.fill();
+  });
+
+  // floral urns
+  [70, 1530].forEach((x) => {
+    g.fillStyle = '#3b2614';
+    g.fillRect(x - 24, 560, 48, 70);
+    g.fillStyle = '#d6ae6a';
+    g.fillRect(x - 28, 556, 56, 8);
+    for (let i = 0; i < 12; i++) {
+      g.fillStyle = ['#e7a9b8', '#f6ead0', '#c9a7ff'][i % 3];
+      g.beginPath();
+      g.arc(x - 18 + rng() * 36, 530 + rng() * 26, 4 + rng() * 4, 0, Math.PI * 2);
+      g.fill();
+    }
+  });
+
+  const vg = g.createRadialGradient(W / 2, 380, 240, W / 2, 420, 900);
+  vg.addColorStop(0, 'rgba(0,0,0,0)');
+  vg.addColorStop(1, 'rgba(20,6,8,0.48)');
+  g.fillStyle = vg;
+  g.fillRect(0, 0, W, 660);
+}
+
+function paintDraculaCastle(g) {
+  const rng = mulberry32(0xdac1a);
+  const wall = g.createLinearGradient(0, 0, 0, 660);
+  wall.addColorStop(0, '#0d0812');
+  wall.addColorStop(0.5, '#1b0d17');
+  wall.addColorStop(1, '#0a0509');
+  g.fillStyle = wall;
+  g.fillRect(0, 0, W, 660);
+
+  // stone blocks
+  for (let row = 0; row < 11; row++) {
+    const bh = 58;
+    const y = 10 + row * bh;
+    const offset = row % 2 ? -60 : 0;
+    for (let col = 0; col < 15; col++) {
+      const x = offset + col * 120;
+      const shade = 12 + Math.floor(rng() * 12);
+      g.fillStyle = `rgb(${shade + 8},${shade + 4},${shade + 8})`;
+      g.fillRect(x + 1, y + 1, 118, bh - 2);
+      g.strokeStyle = 'rgba(0,0,0,0.4)';
+      g.strokeRect(x + 1.5, y + 1.5, 117, bh - 3);
+    }
+  }
+
+  // great window
+  const wx = 930;
+  const wy = 100;
+  const ww = 300;
+  const wh = 420;
+  g.save();
+  g.beginPath();
+  g.moveTo(wx, wy + wh);
+  g.lineTo(wx, wy + 130);
+  g.quadraticCurveTo(wx, wy, wx + ww / 2, wy);
+  g.quadraticCurveTo(wx + ww, wy, wx + ww, wy + 130);
+  g.lineTo(wx + ww, wy + wh);
+  g.closePath();
+  const night = g.createLinearGradient(0, wy, 0, wy + wh);
+  night.addColorStop(0, '#1a2448');
+  night.addColorStop(0.55, '#0c1226');
+  night.addColorStop(1, '#05070f');
+  g.fillStyle = night;
+  g.fill();
+  g.clip();
+  const moon = g.createRadialGradient(wx + 220, wy + 110, 8, wx + 220, wy + 110, 80);
+  moon.addColorStop(0, 'rgba(240,235,200,0.75)');
+  moon.addColorStop(1, 'rgba(240,235,200,0)');
+  g.fillStyle = moon;
+  g.beginPath();
+  g.arc(wx + 220, wy + 110, 80, 0, Math.PI * 2);
+  g.fill();
+  g.fillStyle = '#f0e8c8';
+  g.beginPath();
+  g.arc(wx + 220, wy + 110, 34, 0, Math.PI * 2);
+  g.fill();
+  for (let i = 0; i < 40; i++) {
+    g.fillStyle = `rgba(230,240,255,${0.15 + rng() * 0.5})`;
+    g.beginPath();
+    g.arc(wx + rng() * ww, wy + rng() * wh, rng() * 1.5 + 0.3, 0, Math.PI * 2);
+    g.fill();
+  }
+  g.restore();
+  g.strokeStyle = '#2a2230';
+  g.lineWidth = 14;
+  g.beginPath();
+  g.moveTo(wx, wy + wh);
+  g.lineTo(wx, wy + 130);
+  g.quadraticCurveTo(wx, wy, wx + ww / 2, wy);
+  g.quadraticCurveTo(wx + ww, wy, wx + ww, wy + 130);
+  g.lineTo(wx + ww, wy + wh);
+  g.stroke();
+  g.strokeStyle = '#1a1520';
+  g.lineWidth = 6;
+  g.beginPath();
+  g.moveTo(wx + ww / 2, wy + 10);
+  g.lineTo(wx + ww / 2, wy + wh);
+  g.moveTo(wx + 10, wy + 260);
+  g.lineTo(wx + ww - 10, wy + 260);
+  g.stroke();
+
+  // red drapes
+  [wx - 30, wx + ww + 30].forEach((dx, side) => {
+    g.fillStyle = '#5c0f1f';
+    g.beginPath();
+    g.moveTo(dx, wy - 20);
+    g.lineTo(dx + (side ? 100 : -100), wy - 20);
+    for (let y = 0; y <= wh; y += 40) {
+      g.lineTo(dx + (side ? 100 : -100) - Math.sin(y * 0.04) * 22, wy + y);
+    }
+    g.lineTo(dx, wy + wh);
+    g.closePath();
+    g.fill();
+  });
+
+  // staircase
+  g.fillStyle = '#211720';
+  g.beginPath();
+  g.moveTo(650, 660);
+  g.lineTo(650, 610);
+  for (let i = 0; i < 9; i++) {
+    const y = 610 - i * 34;
+    const inset = i * 18;
+    g.lineTo(660 + inset, y);
+    g.lineTo(660 + inset, y - 34);
+  }
+  g.lineTo(820, 280);
+  g.lineTo(980, 280);
+  for (let i = 8; i >= 0; i--) {
+    const y = 610 - i * 34;
+    const inset = i * 18;
+    g.lineTo(960 - inset, y);
+    g.lineTo(960 - inset, y - 34);
+  }
+  g.lineTo(970, 660);
+  g.closePath();
+  g.fill();
+  g.strokeStyle = 'rgba(214,174,106,0.2)';
+  g.lineWidth = 2;
+  for (let i = 0; i < 9; i++) {
+    const y = 610 - i * 34;
+    g.beginPath();
+    g.moveTo(660 + i * 18, y);
+    g.lineTo(960 - i * 18, y);
+    g.stroke();
+  }
+  // banisters
+  g.strokeStyle = '#4a2c1a';
+  g.lineWidth = 8;
+  g.beginPath();
+  g.moveTo(650, 610);
+  g.lineTo(820, 280);
+  g.moveTo(970, 610);
+  g.lineTo(980, 280);
+  g.stroke();
+
+  // candelabras
+  [250, 1330].forEach((cx) => {
+    const glow = g.createRadialGradient(cx, 420, 4, cx, 420, 130);
+    glow.addColorStop(0, 'rgba(255,170,90,0.22)');
+    glow.addColorStop(1, 'rgba(255,170,90,0)');
+    g.fillStyle = glow;
+    g.beginPath();
+    g.arc(cx, 420, 130, 0, Math.PI * 2);
+    g.fill();
+    g.strokeStyle = '#3b2614';
+    g.lineWidth = 8;
+    g.beginPath();
+    g.moveTo(cx, 420);
+    g.lineTo(cx, 620);
+    g.stroke();
+    g.fillStyle = '#d6ae6a';
+    g.fillRect(cx - 40, 414, 80, 8);
+    for (let i = -2; i <= 2; i++) {
+      g.fillStyle = '#f6ead0';
+      g.fillRect(cx + i * 18 - 2, 384, 4, 30);
+      g.fillStyle = '#ffb15c';
+      g.beginPath();
+      g.ellipse(cx + i * 18, 378, 4, 8, 0, 0, Math.PI * 2);
+      g.fill();
+    }
+  });
+
+  // fireplace
+  g.fillStyle = '#0b070c';
+  g.fillRect(80, 400, 260, 240);
+  g.fillStyle = '#2a1c1a';
+  g.fillRect(60, 390, 300, 26);
+  const fire = g.createRadialGradient(210, 590, 4, 210, 590, 120);
+  fire.addColorStop(0, 'rgba(255,140,60,0.4)');
+  fire.addColorStop(1, 'rgba(255,140,60,0)');
+  g.fillStyle = fire;
+  g.beginPath();
+  g.arc(210, 590, 120, 0, Math.PI * 2);
+  g.fill();
+
+  // portrait
+  g.fillStyle = '#2a1c1a';
+  g.fillRect(460, 170, 150, 210);
+  g.strokeStyle = '#8d6f3f';
+  g.lineWidth = 6;
+  g.strokeRect(460, 170, 150, 210);
+  const portrait = g.createLinearGradient(0, 180, 0, 370);
+  portrait.addColorStop(0, '#3b2a3a');
+  portrait.addColorStop(1, '#120a10');
+  g.fillStyle = portrait;
+  g.fillRect(470, 180, 130, 190);
+  g.fillStyle = 'rgba(210,200,190,0.5)';
+  g.beginPath();
+  g.arc(535, 250, 28, 0, Math.PI * 2);
+  g.fill();
+  g.fillStyle = 'rgba(40,10,20,0.75)';
+  g.beginPath();
+  g.moveTo(495, 370);
+  g.quadraticCurveTo(535, 300, 575, 370);
+  g.closePath();
+  g.fill();
+
+  // cobwebs
+  g.strokeStyle = 'rgba(200,210,220,0.09)';
+  g.lineWidth = 1;
+  for (let i = 0; i < 5; i++) {
+    g.beginPath();
+    g.arc(0, 0, 80 + i * 34, 0, Math.PI / 2);
+    g.stroke();
+  }
+  for (let i = 0; i < 4; i++) {
+    g.beginPath();
+    g.arc(W, 0, 70 + i * 30, Math.PI / 2, Math.PI);
+    g.stroke();
+  }
+
+  const vg = g.createRadialGradient(W / 2, 360, 230, W / 2, 420, 920);
+  vg.addColorStop(0, 'rgba(0,0,0,0)');
+  vg.addColorStop(1, 'rgba(0,0,0,0.65)');
+  g.fillStyle = vg;
+  g.fillRect(0, 0, W, 660);
+}
+
 const BACKDROP_PAINTERS = {
   gothic_lab: paintGothicLab,
   tea_garden: paintTeaGarden,
   ramparts: paintRamparts,
   grand_hall: paintGrandHall,
+  fairy_wood: paintFairyWood,
+  ballroom: paintBallroom,
+  dracula_castle: paintDraculaCastle,
 };
 
 /* ── Shared stage floor ─────────────────────────────────────────────────── */
 
+function drawFrontEdge() {
+  // front edge gold trim
+  const edge = ctx.createLinearGradient(0, 792, 0, 824);
+  edge.addColorStop(0, '#c9a15b');
+  edge.addColorStop(0.35, '#f3d797');
+  edge.addColorStop(0.6, '#8d6f3f');
+  edge.addColorStop(1, '#3b2614');
+  ctx.fillStyle = edge;
+  ctx.fillRect(0, 792, W, 30);
+  ctx.fillStyle = 'rgba(20,10,8,0.55)';
+  for (let x = 0; x < W; x += 26) {
+    ctx.fillRect(x, 806, 12, 3);
+  }
+  // footlight glow reflection
+  const lightRgb = stage.light.current;
+  const refl = ctx.createLinearGradient(0, 780, 0, 700);
+  refl.addColorStop(0, rgba(lightRgb, 0.16 * lightRgb.intensity));
+  refl.addColorStop(1, rgba(lightRgb, 0));
+  ctx.fillStyle = refl;
+  ctx.fillRect(0, 700, W, 100);
+}
+
+function drawBallroomFloor() {
+  const grad = ctx.createLinearGradient(0, 630, 0, H);
+  grad.addColorStop(0, '#5a3826');
+  grad.addColorStop(0.45, '#3a2119');
+  grad.addColorStop(1, '#1d0f0b');
+  ctx.fillStyle = grad;
+  ctx.fillRect(0, 630, W, H - 630);
+
+  const vpx = 800;
+  const vpy = 600;
+  ctx.save();
+  ctx.beginPath();
+  ctx.rect(0, 630, W, H - 630);
+  ctx.clip();
+  // parquet border
+  ctx.fillStyle = 'rgba(214,174,106,0.1)';
+  ctx.fillRect(0, 630, W, 12);
+  // perspective parquet tiles
+  const rows = [640, 664, 694, 730, 774, 826, 886];
+  for (let r = 0; r < rows.length - 1; r++) {
+    const y1 = rows[r];
+    const y2 = rows[r + 1];
+    const t1 = (y1 - 620) / 300;
+    const t2 = (y2 - 620) / 300;
+    for (let c = -12; c <= 24; c++) {
+      const xBottom1 = c * 82 - 40;
+      const xBottom2 = (c + 1) * 82 - 40;
+      const x1a = vpx + (xBottom1 - vpx) * t1;
+      const x1b = vpx + (xBottom2 - vpx) * t1;
+      const x2a = vpx + (xBottom1 - vpx) * t2;
+      const x2b = vpx + (xBottom2 - vpx) * t2;
+      ctx.fillStyle = (r + c) % 2 === 0 ? 'rgba(255,220,170,0.055)' : 'rgba(20,8,6,0.16)';
+      ctx.beginPath();
+      ctx.moveTo(x1a, y1);
+      ctx.lineTo(x1b, y1);
+      ctx.lineTo(x2b, y2);
+      ctx.lineTo(x2a, y2);
+      ctx.closePath();
+      ctx.fill();
+      ctx.strokeStyle = 'rgba(0,0,0,0.16)';
+      ctx.lineWidth = 1;
+      ctx.stroke();
+    }
+  }
+  // gold inlay lines
+  ctx.strokeStyle = 'rgba(243,215,151,0.12)';
+  ctx.lineWidth = 2;
+  [700, 790, 860].forEach((y) => {
+    ctx.beginPath();
+    ctx.moveTo(0, y);
+    ctx.lineTo(W, y);
+    ctx.stroke();
+  });
+  // sheen
+  const sheen = ctx.createLinearGradient(0, 630, W, 900);
+  sheen.addColorStop(0, 'rgba(255,225,180,0.06)');
+  sheen.addColorStop(0.5, 'rgba(255,225,180,0)');
+  sheen.addColorStop(1, 'rgba(255,225,180,0.04)');
+  ctx.fillStyle = sheen;
+  ctx.fillRect(0, 630, W, H - 630);
+  ctx.restore();
+  drawFrontEdge();
+}
+
+function drawFairyWoodFloor() {
+  const grad = ctx.createLinearGradient(0, 630, 0, H);
+  grad.addColorStop(0, '#2c3226');
+  grad.addColorStop(0.5, '#1d241c');
+  grad.addColorStop(1, '#0d120d');
+  ctx.fillStyle = grad;
+  ctx.fillRect(0, 630, W, H - 630);
+  const rng = mulberry32(0xfa11);
+  // moss patches
+  for (let i = 0; i < 40; i++) {
+    const x = rng() * W;
+    const y = 650 + rng() * 230;
+    const r = 18 + rng() * 80;
+    const moss = ctx.createRadialGradient(x, y, 2, x, y, r);
+    moss.addColorStop(0, `rgba(80,150,100,${0.08 + rng() * 0.08})`);
+    moss.addColorStop(1, 'rgba(80,150,100,0)');
+    ctx.fillStyle = moss;
+    ctx.beginPath();
+    ctx.ellipse(x, y, r, r * 0.28, 0, 0, Math.PI * 2);
+    ctx.fill();
+  }
+  // roots
+  ctx.strokeStyle = 'rgba(60,45,35,0.55)';
+  ctx.lineCap = 'round';
+  for (let i = 0; i < 8; i++) {
+    const x = 100 + i * 190 + rng() * 50;
+    ctx.lineWidth = 6 + rng() * 8;
+    ctx.beginPath();
+    ctx.moveTo(x, 650);
+    ctx.quadraticCurveTo(x + rng() * 80 - 40, 730, x + rng() * 120 - 60, 850);
+    ctx.stroke();
+  }
+  // fallen leaves / flowers
+  for (let i = 0; i < 60; i++) {
+    const x = rng() * W;
+    const y = 660 + rng() * 230;
+    ctx.fillStyle = ['rgba(160,210,140,0.18)', 'rgba(220,190,140,0.12)', 'rgba(180,140,220,0.12)'][i % 3];
+    ctx.beginPath();
+    ctx.ellipse(x, y, 3 + rng() * 4, 1.5 + rng() * 2, rng() * Math.PI, 0, Math.PI * 2);
+    ctx.fill();
+  }
+  // faint fairy ring
+  ctx.strokeStyle = 'rgba(170,255,210,0.1)';
+  ctx.lineWidth = 2;
+  ctx.beginPath();
+  ctx.ellipse(800, 760, 300, 60, 0, 0, Math.PI * 2);
+  ctx.stroke();
+  drawFrontEdge();
+}
+
+function drawCastleFloor() {
+  const grad = ctx.createLinearGradient(0, 630, 0, H);
+  grad.addColorStop(0, '#2a242c');
+  grad.addColorStop(0.5, '#18131b');
+  grad.addColorStop(1, '#09060b');
+  ctx.fillStyle = grad;
+  ctx.fillRect(0, 630, W, H - 630);
+  const rng = mulberry32(0xdac1f);
+  // stone flags
+  const vpx = 800;
+  const vpy = 610;
+  ctx.save();
+  ctx.beginPath();
+  ctx.rect(0, 630, W, H - 630);
+  ctx.clip();
+  const rows = [640, 672, 712, 762, 824, 900];
+  for (let r = 0; r < rows.length - 1; r++) {
+    const y1 = rows[r];
+    const y2 = rows[r + 1];
+    const t1 = (y1 - 620) / 300;
+    const t2 = (y2 - 620) / 300;
+    for (let c = -10; c <= 22; c++) {
+      const xb1 = c * 100 - 30;
+      const xb2 = (c + 1) * 100 - 30;
+      const x1a = vpx + (xb1 - vpx) * t1;
+      const x1b = vpx + (xb2 - vpx) * t1;
+      const x2a = vpx + (xb1 - vpx) * t2;
+      const x2b = vpx + (xb2 - vpx) * t2;
+      const shade = 0.03 + rng() * 0.05;
+      ctx.fillStyle = `rgba(255,220,200,${shade})`;
+      ctx.beginPath();
+      ctx.moveTo(x1a, y1);
+      ctx.lineTo(x1b, y1);
+      ctx.lineTo(x2b, y2);
+      ctx.lineTo(x2a, y2);
+      ctx.closePath();
+      ctx.fill();
+      ctx.strokeStyle = 'rgba(0,0,0,0.32)';
+      ctx.lineWidth = 1.5;
+      ctx.stroke();
+    }
+  }
+  // red carpet
+  const carpet = ctx.createLinearGradient(0, 630, 0, 900);
+  carpet.addColorStop(0, 'rgba(92,15,31,0.55)');
+  carpet.addColorStop(1, 'rgba(60,8,20,0.85)');
+  ctx.fillStyle = carpet;
+  ctx.beginPath();
+  ctx.moveTo(700, 630);
+  ctx.lineTo(900, 630);
+  ctx.lineTo(1010, 900);
+  ctx.lineTo(590, 900);
+  ctx.closePath();
+  ctx.fill();
+  ctx.strokeStyle = 'rgba(214,174,106,0.18)';
+  ctx.lineWidth = 3;
+  ctx.beginPath();
+  ctx.moveTo(700, 630);
+  ctx.lineTo(590, 900);
+  ctx.moveTo(900, 630);
+  ctx.lineTo(1010, 900);
+  ctx.stroke();
+  // cracks
+  for (let i = 0; i < 20; i++) {
+    ctx.strokeStyle = 'rgba(0,0,0,0.18)';
+    ctx.lineWidth = 1;
+    const x = rng() * W;
+    const y = 650 + rng() * 230;
+    ctx.beginPath();
+    ctx.moveTo(x, y);
+    ctx.lineTo(x + rng() * 40 - 20, y + 20 + rng() * 30);
+    ctx.stroke();
+  }
+  ctx.restore();
+  drawFrontEdge();
+}
+
 function drawFloor(now) {
+  const current = stage.backdrop.current;
+  if (current === 'ballroom') {
+    drawBallroomFloor();
+    return;
+  }
+  if (current === 'fairy_wood') {
+    drawFairyWoodFloor();
+    return;
+  }
+  if (current === 'dracula_castle') {
+    drawCastleFloor();
+    return;
+  }
   const grad = ctx.createLinearGradient(0, 630, 0, H);
   grad.addColorStop(0, '#4a2c20');
   grad.addColorStop(0.4, '#382016');
@@ -1893,25 +2963,7 @@ function drawFloor(now) {
   ctx.setLineDash([]);
   ctx.restore();
 
-  // front edge gold trim
-  const edge = ctx.createLinearGradient(0, 792, 0, 824);
-  edge.addColorStop(0, '#c9a15b');
-  edge.addColorStop(0.35, '#f3d797');
-  edge.addColorStop(0.6, '#8d6f3f');
-  edge.addColorStop(1, '#3b2614');
-  ctx.fillStyle = edge;
-  ctx.fillRect(0, 792, W, 30);
-  ctx.fillStyle = 'rgba(20,10,8,0.55)';
-  for (let x = 0; x < W; x += 26) {
-    ctx.fillRect(x, 806, 12, 3);
-  }
-  // footlight glow reflection
-  const lightRgb = stage.light.current;
-  const refl = ctx.createLinearGradient(0, 780, 0, 700);
-  refl.addColorStop(0, rgba(lightRgb, 0.16 * lightRgb.intensity));
-  refl.addColorStop(1, rgba(lightRgb, 0));
-  ctx.fillStyle = refl;
-  ctx.fillRect(0, 700, W, 100);
+  drawFrontEdge();
 }
 
 /* ── Animated backdrop details ──────────────────────────────────────────── */
@@ -2046,6 +3098,92 @@ function drawBackdropFX(name, now) {
       ctx.ellipse(x, y, 200, 34, 0, 0, Math.PI * 2);
       ctx.fill();
     }
+  } else if (name === 'fairy_wood') {
+    // fireflies
+    for (let i = 0; i < 36; i++) {
+      const x = 180 + ((i * 137 + t * 14) % 1240);
+      const y = 240 + ((i * 71) % 380) + Math.sin(t * 1.4 + i) * 12;
+      const a = 0.18 + 0.35 * (0.5 + Math.sin(t * 2.2 + i * 1.7) * 0.5);
+      const glow = ctx.createRadialGradient(x, y, 1, x, y, 10);
+      glow.addColorStop(0, `rgba(190,255,210,${a})`);
+      glow.addColorStop(1, 'rgba(190,255,210,0)');
+      ctx.fillStyle = glow;
+      ctx.beginPath();
+      ctx.arc(x, y, 10, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillStyle = `rgba(230,255,220,${a})`;
+      ctx.beginPath();
+      ctx.arc(x, y, 1.6, 0, Math.PI * 2);
+      ctx.fill();
+    }
+    // drifting spores
+    for (let i = 0; i < 14; i++) {
+      const x = 200 + ((i * 211 + t * 8) % 1200);
+      const y = 300 + ((i * 53) % 320) + Math.sin(t + i) * 18;
+      ctx.fillStyle = `rgba(180,240,200,${0.08 + 0.08 * Math.sin(t * 1.5 + i)})`;
+      ctx.beginPath();
+      ctx.arc(x, y, 2.2, 0, Math.PI * 2);
+      ctx.fill();
+    }
+  } else if (name === 'ballroom') {
+    // chandelier candle flicker
+    [[480, 140, 0.75], [800, 170, 1.1], [1120, 140, 0.75]].forEach(([x, y, s], i) => {
+      const flick = 0.7 + Math.sin(t * 6 + i * 2) * 0.18 + Math.random() * 0.06;
+      const glow = ctx.createRadialGradient(x, y, 2, x, y, 120 * s);
+      glow.addColorStop(0, `rgba(255,220,150,${0.14 * flick})`);
+      glow.addColorStop(1, 'rgba(255,220,150,0)');
+      ctx.fillStyle = glow;
+      ctx.beginPath();
+      ctx.arc(x, y, 120 * s, 0, Math.PI * 2);
+      ctx.fill();
+    });
+    // dust and candle sparks
+    for (let i = 0; i < 24; i++) {
+      const x = (i * 97 + t * 6) % W;
+      const y = 160 + ((i * 43 + t * 3) % 440);
+      ctx.fillStyle = `rgba(255,235,190,${0.04 + 0.06 * Math.sin(t + i)})`;
+      ctx.beginPath();
+      ctx.arc(x, y, 1.3, 0, Math.PI * 2);
+      ctx.fill();
+    }
+  } else if (name === 'dracula_castle') {
+    // bats across the great window
+    for (let i = 0; i < 7; i++) {
+      const x = 960 + ((i * 71 + t * 22) % 260);
+      const y = 180 + ((i * 47) % 220) + Math.sin(t * 2 + i) * 16;
+      const wing = 5 + Math.sin(t * 12 + i) * 4;
+      ctx.fillStyle = 'rgba(10,6,14,0.8)';
+      ctx.beginPath();
+      ctx.moveTo(x, y);
+      ctx.quadraticCurveTo(x - wing, y - wing, x - wing * 2, y + 2);
+      ctx.quadraticCurveTo(x - wing, y + 1, x, y + 3);
+      ctx.quadraticCurveTo(x + wing, y + 1, x + wing * 2, y + 2);
+      ctx.quadraticCurveTo(x + wing, y - wing, x, y);
+      ctx.fill();
+    }
+    // candle flicker
+    [[250, 378], [1330, 378]].forEach(([x, y], i) => {
+      const flick = 0.65 + Math.sin(t * 8 + i * 2) * 0.2 + Math.random() * 0.08;
+      const glow = ctx.createRadialGradient(x, y, 2, x, y, 80);
+      glow.addColorStop(0, `rgba(255,150,70,${0.18 * flick})`);
+      glow.addColorStop(1, 'rgba(255,150,70,0)');
+      ctx.fillStyle = glow;
+      ctx.beginPath();
+      ctx.arc(x, y, 80, 0, Math.PI * 2);
+      ctx.fill();
+    });
+    // low fog
+    for (let i = 0; i < 4; i++) {
+      const x = ((i * 420 + t * 10) % (W + 300)) - 150;
+      const y = 600 + Math.sin(t * 0.4 + i) * 10;
+      const fog = ctx.createRadialGradient(x, y, 10, x, y, 220);
+      fog.addColorStop(0, 'rgba(120,100,150,0.05)');
+      fog.addColorStop(1, 'rgba(120,100,150,0)');
+      ctx.fillStyle = fog;
+      ctx.beginPath();
+      ctx.ellipse(x, y, 230, 30, 0, 0, Math.PI * 2);
+      ctx.fill();
+    }
   } else {
     // grand hall dust
     for (let i = 0; i < 20; i++) {
@@ -2105,6 +3243,34 @@ function drawActor(a, now) {
   ctx.translate(a.x, FLOOR_Y + bob);
   ctx.scale(a.facing, 1);
 
+  // fairy wings
+  if (['fairy_queen', 'fairy_king', 'puck'].includes(a.costume)) {
+    const wingY = shoulderY - Hh * 0.06;
+    const wingColor = a.costume === 'puck' ? 'rgba(140,220,150,0.35)' : 'rgba(180,210,255,0.3)';
+    ctx.save();
+    ctx.globalAlpha = 0.75;
+    [-1, 1].forEach((side) => {
+      ctx.save();
+      ctx.scale(side, 1);
+      ctx.fillStyle = wingColor;
+      ctx.strokeStyle = a.costume === 'puck' ? 'rgba(160,240,170,0.55)' : 'rgba(210,230,255,0.55)';
+      ctx.lineWidth = 1.5;
+      ctx.beginPath();
+      ctx.moveTo(0, wingY);
+      ctx.bezierCurveTo(shoulderW * 1.2, wingY - Hh * 0.28, shoulderW * 1.9, wingY - Hh * 0.12, shoulderW * 1.75, wingY + Hh * 0.16);
+      ctx.bezierCurveTo(shoulderW * 1.4, wingY + Hh * 0.08, shoulderW * 0.7, wingY + Hh * 0.1, 0, wingY + Hh * 0.02);
+      ctx.closePath();
+      ctx.fill();
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.moveTo(0, wingY);
+      ctx.quadraticCurveTo(shoulderW * 1.1, wingY - Hh * 0.08, shoulderW * 1.6, wingY + Hh * 0.08);
+      ctx.stroke();
+      ctx.restore();
+    });
+    ctx.restore();
+  }
+
   if (a.pose === 'kneel') {
     ctx.translate(0, Hh * 0.13);
     ctx.scale(1, 0.9);
@@ -2114,11 +3280,17 @@ function drawActor(a, now) {
   }
 
   // ghost aura
-  if (a.costume === 'ghost') {
+  if (a.costume === 'ghost' || a.costume === 'vampire') {
     const aura = ctx.createRadialGradient(0, shoulderY - headR, 10, 0, shoulderY - headR, Hh * 0.75);
-    aura.addColorStop(0, 'rgba(160,230,255,0.28)');
-    aura.addColorStop(0.55, 'rgba(110,190,240,0.12)');
-    aura.addColorStop(1, 'rgba(110,190,240,0)');
+    if (a.costume === 'vampire') {
+      aura.addColorStop(0, 'rgba(255,80,110,0.14)');
+      aura.addColorStop(0.55, 'rgba(160,30,60,0.06)');
+      aura.addColorStop(1, 'rgba(160,30,60,0)');
+    } else {
+      aura.addColorStop(0, 'rgba(160,230,255,0.28)');
+      aura.addColorStop(0.55, 'rgba(110,190,240,0.12)');
+      aura.addColorStop(1, 'rgba(110,190,240,0)');
+    }
     ctx.fillStyle = aura;
     ctx.beginPath();
     ctx.arc(0, shoulderY - headR * 0.5, Hh * 0.75, 0, Math.PI * 2);
@@ -2126,8 +3298,18 @@ function drawActor(a, now) {
   }
 
   // capes / robes behind
-  if (a.costume === 'prince' || a.costume === 'royal' || a.costume === 'queen') {
-    const capeColor = a.costume === 'prince' ? '#17121f' : a.costume === 'royal' ? '#6b1726' : '#7a1b33';
+  if (a.costume === 'prince' || a.costume === 'royal' || a.costume === 'queen' || a.costume === 'fairy_king' || a.costume === 'vampire' || a.costume === 'bride') {
+    const capeColor = a.costume === 'prince'
+      ? '#17121f'
+      : a.costume === 'royal'
+        ? '#6b1726'
+        : a.costume === 'queen'
+          ? '#7a1b33'
+          : a.costume === 'fairy_king'
+            ? '#162e28'
+            : a.costume === 'vampire'
+              ? '#0b0509'
+              : 'rgba(230,225,240,0.6)';
     ctx.fillStyle = capeColor;
     ctx.beginPath();
     ctx.moveTo(-shoulderW * 0.55, shoulderY + 2);
@@ -2136,6 +3318,16 @@ function drawActor(a, now) {
     ctx.quadraticCurveTo(shoulderW * 1.1, hipY, shoulderW * 0.55, shoulderY + 2);
     ctx.closePath();
     ctx.fill();
+    if (a.costume === 'vampire') {
+      ctx.fillStyle = '#5c0f1f';
+      ctx.beginPath();
+      ctx.moveTo(-shoulderW * 0.36, shoulderY + 8);
+      ctx.quadraticCurveTo(-shoulderW * 0.78, hipY, -shoulderW * 0.62, -2);
+      ctx.lineTo(shoulderW * 0.62, -2);
+      ctx.quadraticCurveTo(shoulderW * 0.78, hipY, shoulderW * 0.36, shoulderY + 8);
+      ctx.closePath();
+      ctx.fill();
+    }
   }
 
   // legs
@@ -2155,9 +3347,19 @@ function drawActor(a, now) {
   });
 
   // skirt / dress
-  const isDress = ['alice', 'queen', 'gown'].includes(a.costume);
+  const isDress = ['alice', 'queen', 'gown', 'fairy_queen', 'regency', 'bride'].includes(a.costume);
   if (isDress) {
-    const skirtColor = a.costume === 'alice' ? '#5b8fd6' : a.costume === 'queen' ? '#9c1f3b' : '#d8a7a0';
+    const skirtColor = a.costume === 'alice'
+      ? '#5b8fd6'
+      : a.costume === 'queen'
+        ? '#9c1f3b'
+        : a.costume === 'fairy_queen'
+          ? '#6a4a9a'
+          : a.costume === 'regency'
+            ? '#c9a7b8'
+            : a.costume === 'bride'
+              ? '#d8d0e0'
+              : '#d8a7a0';
     ctx.fillStyle = skirtColor;
     ctx.beginPath();
     ctx.moveTo(-shoulderW * 0.42, hipY - 6);
@@ -2167,7 +3369,15 @@ function drawActor(a, now) {
     ctx.closePath();
     ctx.fill();
     // hem trim
-    ctx.strokeStyle = a.costume === 'queen' ? '#f0cf8b' : 'rgba(255,255,255,0.35)';
+    ctx.strokeStyle = a.costume === 'queen'
+      ? '#f0cf8b'
+      : a.costume === 'fairy_queen'
+        ? 'rgba(185,167,255,0.7)'
+        : a.costume === 'bride'
+          ? 'rgba(255,255,255,0.6)'
+          : a.costume === 'regency'
+            ? 'rgba(246,234,208,0.7)'
+            : 'rgba(255,255,255,0.35)';
     ctx.lineWidth = 3;
     ctx.beginPath();
     ctx.moveTo(-shoulderW * 1.03, -Hh * 0.105);
@@ -2191,6 +3401,38 @@ function drawActor(a, now) {
         ctx.beginPath();
         ctx.arc(hx, hy, 5, 0, Math.PI * 2);
         ctx.fill();
+      }
+    }
+    if (a.costume === 'fairy_queen') {
+      ctx.fillStyle = 'rgba(210,190,255,0.55)';
+      for (let i = 0; i < 9; i++) {
+        const hx = (i % 3 - 1) * shoulderW * 0.55;
+        const hy = -Hh * 0.16 + Math.floor(i / 3) * 12;
+        ctx.beginPath();
+        ctx.arc(hx, hy, 2.4, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+    if (a.costume === 'regency') {
+      ctx.fillStyle = 'rgba(255,245,235,0.55)';
+      ctx.beginPath();
+      ctx.moveTo(-shoulderW * 0.4, hipY - 2);
+      ctx.lineTo(shoulderW * 0.4, hipY - 2);
+      ctx.lineTo(shoulderW * 0.5, -Hh * 0.14);
+      ctx.lineTo(-shoulderW * 0.5, -Hh * 0.14);
+      ctx.closePath();
+      ctx.fill();
+      ctx.fillStyle = 'rgba(127,214,196,0.5)';
+      ctx.fillRect(-shoulderW * 0.38, hipY - 8, shoulderW * 0.76, 6);
+    }
+    if (a.costume === 'bride') {
+      ctx.strokeStyle = 'rgba(255,255,255,0.35)';
+      ctx.lineWidth = 1.5;
+      for (let i = 0; i < 6; i++) {
+        ctx.beginPath();
+        ctx.moveTo(-shoulderW * 0.8 + i * 28, -Hh * 0.14);
+        ctx.quadraticCurveTo(-shoulderW * 0.7 + i * 28, -Hh * 0.3, -shoulderW * 0.8 + i * 28, -Hh * 0.45);
+        ctx.stroke();
       }
     }
   }
@@ -2420,6 +3662,209 @@ function drawActor(a, now) {
     ctx.lineTo(-shoulderW * 0.1, hipY);
     ctx.closePath();
     ctx.fill();
+  } else if (a.costume === 'fairy_queen') {
+    ctx.fillStyle = '#6a4a9a';
+    ctx.beginPath();
+    ctx.moveTo(-shoulderW * 0.42, shoulderY + 4);
+    ctx.lineTo(shoulderW * 0.42, shoulderY + 4);
+    ctx.lineTo(shoulderW * 0.3, hipY + 2);
+    ctx.lineTo(-shoulderW * 0.3, hipY + 2);
+    ctx.closePath();
+    ctx.fill();
+    ctx.strokeStyle = 'rgba(210,190,255,0.6)';
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.moveTo(-shoulderW * 0.25, shoulderY + 14);
+    ctx.quadraticCurveTo(0, shoulderY + 32, shoulderW * 0.25, shoulderY + 14);
+    ctx.stroke();
+    ctx.fillStyle = '#d2beff';
+    for (let i = -2; i <= 2; i++) {
+      ctx.beginPath();
+      ctx.arc(i * shoulderW * 0.09, shoulderY + 20 + Math.abs(i) * 2, 2.2, 0, Math.PI * 2);
+      ctx.fill();
+    }
+  } else if (a.costume === 'fairy_king') {
+    ctx.fillStyle = '#1f3a30';
+    ctx.beginPath();
+    ctx.moveTo(-shoulderW * 0.5, shoulderY);
+    ctx.lineTo(shoulderW * 0.5, shoulderY);
+    ctx.lineTo(shoulderW * 0.34, hipY + 2);
+    ctx.lineTo(-shoulderW * 0.34, hipY + 2);
+    ctx.closePath();
+    ctx.fill();
+    ctx.fillStyle = 'rgba(127,214,196,0.35)';
+    ctx.beginPath();
+    ctx.moveTo(-shoulderW * 0.16, shoulderY + 4);
+    ctx.lineTo(0, shoulderY + Hh * 0.1);
+    ctx.lineTo(shoulderW * 0.16, shoulderY + 4);
+    ctx.lineTo(shoulderW * 0.08, hipY - 6);
+    ctx.lineTo(-shoulderW * 0.08, hipY - 6);
+    ctx.closePath();
+    ctx.fill();
+    ctx.strokeStyle = '#7fd6c4';
+    ctx.lineWidth = 2.5;
+    ctx.beginPath();
+    ctx.moveTo(-shoulderW * 0.3, shoulderY + 20);
+    ctx.quadraticCurveTo(0, shoulderY + 36, shoulderW * 0.3, shoulderY + 20);
+    ctx.stroke();
+  } else if (a.costume === 'puck') {
+    ctx.fillStyle = '#3f6a2f';
+    ctx.beginPath();
+    ctx.moveTo(-shoulderW * 0.44, shoulderY + 4);
+    ctx.lineTo(shoulderW * 0.44, shoulderY + 4);
+    ctx.lineTo(shoulderW * 0.3, hipY + 2);
+    ctx.lineTo(-shoulderW * 0.3, hipY + 2);
+    ctx.closePath();
+    ctx.fill();
+    ctx.fillStyle = '#2a4a1f';
+    ctx.fillRect(-shoulderW * 0.34, hipY - 8, shoulderW * 0.68, 7);
+    ctx.fillStyle = '#d6ae6a';
+    ctx.beginPath();
+    ctx.arc(0, hipY - 4, 4, 0, Math.PI * 2);
+    ctx.fill();
+    // leaf collar
+    ctx.fillStyle = 'rgba(140,210,110,0.65)';
+    for (let i = -2; i <= 2; i++) {
+      ctx.beginPath();
+      ctx.ellipse(i * shoulderW * 0.13, shoulderY + 10, shoulderW * 0.1, Hh * 0.025, i * 0.3, 0, Math.PI * 2);
+      ctx.fill();
+    }
+  } else if (a.costume === 'donkey') {
+    ctx.fillStyle = '#5a3a22';
+    ctx.beginPath();
+    ctx.moveTo(-shoulderW * 0.46, shoulderY + 4);
+    ctx.lineTo(shoulderW * 0.46, shoulderY + 4);
+    ctx.lineTo(shoulderW * 0.32, hipY + 2);
+    ctx.lineTo(-shoulderW * 0.32, hipY + 2);
+    ctx.closePath();
+    ctx.fill();
+    ctx.fillStyle = '#c9a86a';
+    ctx.beginPath();
+    ctx.moveTo(-shoulderW * 0.18, shoulderY + 10);
+    ctx.lineTo(shoulderW * 0.18, shoulderY + 10);
+    ctx.lineTo(shoulderW * 0.12, hipY);
+    ctx.lineTo(-shoulderW * 0.12, hipY);
+    ctx.closePath();
+    ctx.fill();
+    ctx.fillStyle = '#3b2614';
+    for (let i = 0; i < 3; i++) {
+      ctx.beginPath();
+      ctx.arc(0, shoulderY + 26 + i * 14, 2, 0, Math.PI * 2);
+      ctx.fill();
+    }
+  } else if (a.costume === 'regency') {
+    ctx.fillStyle = '#c9a7b8';
+    ctx.beginPath();
+    ctx.moveTo(-shoulderW * 0.42, shoulderY + 4);
+    ctx.lineTo(shoulderW * 0.42, shoulderY + 4);
+    ctx.lineTo(shoulderW * 0.3, hipY + 2);
+    ctx.lineTo(-shoulderW * 0.3, hipY + 2);
+    ctx.closePath();
+    ctx.fill();
+    ctx.fillStyle = 'rgba(255,248,240,0.85)';
+    ctx.beginPath();
+    ctx.moveTo(-shoulderW * 0.2, shoulderY + 4);
+    ctx.lineTo(shoulderW * 0.2, shoulderY + 4);
+    ctx.lineTo(shoulderW * 0.12, hipY);
+    ctx.lineTo(-shoulderW * 0.12, hipY);
+    ctx.closePath();
+    ctx.fill();
+    ctx.fillStyle = a.accent;
+    ctx.fillRect(-shoulderW * 0.3, hipY - 10, shoulderW * 0.6, 6);
+    // long gloves
+    ctx.strokeStyle = 'rgba(255,245,235,0.8)';
+    ctx.lineWidth = 3;
+    ctx.beginPath();
+    ctx.moveTo(-shoulderW * 0.42, shoulderY + 18);
+    ctx.lineTo(-shoulderW * 0.55, hipY);
+    ctx.moveTo(shoulderW * 0.42, shoulderY + 18);
+    ctx.lineTo(shoulderW * 0.55, hipY);
+    ctx.stroke();
+  } else if (a.costume === 'dandy' || a.costume === 'victorian') {
+    ctx.fillStyle = coat;
+    ctx.beginPath();
+    ctx.moveTo(-shoulderW * 0.46, shoulderY);
+    ctx.lineTo(shoulderW * 0.46, shoulderY);
+    ctx.lineTo(shoulderW * 0.32, hipY);
+    ctx.lineTo(-shoulderW * 0.32, hipY);
+    ctx.closePath();
+    ctx.fill();
+    // waistcoat
+    ctx.fillStyle = a.costume === 'dandy' ? a.accent : '#7a5a3a';
+    ctx.beginPath();
+    ctx.moveTo(-shoulderW * 0.22, shoulderY + 10);
+    ctx.lineTo(shoulderW * 0.22, shoulderY + 10);
+    ctx.lineTo(shoulderW * 0.15, hipY);
+    ctx.lineTo(-shoulderW * 0.15, hipY);
+    ctx.closePath();
+    ctx.fill();
+    // cravat
+    ctx.fillStyle = '#f6ead0';
+    ctx.beginPath();
+    ctx.moveTo(-shoulderW * 0.12, shoulderY + 2);
+    ctx.lineTo(0, shoulderY + Hh * 0.08);
+    ctx.lineTo(shoulderW * 0.12, shoulderY + 2);
+    ctx.lineTo(shoulderW * 0.08, shoulderY + Hh * 0.11);
+    ctx.lineTo(-shoulderW * 0.08, shoulderY + Hh * 0.11);
+    ctx.closePath();
+    ctx.fill();
+    // watch chain
+    ctx.strokeStyle = '#d6ae6a';
+    ctx.lineWidth = 1.5;
+    ctx.beginPath();
+    ctx.moveTo(-shoulderW * 0.12, hipY - 16);
+    ctx.quadraticCurveTo(0, hipY - 6, shoulderW * 0.1, hipY - 18);
+    ctx.stroke();
+  } else if (a.costume === 'vampire') {
+    ctx.fillStyle = '#160d14';
+    ctx.beginPath();
+    ctx.moveTo(-shoulderW * 0.5, shoulderY);
+    ctx.lineTo(shoulderW * 0.5, shoulderY);
+    ctx.lineTo(shoulderW * 0.32, hipY + 2);
+    ctx.lineTo(-shoulderW * 0.32, hipY + 2);
+    ctx.closePath();
+    ctx.fill();
+    ctx.fillStyle = '#6b1227';
+    ctx.beginPath();
+    ctx.moveTo(-shoulderW * 0.18, shoulderY + 10);
+    ctx.lineTo(shoulderW * 0.18, shoulderY + 10);
+    ctx.lineTo(shoulderW * 0.12, hipY);
+    ctx.lineTo(-shoulderW * 0.12, hipY);
+    ctx.closePath();
+    ctx.fill();
+    ctx.strokeStyle = 'rgba(214,174,106,0.6)';
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.moveTo(-shoulderW * 0.3, shoulderY + 16);
+    ctx.quadraticCurveTo(0, shoulderY + 34, shoulderW * 0.3, shoulderY + 16);
+    ctx.stroke();
+    ctx.fillStyle = '#c94b63';
+    ctx.beginPath();
+    ctx.arc(0, shoulderY + Hh * 0.14, Hh * 0.028, 0, Math.PI * 2);
+    ctx.fill();
+  } else if (a.costume === 'bride') {
+    ctx.fillStyle = '#d8d0e0';
+    ctx.beginPath();
+    ctx.moveTo(-shoulderW * 0.42, shoulderY + 4);
+    ctx.lineTo(shoulderW * 0.42, shoulderY + 4);
+    ctx.lineTo(shoulderW * 0.3, hipY + 2);
+    ctx.lineTo(-shoulderW * 0.3, hipY + 2);
+    ctx.closePath();
+    ctx.fill();
+    ctx.fillStyle = 'rgba(255,255,255,0.55)';
+    ctx.beginPath();
+    ctx.moveTo(-shoulderW * 0.2, shoulderY + 4);
+    ctx.lineTo(shoulderW * 0.2, shoulderY + 4);
+    ctx.lineTo(shoulderW * 0.12, hipY);
+    ctx.lineTo(-shoulderW * 0.12, hipY);
+    ctx.closePath();
+    ctx.fill();
+    ctx.strokeStyle = 'rgba(190,170,220,0.6)';
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.moveTo(-shoulderW * 0.3, shoulderY + 18);
+    ctx.quadraticCurveTo(0, shoulderY + 32, shoulderW * 0.3, shoulderY + 18);
+    ctx.stroke();
   } else {
     ctx.fillStyle = coat2;
     ctx.beginPath();
@@ -2566,6 +4011,69 @@ function drawActor(a, now) {
     ctx.fill();
     ctx.beginPath();
     ctx.arc(0, -headR * 1.15, headR * 0.4, 0, Math.PI * 2);
+    ctx.fill();
+  } else if (a.costume === 'fairy_queen') {
+    ctx.fillStyle = '#d8d0ea';
+    ctx.beginPath();
+    ctx.ellipse(0, -headR * 0.05, headR * 1.2, headR * 1.2, 0, Math.PI, Math.PI * 2);
+    ctx.fill();
+    ctx.beginPath();
+    ctx.arc(0, -headR * 1.2, headR * 0.42, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.fillStyle = 'rgba(200,190,240,0.6)';
+    ctx.beginPath();
+    ctx.ellipse(-headR * 1.0, headR * 0.5, headR * 0.28, headR * 0.6, 0.25, 0, Math.PI * 2);
+    ctx.fill();
+  } else if (a.costume === 'fairy_king') {
+    ctx.fillStyle = '#1d2e24';
+    ctx.beginPath();
+    ctx.ellipse(0, -headR * 0.1, headR * 1.16, headR * 1.1, 0, Math.PI, Math.PI * 2);
+    ctx.fill();
+  } else if (a.costume === 'puck') {
+    ctx.fillStyle = '#5a3a1f';
+    ctx.beginPath();
+    ctx.ellipse(0, -headR * 0.12, headR * 1.16, headR * 1.12, 0, Math.PI, Math.PI * 2);
+    ctx.fill();
+    ctx.beginPath();
+    ctx.ellipse(-headR * 1.0, headR * 0.4, headR * 0.28, headR * 0.55, 0.2, 0, Math.PI * 2);
+    ctx.fill();
+  } else if (a.costume === 'regency') {
+    ctx.fillStyle = '#5a3a28';
+    ctx.beginPath();
+    ctx.ellipse(0, -headR * 0.1, headR * 1.16, headR * 1.15, 0, Math.PI, Math.PI * 2);
+    ctx.fill();
+    ctx.beginPath();
+    ctx.arc(0, -headR * 1.18, headR * 0.4, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.fillStyle = '#d6ae6a';
+    ctx.beginPath();
+    ctx.ellipse(headR * 0.75, -headR * 1.0, headR * 0.35, headR * 0.12, -0.5, 0, Math.PI * 2);
+    ctx.fill();
+  } else if (a.costume === 'bride') {
+    ctx.fillStyle = '#241820';
+    ctx.beginPath();
+    ctx.ellipse(0, -headR * 0.05, headR * 1.18, headR * 1.2, 0, Math.PI, Math.PI * 2);
+    ctx.fill();
+    ctx.fillStyle = 'rgba(230,225,240,0.28)';
+    ctx.beginPath();
+    ctx.moveTo(-headR * 1.5, -headR * 0.2);
+    ctx.quadraticCurveTo(0, -headR * 2.2, headR * 1.5, -headR * 0.2);
+    ctx.lineTo(headR * 1.5, headR * 2.4);
+    ctx.lineTo(-headR * 1.5, headR * 2.4);
+    ctx.closePath();
+    ctx.fill();
+  } else if (a.costume === 'vampire') {
+    ctx.fillStyle = '#0d080c';
+    ctx.beginPath();
+    ctx.ellipse(0, -headR * 0.2, headR * 1.16, headR * 1.05, 0, Math.PI, Math.PI * 2);
+    ctx.fill();
+    ctx.beginPath();
+    ctx.ellipse(-headR * 0.9, headR * 0.35, headR * 0.26, headR * 0.5, 0.3, 0, Math.PI * 2);
+    ctx.fill();
+  } else if (a.costume === 'dandy' || a.costume === 'victorian') {
+    ctx.fillStyle = a.costume === 'victorian' ? '#4a3020' : '#2a1f1c';
+    ctx.beginPath();
+    ctx.ellipse(0, -headR * 0.2, headR * 1.12, headR * 1.05, 0, Math.PI, Math.PI * 2);
     ctx.fill();
   } else if (a.costume === 'ghost') {
     ctx.fillStyle = 'rgba(180,220,235,0.55)';
@@ -2806,6 +4314,195 @@ function drawActor(a, now) {
     ctx.arc(-eyeX, eyeY, headR * 0.13, 0, Math.PI * 2);
     ctx.arc(eyeX, eyeY, headR * 0.13, 0, Math.PI * 2);
     ctx.fill();
+  } else if (a.costume === 'fairy_queen') {
+    // flower crown
+    ctx.fillStyle = '#d2beff';
+    for (let i = -3; i <= 3; i++) {
+      const a2 = -Math.PI / 2 + i * 0.22;
+      ctx.beginPath();
+      ctx.arc(Math.cos(a2) * headR * 1.05, Math.sin(a2) * headR * 1.05, headR * 0.12, 0, Math.PI * 2);
+      ctx.fill();
+    }
+    ctx.fillStyle = '#8fe6c0';
+    ctx.beginPath();
+    ctx.arc(0, -headR * 1.15, headR * 0.09, 0, Math.PI * 2);
+    ctx.fill();
+    // pointed ears
+    ctx.fillStyle = skin;
+    ctx.beginPath();
+    ctx.moveTo(-headR * 0.95, -headR * 0.2);
+    ctx.lineTo(-headR * 1.5, -headR * 0.7);
+    ctx.lineTo(-headR * 0.85, headR * 0.2);
+    ctx.closePath();
+    ctx.fill();
+    ctx.beginPath();
+    ctx.moveTo(headR * 0.95, -headR * 0.2);
+    ctx.lineTo(headR * 1.5, -headR * 0.7);
+    ctx.lineTo(headR * 0.85, headR * 0.2);
+    ctx.closePath();
+    ctx.fill();
+    // glowing eyes
+    ctx.fillStyle = 'rgba(190,255,220,0.85)';
+    ctx.beginPath();
+    ctx.arc(-eyeX, eyeY, headR * 0.05, 0, Math.PI * 2);
+    ctx.arc(eyeX, eyeY, headR * 0.05, 0, Math.PI * 2);
+    ctx.fill();
+  } else if (a.costume === 'fairy_king') {
+    // antler crown
+    ctx.strokeStyle = '#8d6f3f';
+    ctx.lineWidth = 3;
+    [-1, 1].forEach((side) => {
+      ctx.beginPath();
+      ctx.moveTo(side * headR * 0.45, -headR * 0.95);
+      ctx.quadraticCurveTo(side * headR * 0.8, -headR * 1.8, side * headR * 0.55, -headR * 2.3);
+      ctx.moveTo(side * headR * 0.65, -headR * 1.45);
+      ctx.lineTo(side * headR * 1.05, -headR * 1.7);
+      ctx.moveTo(side * headR * 0.58, -headR * 1.75);
+      ctx.lineTo(side * headR * 0.95, -headR * 2.0);
+      ctx.stroke();
+    });
+    ctx.fillStyle = '#7fd6c4';
+    ctx.beginPath();
+    ctx.arc(0, -headR * 1.1, headR * 0.08, 0, Math.PI * 2);
+    ctx.fill();
+    // pointed ears
+    ctx.fillStyle = skin;
+    ctx.beginPath();
+    ctx.moveTo(-headR * 0.95, -headR * 0.1);
+    ctx.lineTo(-headR * 1.45, -headR * 0.55);
+    ctx.lineTo(-headR * 0.85, headR * 0.25);
+    ctx.closePath();
+    ctx.fill();
+    ctx.beginPath();
+    ctx.moveTo(headR * 0.95, -headR * 0.1);
+    ctx.lineTo(headR * 1.45, -headR * 0.55);
+    ctx.lineTo(headR * 0.85, headR * 0.25);
+    ctx.closePath();
+    ctx.fill();
+  } else if (a.costume === 'puck') {
+    // horns
+    ctx.strokeStyle = '#d6c6a8';
+    ctx.lineWidth = 4;
+    [-1, 1].forEach((side) => {
+      ctx.beginPath();
+      ctx.moveTo(side * headR * 0.55, -headR * 0.85);
+      ctx.quadraticCurveTo(side * headR * 0.95, -headR * 1.5, side * headR * 0.7, -headR * 1.95);
+      ctx.stroke();
+    });
+    // pointed ears
+    ctx.fillStyle = skin;
+    ctx.beginPath();
+    ctx.moveTo(-headR * 0.95, 0);
+    ctx.lineTo(-headR * 1.6, -headR * 0.5);
+    ctx.lineTo(-headR * 0.8, headR * 0.3);
+    ctx.closePath();
+    ctx.fill();
+    ctx.beginPath();
+    ctx.moveTo(headR * 0.95, 0);
+    ctx.lineTo(headR * 1.6, -headR * 0.5);
+    ctx.lineTo(headR * 0.8, headR * 0.3);
+    ctx.closePath();
+    ctx.fill();
+    // freckles
+    ctx.fillStyle = 'rgba(90,60,40,0.5)';
+    for (let i = 0; i < 6; i++) {
+      ctx.beginPath();
+      ctx.arc((i % 2 ? 1 : -1) * (headR * 0.3 + i * 2), headR * 0.22 + (i % 3) * 3, 1.2, 0, Math.PI * 2);
+      ctx.fill();
+    }
+  } else if (a.costume === 'regency') {
+    // ribbon and feather
+    ctx.fillStyle = '#7fd6c4';
+    ctx.beginPath();
+    ctx.ellipse(-headR * 0.8, -headR * 0.95, headR * 0.28, headR * 0.12, -0.4, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.fillStyle = '#f6ead0';
+    ctx.beginPath();
+    ctx.arc(headR * 0.88, -headR * 0.92, headR * 0.12, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.fillStyle = '#7fd6c4';
+    ctx.beginPath();
+    ctx.arc(headR * 0.88, -headR * 0.92, headR * 0.05, 0, Math.PI * 2);
+    ctx.fill();
+    // pearl necklace
+    ctx.fillStyle = 'rgba(255,250,235,0.85)';
+    for (let i = -2; i <= 2; i++) {
+      ctx.beginPath();
+      ctx.arc(i * headR * 0.16, headR * 0.95 + Math.abs(i) * 2, 1.8, 0, Math.PI * 2);
+      ctx.fill();
+    }
+  } else if (a.costume === 'dandy' || a.costume === 'victorian') {
+    // sideburns
+    ctx.fillStyle = a.costume === 'victorian' ? '#4a3020' : '#2a1f1c';
+    ctx.beginPath();
+    ctx.ellipse(-headR * 0.95, headR * 0.15, headR * 0.2, headR * 0.45, 0.2, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.beginPath();
+    ctx.ellipse(headR * 0.95, headR * 0.15, headR * 0.2, headR * 0.45, -0.2, 0, Math.PI * 2);
+    ctx.fill();
+    // high collar
+    ctx.strokeStyle = '#f6ead0';
+    ctx.lineWidth = 2.5;
+    ctx.beginPath();
+    ctx.moveTo(-headR * 0.5, headR * 0.9);
+    ctx.quadraticCurveTo(0, headR * 1.2, headR * 0.5, headR * 0.9);
+    ctx.stroke();
+  } else if (a.costume === 'vampire') {
+    // slicked hair
+    ctx.fillStyle = '#0d080c';
+    ctx.beginPath();
+    ctx.ellipse(0, -headR * 0.65, headR * 1.0, headR * 0.45, 0, Math.PI, Math.PI * 2);
+    ctx.fill();
+    // red eyes
+    ctx.fillStyle = '#ff4f6d';
+    ctx.beginPath();
+    ctx.arc(-eyeX, eyeY, headR * 0.08, 0, Math.PI * 2);
+    ctx.arc(eyeX, eyeY, headR * 0.08, 0, Math.PI * 2);
+    ctx.fill();
+    // fangs
+    ctx.fillStyle = '#fff6ea';
+    ctx.beginPath();
+    ctx.moveTo(-headR * 0.14, mouthY);
+    ctx.lineTo(-headR * 0.08, mouthY + headR * 0.18);
+    ctx.lineTo(-headR * 0.02, mouthY);
+    ctx.closePath();
+    ctx.fill();
+    ctx.beginPath();
+    ctx.moveTo(headR * 0.02, mouthY);
+    ctx.lineTo(headR * 0.08, mouthY + headR * 0.18);
+    ctx.lineTo(headR * 0.14, mouthY);
+    ctx.closePath();
+    ctx.fill();
+    // high collar
+    ctx.strokeStyle = '#5c0f1f';
+    ctx.lineWidth = 3;
+    ctx.beginPath();
+    ctx.moveTo(-headR * 0.9, headR * 0.9);
+    ctx.quadraticCurveTo(-headR * 1.5, headR * 0.2, -headR * 1.2, -headR * 0.5);
+    ctx.moveTo(headR * 0.9, headR * 0.9);
+    ctx.quadraticCurveTo(headR * 1.5, headR * 0.2, headR * 1.2, -headR * 0.5);
+    ctx.stroke();
+  } else if (a.costume === 'bride') {
+    // veil edge
+    ctx.strokeStyle = 'rgba(240,235,250,0.6)';
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.moveTo(-headR * 1.1, -headR * 0.4);
+    ctx.quadraticCurveTo(0, -headR * 1.9, headR * 1.1, -headR * 0.4);
+    ctx.stroke();
+    // red eyes
+    ctx.fillStyle = '#d85a72';
+    ctx.beginPath();
+    ctx.arc(-eyeX, eyeY, headR * 0.06, 0, Math.PI * 2);
+    ctx.arc(eyeX, eyeY, headR * 0.06, 0, Math.PI * 2);
+    ctx.fill();
+    // pale lips
+    ctx.strokeStyle = '#a85a70';
+    ctx.lineWidth = 1.5;
+    ctx.beginPath();
+    ctx.moveTo(-headR * 0.16, mouthY);
+    ctx.quadraticCurveTo(0, mouthY + headR * 0.1, headR * 0.16, mouthY);
+    ctx.stroke();
   } else if (a.costume === 'gown') {
     ctx.fillStyle = '#d6ae6a';
     ctx.beginPath();
@@ -2814,6 +4511,71 @@ function drawActor(a, now) {
   }
 
   ctx.restore(); // head
+
+  // Bottom's donkey head sits over the human head for the transformation.
+  if (a.costume === 'donkey') {
+    ctx.save();
+    ctx.translate(0, headY);
+    // ears
+    ctx.fillStyle = '#6a4a2a';
+    ctx.beginPath();
+    ctx.ellipse(-headR * 0.55, -headR * 1.9, headR * 0.34, headR * 1.35, -0.18, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.beginPath();
+    ctx.ellipse(headR * 0.55, -headR * 1.9, headR * 0.34, headR * 1.35, 0.18, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.fillStyle = '#c9a27a';
+    ctx.beginPath();
+    ctx.ellipse(-headR * 0.55, -headR * 1.9, headR * 0.14, headR * 1.0, -0.18, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.beginPath();
+    ctx.ellipse(headR * 0.55, -headR * 1.9, headR * 0.14, headR * 1.0, 0.18, 0, Math.PI * 2);
+    ctx.fill();
+    // head
+    ctx.fillStyle = '#8a6a4a';
+    ctx.beginPath();
+    ctx.ellipse(0, 0, headR * 1.25, headR * 1.12, 0, 0, Math.PI * 2);
+    ctx.fill();
+    // mane
+    ctx.fillStyle = '#3b2614';
+    ctx.beginPath();
+    ctx.ellipse(0, -headR * 0.85, headR * 0.45, headR * 0.3, 0, 0, Math.PI * 2);
+    ctx.fill();
+    // muzzle
+    ctx.fillStyle = '#c9a27a';
+    ctx.beginPath();
+    ctx.ellipse(0, headR * 0.55, headR * 0.68, headR * 0.52, 0, 0, Math.PI * 2);
+    ctx.fill();
+    // nostrils
+    ctx.fillStyle = '#4a2e1c';
+    ctx.beginPath();
+    ctx.ellipse(-headR * 0.22, headR * 0.55, headR * 0.08, headR * 0.11, 0.2, 0, Math.PI * 2);
+    ctx.ellipse(headR * 0.22, headR * 0.55, headR * 0.08, headR * 0.11, -0.2, 0, Math.PI * 2);
+    ctx.fill();
+    // mouth
+    ctx.strokeStyle = '#3b2614';
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.moveTo(-headR * 0.3, headR * 0.85);
+    ctx.quadraticCurveTo(0, headR * 1.0, headR * 0.3, headR * 0.85);
+    ctx.stroke();
+    // eyes
+    ctx.fillStyle = '#f6ead0';
+    ctx.beginPath();
+    ctx.ellipse(-headR * 0.5, -headR * 0.2, headR * 0.2, headR * 0.25, 0, 0, Math.PI * 2);
+    ctx.ellipse(headR * 0.5, -headR * 0.2, headR * 0.2, headR * 0.25, 0, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.fillStyle = '#24161a';
+    ctx.beginPath();
+    ctx.arc(-headR * 0.45, -headR * 0.2, headR * 0.09, 0, Math.PI * 2);
+    ctx.arc(headR * 0.45, -headR * 0.2, headR * 0.09, 0, Math.PI * 2);
+    ctx.fill();
+    // teeth
+    ctx.fillStyle = '#fff6ea';
+    ctx.fillRect(-headR * 0.18, headR * 0.82, headR * 0.1, headR * 0.18);
+    ctx.fillRect(headR * 0.08, headR * 0.82, headR * 0.1, headR * 0.18);
+    ctx.restore();
+  }
 
   // props
   if (a.costume === 'queen') {
@@ -2831,6 +4593,21 @@ function drawActor(a, now) {
     ctx.beginPath();
     ctx.arc(shoulderW * 0.9, shoulderY - Hh * 0.23, 5, 0, Math.PI * 2);
     ctx.fill();
+  }
+  if (a.costume === 'fairy_king') {
+    ctx.strokeStyle = '#8d6f3f';
+    ctx.lineWidth = 4;
+    ctx.beginPath();
+    ctx.moveTo(shoulderW * 0.92, hipY - 10);
+    ctx.lineTo(shoulderW * 0.92, shoulderY - Hh * 0.28);
+    ctx.stroke();
+    ctx.fillStyle = '#7fd6c4';
+    ctx.shadowColor = 'rgba(127,214,196,0.8)';
+    ctx.shadowBlur = 12;
+    ctx.beginPath();
+    ctx.arc(shoulderW * 0.92, shoulderY - Hh * 0.3, 7, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.shadowBlur = 0;
   }
 
   ctx.restore();
@@ -2941,7 +4718,7 @@ function drawBubble(now) {
   const nameH = 26 * bs;
   const bubbleH = (30 + 18) * bs + nameH + lines.length * lineH;
   const headTop = FLOOR_Y - 170 * actor.height;
-  const bx = clamp(actor.x - bubbleW / 2, OPENING.x + 24, OPENING.x + OPENING.w - bubbleW - 24);
+  const bx = clamp(actor.x - bubbleW / 2, OPENING.x + 180, OPENING.x + OPENING.w - bubbleW - 24);
   let by = headTop - bubbleH - 26 * bs;
   by = clamp(by, OPENING.y + 24, OPENING.y + OPENING.h - bubbleH - 40);
 
@@ -3221,6 +4998,40 @@ function spawnFx(kind) {
         vr: rand(-3, 3),
       });
     }
+  } else if (kind === 'fireflies') {
+    for (let i = 0; i < 34; i++) {
+      stage.fxParticles.push({
+        kind: 'spark',
+        x: rand(OPENING.x + 60, OPENING.x + OPENING.w - 60),
+        y: rand(300, 760),
+        vx: rand(-10, 10),
+        vy: rand(-24, -6),
+        g: -3,
+        life: rand(3, 7),
+        maxLife: 7,
+        size: rand(1.2, 2.8),
+        color: pick(['#b6ffcf', '#e8ffb0', '#8fe6c0']),
+        rot: 0,
+        vr: 0,
+      });
+    }
+  } else if (kind === 'bats') {
+    for (let i = 0; i < 16; i++) {
+      stage.fxParticles.push({
+        kind: 'bat',
+        x: rand(OPENING.x, OPENING.x + OPENING.w),
+        y: rand(180, 520),
+        vx: rand(-120, 120),
+        vy: rand(-40, 40),
+        g: 0,
+        life: rand(2.4, 4.5),
+        maxLife: 4.5,
+        size: rand(7, 15),
+        color: '#0b0610',
+        rot: rand(-0.4, 0.4),
+        vr: rand(-1.2, 1.2),
+      });
+    }
   }
   // avoid unused warning
   void t;
@@ -3428,6 +5239,18 @@ function drawFxParticles() {
       ctx.font = `${p.size}px serif`;
       ctx.textAlign = 'center';
       ctx.fillText(p.suit, 0, p.size * 0.35);
+    } else if (p.kind === 'bat') {
+      ctx.translate(p.x, p.y);
+      ctx.rotate(p.rot);
+      ctx.fillStyle = p.color;
+      const s = p.size;
+      ctx.beginPath();
+      ctx.moveTo(0, 0);
+      ctx.quadraticCurveTo(-s, -s * 0.9, -s * 2.2, -s * 0.1);
+      ctx.quadraticCurveTo(-s * 1.2, 0, 0, s * 0.35);
+      ctx.quadraticCurveTo(s * 1.2, 0, s * 2.2, -s * 0.1);
+      ctx.quadraticCurveTo(s, -s * 0.9, 0, 0);
+      ctx.fill();
     }
     ctx.restore();
   });
@@ -3998,9 +5821,10 @@ const ACTION_TYPES = new Set([
 const SOUND_CUES = new Set([
   'thunder_clap', 'thunder', 'rain', 'wind', 'magic_chime', 'door_creak', 'heartbeat',
   'clock_tick', 'bell', 'sword_clash', 'crowd_gasp', 'applause', 'laugh', 'rose',
+  'waltz', 'wolf_howl', 'organ',
 ]);
 
-const EFFECTS = new Set(['sparks', 'lightning', 'fog', 'petals', 'confetti', 'embers', 'snow', 'cards']);
+const EFFECTS = new Set(['sparks', 'lightning', 'fog', 'petals', 'confetti', 'embers', 'snow', 'cards', 'fireflies', 'bats']);
 
 const CAST_PALETTE = ['#7fd6c4', '#a9d98d', '#e7a9b8', '#b98cff', '#ffb36b', '#8fc7ff', '#ff8fa3', '#c9a86a'];
 
@@ -4015,6 +5839,15 @@ const COSTUME_STYLES = {
   ghost: { coat: '#8fa6b5', coat2: '#6b7f8d', pants: '#5b6b78', boots: '#3a454e' },
   royal: { coat: '#7a1b33', coat2: '#5c1226', pants: '#3b0d1a', boots: '#1a060c' },
   gown: { coat: '#d8a7a0', coat2: '#c08d88', pants: '#e8d6c8', boots: '#6b3a3a' },
+  fairy_queen: { coat: '#7a5aa8', coat2: '#5a3a88', pants: '#3a2a4a', boots: '#2a1a30' },
+  fairy_king: { coat: '#2f5a4a', coat2: '#1f3a30', pants: '#1a2a24', boots: '#0f1a16' },
+  puck: { coat: '#4a7a3a', coat2: '#2f5a2a', pants: '#2a3a1a', boots: '#1a2410' },
+  donkey: { coat: '#6a4a2a', coat2: '#4a321c', pants: '#3a2a1a', boots: '#241a10' },
+  regency: { coat: '#d8b8c8', coat2: '#b898a8', pants: '#f0e6d8', boots: '#6a4a4a' },
+  dandy: { coat: '#2a2a3a', coat2: '#1a1a28', pants: '#2a2430', boots: '#141018' },
+  vampire: { coat: '#1a1018', coat2: '#0f080e', pants: '#1a1018', boots: '#0a0508' },
+  bride: { coat: '#d8d0e0', coat2: '#b8b0c8', pants: '#e8e0f0', boots: '#5a4a5a' },
+  victorian: { coat: '#4a3a2a', coat2: '#32261a', pants: '#2a2018', boots: '#14100c' },
   default: { coat: '#3b2a3a', coat2: '#2a1d2a', pants: '#2a2220', boots: '#171210' },
 };
 
@@ -4047,8 +5880,8 @@ function buildActor(def, index) {
   const color = def.color || CAST_PALETTE[index % CAST_PALETTE.length];
   const x = positionToX(def.position);
   const name = def.name || def.id || 'Player';
-  const female = ['alice', 'queen', 'gown'].includes(costume)
-    || /(alice|elizabeth|ophelia|juliet|cleopatra|portia|beatrice|desdemona|miranda|rosalind|viola|queen|lady|ladies|woman|girl|mother|sister)/i.test(name);
+  const female = ['alice', 'queen', 'gown', 'fairy_queen', 'regency', 'bride'].includes(costume)
+    || /(alice|elizabeth|ophelia|juliet|cleopatra|portia|beatrice|desdemona|miranda|rosalind|viola|titania|queen|lady|ladies|woman|girl|mother|sister|bride)/i.test(name);
   const pitchMap = {
     scientist: 0.92,
     creature: 0.55,
@@ -4060,6 +5893,15 @@ function buildActor(def, index) {
     ghost: 0.62,
     royal: 0.82,
     gown: 1.18,
+    fairy_queen: 1.34,
+    fairy_king: 0.8,
+    puck: 1.26,
+    donkey: 0.66,
+    regency: 1.2,
+    dandy: 0.9,
+    vampire: 0.5,
+    bride: 1.14,
+    victorian: 0.94,
     default: 1,
   };
   const rateMap = {
@@ -4073,6 +5915,15 @@ function buildActor(def, index) {
     ghost: 0.72,
     royal: 0.86,
     gown: 0.98,
+    fairy_queen: 1.0,
+    fairy_king: 0.9,
+    puck: 1.15,
+    donkey: 0.84,
+    regency: 1.0,
+    dandy: 0.92,
+    vampire: 0.76,
+    bride: 0.86,
+    victorian: 0.95,
     default: 1,
   };
   return {
@@ -4600,6 +6451,7 @@ function resetActorState() {
   stage.cast.forEach((def, i) => {
     stage.actors.set(def.id, buildActor(def, i));
   });
+  voice.assignCast(stage.actors.values());
 }
 
 function applyImmediate(action) {
@@ -4953,7 +6805,7 @@ function normalizeScript(input) {
 
   const backdrop = BACKDROP_LABELS[raw.backdrop] ? raw.backdrop : 'grand_hall';
   if (raw.backdrop && !BACKDROP_LABELS[raw.backdrop]) warnings.push(`Unknown backdrop "${raw.backdrop}" — using the Grand Hall.`);
-  const ambient = ['gothic', 'wonderland', 'tragedy', 'none'].includes(raw.ambient) ? raw.ambient : 'none';
+  const ambient = ['gothic', 'wonderland', 'tragedy', 'enchanted', 'ballroom', 'horror', 'none'].includes(raw.ambient) ? raw.ambient : 'none';
 
   const script = {
     schema: 'virtual-playhouse/1',
@@ -5171,10 +7023,10 @@ Return ONLY a JSON object with this exact shape:
   "act": "Act IV",
   "setting": "short location",
   "subtitle": "one sentence",
-  "backdrop": "gothic_lab" | "tea_garden" | "ramparts" | "grand_hall",
-  "ambient": "gothic" | "wonderland" | "tragedy" | "none",
+  "backdrop": "gothic_lab" | "tea_garden" | "ramparts" | "fairy_wood" | "ballroom" | "dracula_castle" | "grand_hall",
+  "ambient": "gothic" | "wonderland" | "tragedy" | "enchanted" | "ballroom" | "horror" | "none",
   "cast": [
-    { "id": "unique-id", "name": "Full Name", "short": "Short", "costume": "scientist|creature|alice|hatter|hare|queen|prince|ghost|royal|gown|default", "color": "#7fd6c4", "position": "left|center-left|center|center-right|right|far-left|far-right", "height": 1.0 }
+    { "id": "unique-id", "name": "Full Name", "short": "Short", "costume": "scientist|creature|alice|hatter|hare|queen|prince|ghost|royal|gown|fairy_queen|fairy_king|puck|donkey|regency|dandy|vampire|bride|victorian|default", "color": "#7fd6c4", "position": "left|center-left|center|center-right|right|far-left|far-right", "height": 1.0 }
   ],
   "actions": [
     { "type": "ENTER", "actor": "Short", "position": "left" },
@@ -5189,9 +7041,9 @@ Allowed action types and fields:
 - FACE {actor, target}
 - DIALOGUE {actor, text}
 - LIGHTING {color: "#rrggbb", intensity: 0..1}
-- SOUND {cue: thunder_clap|rain|wind|magic_chime|door_creak|heartbeat|clock_tick|bell|sword_clash|crowd_gasp|applause|laugh|rose}
+- SOUND {cue: thunder_clap|rain|wind|magic_chime|door_creak|heartbeat|clock_tick|bell|sword_clash|crowd_gasp|applause|laugh|rose|waltz|wolf_howl|organ}
 - BACKDROP {backdrop}
-- EFFECT {effect: sparks|lightning|fog|petals|confetti|embers|snow|cards}
+- EFFECT {effect: sparks|lightning|fog|petals|confetti|embers|snow|cards|fireflies|bats}
 - GESTURE {actor, gesture: raise|point|beckon|recoil|clasp|kneel|talk}
 - BOW {actor}
 - CAPTION {text}
@@ -5566,6 +7418,7 @@ function bindUI() {
   $('#silentModeBtn').addEventListener('click', () => enterTheatre(false));
 
   voice.onVoicesChanged = () => {
+    voice.assignCast(stage.actors.values());
     updateVoiceBadge();
     const gate = $('#soundGate');
     if (gate && !gate.hidden) showSoundGate();

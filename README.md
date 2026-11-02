@@ -12,13 +12,18 @@ A complete, production-ready theatre experience built with **vanilla HTML5, CSS3
 
 ## What is it?
 
-You are in the audience of a small Victorian playhouse. Three classic acts are waiting in repertory:
+You are in the audience of a small Victorian playhouse. Six classic acts are waiting in repertory:
 
 | Act | Play | Setting |
 | --- | --- | --- |
 | **Act I** | *Frankenstein's Awakening* | A storm-torn Gothic laboratory |
 | **Act II** | *The Mad Tea Party* | A Wonderland tea garden |
 | **Act III** | *Hamlet on the Ramparts* | Elsinore at midnight |
+| **Act IV** | *A Midsummer Night's Dream* | The Fairy Wood |
+| **Act V** | *Pride and Prejudice* | The Netherfield Ball |
+| **Act VI** | *Dracula* | Dracula's Castle |
+
+The six acts are original short adaptations of public-domain works: Mary Shelley's *Frankenstein* (1818), Lewis Carroll's *Alice's Adventures in Wonderland* (1865), Shakespeare's *Hamlet* (c. 1600), Shakespeare's *A Midsummer Night's Dream* (c. 1595), Jane Austen's *Pride and Prejudice* (1813) and Bram Stoker's *Dracula* (1897).
 
 Each act is a **JSON script** — stage directions, actor blocking, dialogue, lighting changes, sound cues and effects. The engine performs it on a 2.5D proscenium stage with procedural actors, animated typewriter speech bubbles, synthesized thunder, a live crowd and a curtain call.
 
@@ -30,7 +35,7 @@ Bring your own play by editing the JSON, loading a file, or asking **DeepSeek** 
 
 ### Stage & performance
 - **2.5D proscenium stage** — ornate gilt frame, animated velvet curtains, wooden stage floor, overhead spotlights, footlights, dust motes and vignette.
-- **Three hand-painted backdrops** (procedurally rendered and cached): Gothic Lab, Tea Party Garden and Castle Ramparts, plus a Grand Hall fallback.
+- **Six hand-painted backdrops** (procedurally rendered and cached): Gothic Lab, Tea Party Garden, Castle Ramparts, The Fairy Wood, Netherfield Ballroom and Dracula's Castle, plus a Grand Hall fallback.
 - **Procedural 2.5D actors** with walk cycles, facing, gestures, kneeling, bows, talking mouths and costume-specific details.
 - **Full-cast synthesized voices** — each actor gets a different system voice, pitch and speaking pace; dialogue is spoken aloud and the typewriter follows the speech boundaries.
 - **Animated speech bubbles** with typewriter text, actor name tags, wrapping, tails and Web Audio typewriter clicks.
@@ -42,7 +47,7 @@ Bring your own play by editing the JSON, loading a file, or asking **DeepSeek** 
 - **Sound-on entry gate** — the play waits for one click so browsers allow voices and audio to start.
 - **Seat perspective toggle** — Front Row, Balcony and Box Seat each change the camera and add a different foreground (balcony rail, box drape, audience silhouettes).
 - **Reaction bar** — 👏 Applaud, 😂 Laugh, 😱 Gasp and 🌹 Throw Rose trigger particles, crowd audio and raise the **House Energy** meter.
-- **Playbill** — a paper programme with all three acts and their casts.
+- **Playbill** — a paper programme with all six acts and their casts.
 - **Transport controls** — play/pause, restart, previous/next act, playback speed and a clickable timeline/seek bar.
 - **Voice Cast** — per-player voice assignments, volume, a “Hear” test for each actor, and a full company test.
 
@@ -180,15 +185,15 @@ A play is a single JSON object. The shortest useful script looks like this:
 
 **Positions:** `"far-left"`, `"left"`, `"center-left"`, `"center"`, `"center-right"`, `"right"`, `"far-right"`, or a number from `0` to `1`.
 
-**Sound cues:** `thunder_clap`, `rain`, `wind`, `magic_chime`, `door_creak`, `heartbeat`, `clock_tick`, `bell`, `sword_clash`, `crowd_gasp`, `applause`, `laugh`, `rose`.
+**Sound cues:** `thunder_clap`, `rain`, `wind`, `magic_chime`, `door_creak`, `heartbeat`, `clock_tick`, `bell`, `sword_clash`, `crowd_gasp`, `applause`, `laugh`, `rose`, `waltz`, `wolf_howl`, `organ`.
 
-**Effects:** `sparks`, `lightning`, `fog`, `petals`, `confetti`, `embers`, `snow`, `cards`.
+**Effects:** `sparks`, `lightning`, `fog`, `petals`, `confetti`, `embers`, `snow`, `cards`, `fireflies`, `bats`.
 
-**Backdrops:** `gothic_lab`, `tea_garden`, `ramparts`, `grand_hall`.
+**Backdrops:** `gothic_lab`, `tea_garden`, `ramparts`, `fairy_wood`, `ballroom`, `dracula_castle`, `grand_hall`.
 
-**Ambience:** `gothic`, `wonderland`, `tragedy`, `none`.
+**Ambience:** `gothic`, `wonderland`, `tragedy`, `enchanted`, `ballroom`, `horror`, `none`.
 
-**Costumes:** `scientist`, `creature`, `alice`, `hatter`, `hare`, `queen`, `prince`, `ghost`, `royal`, `gown`, `default`.
+**Costumes:** `scientist`, `creature`, `alice`, `hatter`, `hare`, `queen`, `prince`, `ghost`, `royal`, `gown`, `fairy_queen`, `fairy_king`, `puck`, `donkey`, `regency`, `dandy`, `vampire`, `bride`, `victorian`, `default`.
 
 ---
 
@@ -242,15 +247,15 @@ The exact wall-clock build time, token consumption and session metadata are reco
 
 | Build receipt | |
 | --- | --- |
-| Wall clock | ≈ 1 h 19 min |
+| Wall clock | ≈ 2 h 10 min |
 | Model | DeepSeek V4.1 Flash |
 | Harness | OpenCode |
-| Tokens processed | ≈ 51 million (≈ 590k non-cached) |
-| Latest revision | Full-cast voices, sound-on gate, ambient drone off by default |
+| Tokens processed | ≈ 101 million (≈ 750k non-cached) |
+| Latest revision | Six acts, full-cast voices, sound-on gate, ambient drone off by default |
 | Deployment | GitHub Pages, live at [somphol.github.io/virtual-playhouse](https://somphol.github.io/virtual-playhouse/) |
 
 ---
 
 ## License
 
-MIT — see [LICENSE](LICENSE). The three classic plays are original short adaptations written for this simulator; the source characters and settings are in the public domain.
+MIT — see [LICENSE](LICENSE). The six classic plays are original short adaptations written for this simulator; the source characters and settings are in the public domain.

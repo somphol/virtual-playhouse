@@ -1152,6 +1152,51 @@ body::before {
   filter: drop-shadow(0 0 14px rgba(246, 231, 189, 0.5));
 }
 
+.act-art-fairy {
+  background:
+    radial-gradient(circle at 70% 26%, rgba(220, 255, 230, 0.9), transparent 8%),
+    radial-gradient(circle at 70% 26%, rgba(120, 230, 180, 0.3), transparent 36%),
+    linear-gradient(160deg, #071a18, #1c3a34 48%, #2a1a3a);
+}
+
+.act-art-fairy::before {
+  content: "🍄";
+  position: absolute;
+  left: 16%; top: 20%;
+  font-size: 38px;
+  filter: drop-shadow(0 0 16px rgba(140, 255, 200, 0.6));
+}
+
+.act-art-ballroom {
+  background:
+    radial-gradient(circle at 50% 28%, rgba(255, 232, 176, 0.95), transparent 9%),
+    radial-gradient(circle at 50% 30%, rgba(255, 210, 140, 0.35), transparent 38%),
+    linear-gradient(160deg, #3a211b, #6b422c 48%, #2a1512);
+}
+
+.act-art-ballroom::before {
+  content: "🕯️";
+  position: absolute;
+  right: 18%; top: 22%;
+  font-size: 36px;
+  filter: drop-shadow(0 0 16px rgba(255, 220, 150, 0.7));
+}
+
+.act-art-castle {
+  background:
+    radial-gradient(circle at 72% 26%, rgba(240, 235, 200, 0.85), transparent 8%),
+    radial-gradient(circle at 72% 26%, rgba(160, 120, 220, 0.25), transparent 34%),
+    linear-gradient(160deg, #0b0610, #2a0d1a 50%, #080409);
+}
+
+.act-art-castle::before {
+  content: "🦇";
+  position: absolute;
+  left: 18%; top: 24%;
+  font-size: 34px;
+  filter: drop-shadow(0 0 14px rgba(200, 150, 255, 0.5));
+}
+
 .act-number {
   position: absolute;
   z-index: 2;

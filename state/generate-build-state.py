@@ -68,8 +68,8 @@ state = {
         "completedAt": completed.isoformat().replace("+00:00", "Z"),
         "wallClockSeconds": seconds,
         "wallClockHuman": human,
-        "revision": 2,
-        "revisionNote": "Added the full-cast speech engine, sound-on entry gate, Voice Cast panel and optional ambient bed (off by default).",
+        "revision": 3,
+        "revisionNote": "Added Acts IV–VI (A Midsummer Night's Dream, Pride and Prejudice, Dracula) with new backdrops, costumes, effects and sound cues.",
         "sessionID": row["id"],
         "sessionTitle": row["title"],
         "harness": "OpenCode",
@@ -97,7 +97,7 @@ state = {
     },
     "notes": (
         "Token counts are read from the OpenCode session database at completion time. "
-        "This revision includes the full-cast speech engine and the ambient-drone default-off change. "
+        "This revision adds Acts IV–VI and their new sets, costumes, effects and sound cues. "
         "The final assistant reply is sent after this snapshot, so the live session may be a few tokens higher. "
         "Cache-read tokens are included in total because they represent context processed by the model."
     ),
