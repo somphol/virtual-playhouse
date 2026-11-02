@@ -32,16 +32,19 @@ Bring your own play by editing the JSON, loading a file, or asking **DeepSeek** 
 - **2.5D proscenium stage** — ornate gilt frame, animated velvet curtains, wooden stage floor, overhead spotlights, footlights, dust motes and vignette.
 - **Three hand-painted backdrops** (procedurally rendered and cached): Gothic Lab, Tea Party Garden and Castle Ramparts, plus a Grand Hall fallback.
 - **Procedural 2.5D actors** with walk cycles, facing, gestures, kneeling, bows, talking mouths and costume-specific details.
+- **Full-cast synthesized voices** — each actor gets a different system voice, pitch and speaking pace; dialogue is spoken aloud and the typewriter follows the speech boundaries.
 - **Animated speech bubbles** with typewriter text, actor name tags, wrapping, tails and Web Audio typewriter clicks.
 - **Lighting engine** — colour washes, three volumetric spotlights, floor pools, darkness falloff, lightning flashes and stage shake.
 - **Particle effects** — sparks, lightning, fog, petals, confetti, embers, snow and playing cards.
 - **Curtain call** — closing curtains, applause, confetti and an end card.
 
 ### Audience experience
+- **Sound-on entry gate** — the play waits for one click so browsers allow voices and audio to start.
 - **Seat perspective toggle** — Front Row, Balcony and Box Seat each change the camera and add a different foreground (balcony rail, box drape, audience silhouettes).
 - **Reaction bar** — 👏 Applaud, 😂 Laugh, 😱 Gasp and 🌹 Throw Rose trigger particles, crowd audio and raise the **House Energy** meter.
 - **Playbill** — a paper programme with all three acts and their casts.
 - **Transport controls** — play/pause, restart, previous/next act, playback speed and a clickable timeline/seek bar.
+- **Voice Cast** — per-player voice assignments, volume, a “Hear” test for each actor, and a full company test.
 
 ### Script engine
 - Parses and validates script JSON with helpful errors and warnings.
@@ -52,9 +55,15 @@ Bring your own play by editing the JSON, loading a file, or asking **DeepSeek** 
 - **AI Playwright** — optional DeepSeek integration (key stays in your browser).
 - 100% client-side.
 
-### Sound
-All audio is synthesized with the Web Audio API:
-thunder, rain, wind, magic chimes, door creaks, heartbeats, clock ticks, bells, sword clashes, crowd gasps, laughter, applause and rose whooshes — plus a low ambient drone that changes with each act.
+### Sound & voices
+The dialogue is spoken with the browser's **Speech Synthesis API** — a different system voice, pitch and pace for every player. The typewriter bubble follows word-boundary events, and the action timeline stretches to fit each spoken line.
+
+Voices come from your operating system. macOS, Windows, Chrome, Edge and Safari all ship with a set of English voices; if none are available the play falls back to typewriter text and Web Audio tone clicks. Use **Voice Cast → Hear** to audition any player.
+
+All sound effects are synthesized with the Web Audio API:
+thunder, rain, wind, magic chimes, door creaks, heartbeats, clock ticks, bells, sword clashes, crowd gasps, laughter, applause and rose whooshes.
+
+The old continuous ambient drone is **off by default**. A very quiet optional bed can be enabled in the Voice Cast panel if you want one.
 
 ---
 
@@ -82,6 +91,7 @@ You can also open `index.html` directly, though a local server is recommended so
 | `P` | Open the playbill |
 | `S` | Open the Script Lab |
 | `M` | Mute / unmute |
+| `V` | Open the Voice Cast |
 | `F` | Fullscreen stage |
 | `H` | Help card |
 | `1` | 👏 Applaud |
@@ -89,7 +99,7 @@ You can also open `index.html` directly, though a local server is recommended so
 | `3` | 😱 Gasp |
 | `4` | 🌹 Throw a rose |
 
-The first click or keypress unlocks the browser's audio context. Use the mute button (or `M`) to silence the house.
+The first click or keypress unlocks the browser's audio context. Press **Enter the Theatre · Voices On** to start the play with the full cast; **Watch in Silence** starts it muted. Use **Sound Check** in the deck to test the orchestra at any time.
 
 ---
 
@@ -216,8 +226,8 @@ virtual-playhouse/
 - **Backdrops** — each scene is painted once into an offscreen canvas and cached; animated details (rain, stars, torch flames, lanterns, cards) are drawn on top each frame.
 - **Actors** — procedural vector bodies with costume switches, walk cycles, pose timers, facing and typewriter-synced mouth movement.
 - **Playback** — an action timeline with durations, pause/speed/seek, lighting and camera interpolation, curtain state and a parser that normalizes/validates external JSON.
-- **Audio** — one lazily-created `AudioContext`, a noise buffer, oscillators and filters. No audio files.
-- **UI** — playbill, Script Lab, help, toasts, keyboard shortcuts, drag-and-drop and responsive layout.
+- **Audio** — one lazily-created `AudioContext`, a noise buffer, oscillators and filters for every cue. A separate `VoiceEngine` wraps the browser's speech synthesis, assigns voices to the cast and syncs word boundaries to the typewriter. No audio files.
+- **UI** — playbill, Script Lab, Voice Cast, help, toasts, keyboard shortcuts, drag-and-drop and responsive layout.
 
 ---
 
@@ -232,10 +242,11 @@ The exact wall-clock build time, token consumption and session metadata are reco
 
 | Build receipt | |
 | --- | --- |
-| Wall clock | ≈ 46 minutes |
+| Wall clock | ≈ 1 h 19 min |
 | Model | DeepSeek V4.1 Flash |
 | Harness | OpenCode |
-| Tokens processed | ≈ 15 million (≈ 450k non-cached) |
+| Tokens processed | ≈ 51 million (≈ 590k non-cached) |
+| Latest revision | Full-cast voices, sound-on gate, ambient drone off by default |
 | Deployment | GitHub Pages, live at [somphol.github.io/virtual-playhouse](https://somphol.github.io/virtual-playhouse/) |
 
 ---

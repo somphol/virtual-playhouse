@@ -4,9 +4,9 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#120a10" />
-  <meta name="description" content="The Virtual Playhouse — an AI-ready classic theatre and audience simulator. Watch Frankenstein, Wonderland and Hamlet come alive on a 2.5D proscenium stage, react with the crowd, and load your own DeepSeek-generated plays." />
+  <meta name="description" content="The Virtual Playhouse — an AI-ready classic theatre and audience simulator with a full synthesized voice cast, animated 2.5D stage, Web Audio orchestra and a JSON script engine. Watch Frankenstein, Wonderland and Hamlet, react with the crowd, and load your own DeepSeek-generated plays." />
   <meta property="og:title" content="The Virtual Playhouse — AI Classic Theatre &amp; Audience Simulator" />
-  <meta property="og:description" content="An animated 2.5D proscenium stage with procedural actors, synthesized sound, audience reactions and a JSON script engine ready for DeepSeek." />
+  <meta property="og:description" content="An animated 2.5D proscenium stage with a full synthesized voice cast, procedural actors, Web Audio sound, audience reactions and a JSON script engine ready for DeepSeek." />
   <meta property="og:type" content="website" />
   <title>The Virtual Playhouse — AI Classic Theatre &amp; Audience Simulator</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -85,6 +85,20 @@
             </div>
           </div>
         </div>
+
+        <div class="sound-gate" id="soundGate">
+          <div class="sound-gate-card">
+            <span class="sound-gate-icon" aria-hidden="true">🎭</span>
+            <p class="gate-kicker">Front of House</p>
+            <h2>The house is listening.</h2>
+            <p class="gate-copy">This production is performed by a full synthesized cast, with a live Web Audio orchestra and a crowd that reacts to every cue.</p>
+            <div class="gate-actions">
+              <button class="btn btn-gold" id="enterTheatreBtn">Enter the Theatre <span aria-hidden="true">· Voices On</span></button>
+              <button class="btn btn-ghost" id="silentModeBtn">Watch in Silence</button>
+            </div>
+            <p class="gate-note" id="gateNote">Browsers require one click before voices and music can play.</p>
+          </div>
+        </div>
       </div>
 
       <div class="deck">
@@ -117,6 +131,7 @@
           </div>
 
           <div class="deck-tools">
+            <button class="btn btn-ghost btn-small" id="soundCheckBtn" title="Play a thunderclap and applause">🔊 Sound Check</button>
             <button class="btn btn-ghost btn-small" id="saveBtn" title="Export the current script as theatre_play.json">💾 Save Play</button>
             <button class="btn btn-ghost btn-small" id="loadBtn" title="Import a play script JSON">📂 Load Play</button>
             <button class="btn btn-ghost btn-small" id="fullscreenBtn" title="Fullscreen (F)">⛶</button>
@@ -164,6 +179,7 @@
       <div class="program-badges">
         <span class="badge badge-gold">3 Acts</span>
         <span class="badge">Procedural cast</span>
+        <button class="badge badge-voice" id="voiceBtn" type="button" title="Open the voice cast (V)">🗣 Voice Cast</button>
         <span class="badge badge-ai">DeepSeek-ready</span>
       </div>
     </section>
@@ -172,7 +188,7 @@
   <footer class="footer">
     <p>
       Built with <span class="footer-mark">OpenCode</span> &amp; <span class="footer-mark">DeepSeek V4.1 Flash</span>.
-      Every curtain, cue and crowd reaction is generated in vanilla HTML, CSS &amp; JavaScript.
+      Every curtain, cue, voice and crowd reaction is generated in vanilla HTML, CSS &amp; JavaScript.
     </p>
     <p class="footer-small">No assets, no frameworks, no audience members were harmed. <a href="state/build-state.json">Build state</a></p>
   </footer>
@@ -347,6 +363,7 @@
           <li><kbd>P</kbd><span>Open the playbill</span></li>
           <li><kbd>S</kbd><span>Open the script lab</span></li>
           <li><kbd>M</kbd><span>Mute / unmute</span></li>
+          <li><kbd>V</kbd><span>Open the voice cast</span></li>
           <li><kbd>F</kbd><span>Fullscreen stage</span></li>
           <li><kbd>H</kbd><span>This help card</span></li>
         </ul>
@@ -364,8 +381,49 @@
       </section>
     </div>
     <div class="help-foot">
-      <p>Audio is synthesised live with the Web Audio API — no sound files. Click or press any key once to let the browser start the orchestra.</p>
+      <p>Voices are synthesised by your browser, and every thunderclap, footstep and crowd swell is generated live with the Web Audio API — no sound files. Click or press any key once to let the browser start the company.</p>
+      <button class="btn btn-ghost" id="helpSoundBtn">🔊 Test Sound</button>
       <button class="btn btn-gold" data-close="helpModal">Take my seat</button>
+    </div>
+  </dialog>
+
+  <!-- ══════════════════ VOICE CAST ══════════════════ -->
+  <dialog class="modal modal-dark" id="voiceModal" aria-labelledby="voiceTitle">
+    <div class="modal-head">
+      <div>
+        <p class="modal-kicker">The Voice Cast</p>
+        <h2 id="voiceTitle">Every player has a voice.</h2>
+      </div>
+      <button class="modal-close" data-close="voiceModal" aria-label="Close voice cast">✕</button>
+    </div>
+    <div class="voice-body">
+      <div class="voice-status" id="voiceStatus">Checking the company's voices…</div>
+      <div class="voice-controls">
+        <label class="voice-toggle">
+          <input type="checkbox" id="voiceEnabled" checked />
+          <span>
+            <strong>Speak every line</strong>
+            <small>A different system voice, pitch and pace for each player.</small>
+          </span>
+        </label>
+        <label class="voice-toggle voice-ambient">
+          <input type="checkbox" id="ambientEnabled" />
+          <span>
+            <strong>Low ambient drone</strong>
+            <small>A quiet bed under the scene. Off by default.</small>
+          </span>
+        </label>
+        <label class="field voice-volume">
+          <span>Voice volume</span>
+          <input type="range" id="voiceVolume" min="0" max="1" step="0.05" value="0.95" />
+        </label>
+      </div>
+      <div class="voice-cast" id="voiceCast"></div>
+      <p class="fineprint">Voices are supplied by your operating system and browser. Chrome, Edge and Safari each offer a different company. Pitch and pace are tuned per character; the words themselves are never sent to a server.</p>
+    </div>
+    <div class="voice-foot">
+      <button class="btn btn-gold" id="voiceTestBtn">🎙 Test the Company</button>
+      <button class="btn btn-ghost" data-close="voiceModal">Back to the Play</button>
     </div>
   </dialog>
 

@@ -205,7 +205,7 @@ const ACTS = [
     subtitle: 'A gothic laboratory. A storm. A spark of forbidden life.',
     backdrop: 'gothic_lab',
     ambient: 'gothic',
-    duration: '≈ 3 min',
+    duration: '≈ 4–5 min',
     art: 'gothic',
     cast: [
       { id: 'victor', name: 'Victor Frankenstein', short: 'Victor', costume: 'scientist', color: '#7fd6c4', position: 'left', height: 1.0 },
@@ -268,7 +268,7 @@ const ACTS = [
     subtitle: 'A garden where the clocks have given up and the tea is mostly riddle.',
     backdrop: 'tea_garden',
     ambient: 'wonderland',
-    duration: '≈ 3 min',
+    duration: '≈ 4–5 min',
     art: 'tea',
     cast: [
       { id: 'alice', name: 'Alice', short: 'Alice', costume: 'alice', color: '#8fc7ff', position: 'far-left', height: 0.9 },
@@ -330,7 +330,7 @@ const ACTS = [
     subtitle: 'Elsinore, midnight. The guard changes, and the dead keep their appointments.',
     backdrop: 'ramparts',
     ambient: 'tragedy',
-    duration: '≈ 3 min',
+    duration: '≈ 4–5 min',
     art: 'ramparts',
     cast: [
       { id: 'horatio', name: 'Horatio', short: 'Horatio', costume: 'default', color: '#c9a86a', position: 'center-left', height: 0.98 },
@@ -399,10 +399,12 @@ class AudioEngine {
   constructor() {
     this.ctx = null;
     this.master = null;
+    this.compressor = null;
     this.noise = null;
     this.muted = false;
     this.ambientNodes = null;
     this.ambientMood = 'none';
+    this.ambientEnabled = false; // the old drone is off unless explicitly requested
     this.unlocked = false;
   }
 
@@ -416,8 +418,15 @@ class AudioEngine {
     try {
       this.ctx = new Ctx();
       this.master = this.ctx.createGain();
-      this.master.gain.value = this.muted ? 0.0001 : 0.9;
-      this.master.connect(this.ctx.destination);
+      this.master.gain.value = this.muted ? 0.0001 : 1;
+      this.compressor = this.ctx.createDynamicsCompressor();
+      this.compressor.threshold.value = -18;
+      this.compressor.knee.value = 24;
+      this.compressor.ratio.value = 4;
+      this.compressor.attack.value = 0.003;
+      this.compressor.release.value = 0.25;
+      this.master.connect(this.compressor);
+      this.compressor.connect(this.ctx.destination);
       this.noise = this.createNoiseBuffer(2.4);
       this.unlocked = true;
       return true;
@@ -443,7 +452,7 @@ class AudioEngine {
   setMuted(muted) {
     this.muted = muted;
     if (this.master) {
-      this.master.gain.setTargetAtTime(muted ? 0.0001 : 0.9, this.ctx.currentTime, 0.03);
+      this.master.gain.setTargetAtTime(muted ? 0.0001 : 1, this.ctx.currentTime, 0.03);
     }
   }
 
@@ -491,6 +500,25 @@ class AudioEngine {
   typeClick() {
     if (!this.ctx || this.muted) return;
     this.tone({ freq: rand(1250, 1600), dur: 0.025, type: 'square', gain: 0.014 });
+  }
+
+  voiceTick(pitch = 170) {
+    if (!this.ctx || this.muted) return;
+    const t0 = this.ctx.currentTime;
+    const osc = this.ctx.createOscillator();
+    const formant = this.ctx.createBiquadFilter();
+    const g = this.ctx.createGain();
+    osc.type = 'triangle';
+    osc.frequency.setValueAtTime(pitch * rand(0.9, 1.1), t0);
+    formant.type = 'bandpass';
+    formant.frequency.setValueAtTime(pitch * rand(3.6, 5.2), t0);
+    formant.Q.value = 2.8;
+    g.gain.setValueAtTime(0.0001, t0);
+    g.gain.exponentialRampToValueAtTime(0.022, t0 + 0.012);
+    g.gain.exponentialRampToValueAtTime(0.0001, t0 + 0.1);
+    osc.connect(formant).connect(g).connect(this.master);
+    osc.start(t0);
+    osc.stop(t0 + 0.13);
   }
 
   thunder() {
@@ -625,8 +653,13 @@ class AudioEngine {
 
   setAmbient(mood = 'none') {
     if (!this.ensure()) return;
-    if (this.ambientMood === mood) return;
     this.ambientMood = mood;
+    if (!this.ambientEnabled) {
+      if (this.ambientNodes) {
+        this.ambientNodes.gain.gain.setTargetAtTime(0.0001, this.ctx.currentTime, 0.4);
+      }
+      return;
+    }
     const ctx = this.ctx;
     const t = ctx.currentTime;
 
@@ -664,11 +697,165 @@ class AudioEngine {
     oscB.frequency.setTargetAtTime(chord[1], t, 1.4);
     oscC.frequency.setTargetAtTime(chord[2], t, 1.6);
     filter.frequency.setTargetAtTime(mood === 'wonderland' ? 1500 : mood === 'tragedy' ? 500 : 780, t, 1);
-    gain.gain.setTargetAtTime(mood === 'none' ? 0.0001 : this.muted ? 0.0001 : 0.024, t, 0.8);
+    const target = mood === 'none' || this.muted ? 0.0001 : 0.009;
+    gain.gain.setTargetAtTime(target, t, 0.9);
+  }
+
+  setAmbientEnabled(enabled) {
+    this.ambientEnabled = !!enabled;
+    if (!this.ambientEnabled) {
+      if (this.ambientNodes && this.ctx) {
+        this.ambientNodes.gain.gain.setTargetAtTime(0.0001, this.ctx.currentTime, 0.3);
+      }
+      return;
+    }
+    this.setAmbient(this.ambientMood === 'none' ? 'gothic' : this.ambientMood);
   }
 }
 
 const audio = new AudioEngine();
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   03b. VOICE CAST — browser speech synthesis
+   ────────────────────────────────────────────────────────────────────────── */
+
+const FEMALE_VOICE_RE = /(female|woman|samantha|victoria|karen|moira|tessa|serena|allison|ava|susan|zira|jenny|aria|salli|joanna|amy|emma|kate|sonia|fiona|veena|lekha|google uk english female)/i;
+const MALE_VOICE_RE = /\b(male|man)\b|(daniel|alex|fred|tom|david|mark|george|james|guy|ryan|brian|arthur|oliver|thomas|google uk english male)/i;
+const NOVELTY_VOICE_RE = /(bad news|good news|bahh|bells|boing|bubbles|cellos|jester|pipe organ|superstar|trinoids|whisper|wobble|zarvox)/i;
+
+class VoiceEngine {
+  constructor() {
+    this.supported = typeof window !== 'undefined'
+      && 'speechSynthesis' in window
+      && 'SpeechSynthesisUtterance' in window;
+    this.enabled = this.supported;
+    this.volume = 0.95;
+    this.rate = 1;
+    this.voices = [];
+    this.token = 0;
+    this.current = null;
+    this.lastError = '';
+    this.onVoicesChanged = null;
+    if (this.supported) {
+      this.loadVoices();
+      try {
+        window.speechSynthesis.addEventListener('voiceschanged', () => this.loadVoices());
+      } catch (_) {
+        window.speechSynthesis.onvoiceschanged = () => this.loadVoices();
+      }
+    }
+  }
+
+  loadVoices() {
+    if (!this.supported) return;
+    const all = window.speechSynthesis.getVoices() || [];
+    const english = all.filter((v) => /^en([-_]|$)/i.test(v.lang || ''));
+    const pool = english.length ? english : all;
+    const usable = pool.filter((v) => !NOVELTY_VOICE_RE.test(v.name || ''));
+    const finalPool = usable.length ? usable : pool;
+    finalPool.sort((a, b) => Number(b.localService) - Number(a.localService) || String(a.name).localeCompare(String(b.name)));
+    this.voices = finalPool;
+    if (this.onVoicesChanged) this.onVoicesChanged(this.voices);
+  }
+
+  voiceFor(actor) {
+    if (!this.voices.length) return null;
+    const female = actor && actor.voiceGender === 'female';
+    const re = female ? FEMALE_VOICE_RE : MALE_VOICE_RE;
+    const preferred = this.voices.filter((v) => re.test(v.name || ''));
+    const pool = preferred.length ? preferred : this.voices;
+    const index = actor ? (actor.voiceIndex || 0) : 0;
+    return pool[index % pool.length] || null;
+  }
+
+  estimateDuration(text, actor) {
+    if (!this.enabled || !this.supported || audio.muted) return 0;
+    const words = String(text || '').trim().split(/\s+/).filter(Boolean).length || 1;
+    const wpm = 168 * (this.rate || 1) * ((actor && actor.voiceRate) || 1);
+    const punctuation = (String(text).match(/[.,;:!?—–]/g) || []).length * 0.11;
+    return clamp((words / wpm) * 60 + punctuation + 0.35, 1.1, 32);
+  }
+
+  speak(text, actor, handlers = {}) {
+    if (!this.supported || !this.enabled || audio.muted) return false;
+    const clean = String(text || '').trim();
+    if (!clean) return false;
+    this.cancel();
+    this.lastError = '';
+    const token = ++this.token;
+    const utterance = new window.SpeechSynthesisUtterance(clean);
+    const chosen = this.voiceFor(actor);
+    if (chosen) utterance.voice = chosen;
+    utterance.pitch = clamp((actor && actor.voicePitch) || 1, 0.3, 2);
+    utterance.rate = clamp(((actor && actor.voiceRate) || 1) * (this.rate || 1), 0.55, 1.7);
+    utterance.volume = clamp(this.volume, 0, 1);
+    utterance.onboundary = (event) => {
+      if (token !== this.token) return;
+      if (handlers.onBoundary) handlers.onBoundary(event.charIndex || 0, event.charLength || 0);
+    };
+    utterance.onend = () => {
+      if (token !== this.token) return;
+      if (handlers.onEnd) handlers.onEnd();
+    };
+    utterance.onerror = (event) => {
+      if (token !== this.token) return;
+      this.lastError = (event && event.error) || 'speech-error';
+      if (handlers.onError) handlers.onError(event);
+      else if (handlers.onEnd) handlers.onEnd();
+    };
+    this.current = utterance;
+    try {
+      window.speechSynthesis.speak(utterance);
+    } catch (err) {
+      this.lastError = String(err && err.message || err);
+      return false;
+    }
+    return true;
+  }
+
+  cancel() {
+    this.token += 1;
+    this.current = null;
+    if (this.supported) {
+      try { window.speechSynthesis.cancel(); } catch (_) { /* noop */ }
+    }
+  }
+
+  pause() {
+    if (!this.supported) return;
+    try {
+      if (window.speechSynthesis.speaking && !window.speechSynthesis.paused) window.speechSynthesis.pause();
+    } catch (_) { /* noop */ }
+  }
+
+  resume() {
+    if (!this.supported) return;
+    try {
+      if (window.speechSynthesis.paused) window.speechSynthesis.resume();
+    } catch (_) { /* noop */ }
+  }
+
+  preview(actor, text = 'The play is the thing.', onEnd = null) {
+    const wasEnabled = this.enabled;
+    this.enabled = true;
+    const ok = this.speak(text, actor, { onEnd });
+    this.enabled = wasEnabled;
+    return ok;
+  }
+
+  prime() {
+    if (!this.supported || audio.muted) return false;
+    const narrator = { voiceGender: 'male', voiceIndex: 0, voicePitch: 0.86, voiceRate: 0.95 };
+    const wasEnabled = this.enabled;
+    this.enabled = true;
+    const ok = this.speak('Welcome to the Virtual Playhouse.', narrator, {});
+    this.enabled = wasEnabled;
+    return ok;
+  }
+}
+
+const voice = new VoiceEngine();
+
 
 /* ─────────────────────────────────────────────────────────────────────────────
    04. STAGE RENDERER
@@ -713,6 +900,7 @@ const stage = {
   ended: false,
   endTimer: 0,
   endShown: false,
+  awaitingEntry: false,
   currentAction: null,
   lastClickChar: 0,
   playingCustom: false,
@@ -3858,10 +4046,39 @@ function buildActor(def, index) {
   const style = COSTUME_STYLES[costume] || COSTUME_STYLES.default;
   const color = def.color || CAST_PALETTE[index % CAST_PALETTE.length];
   const x = positionToX(def.position);
+  const name = def.name || def.id || 'Player';
+  const female = ['alice', 'queen', 'gown'].includes(costume)
+    || /(alice|elizabeth|ophelia|juliet|cleopatra|portia|beatrice|desdemona|miranda|rosalind|viola|queen|lady|ladies|woman|girl|mother|sister)/i.test(name);
+  const pitchMap = {
+    scientist: 0.92,
+    creature: 0.55,
+    alice: 1.42,
+    hatter: 1.06,
+    hare: 1.28,
+    queen: 1.12,
+    prince: 0.9,
+    ghost: 0.62,
+    royal: 0.82,
+    gown: 1.18,
+    default: 1,
+  };
+  const rateMap = {
+    scientist: 0.96,
+    creature: 0.78,
+    alice: 1.1,
+    hatter: 1.06,
+    hare: 1.12,
+    queen: 0.94,
+    prince: 0.9,
+    ghost: 0.72,
+    royal: 0.86,
+    gown: 0.98,
+    default: 1,
+  };
   return {
     id: def.id || slugify(def.name),
-    name: def.name || def.id || 'Player',
-    short: def.short || shortName(def.name || def.id),
+    name,
+    short: def.short || shortName(name),
     costume,
     color,
     height: clamp(Number(def.height) || 1, 0.8, 1.3),
@@ -3887,6 +4104,10 @@ function buildActor(def, index) {
     pants: style.pants,
     boots: style.boots,
     accent: color,
+    voiceGender: female ? 'female' : 'male',
+    voiceIndex: index,
+    voicePitch: pitchMap[costume] || pitchMap.default,
+    voiceRate: rateMap[costume] || rateMap.default,
   };
 }
 
@@ -3944,18 +4165,35 @@ function applyActionStart(action, duration) {
     actor.exiting = false;
     faceCenter(actor);
     const text = String(action.text || '');
-    const typeDur = clamp(text.length / 44, 0.45, 3.2);
+    const timing = dialogueTiming(text, actor);
     stage.bubble = {
       actorId: actor.id,
       text,
       chars: 0,
       age: 0,
-      typeDur,
+      typeDur: timing.typeDur,
       total: duration,
       alpha: 1,
+      speech: false,
     };
     stage.lastClickChar = 0;
     setCaption(`${actor.short}: “${text}”`);
+    const spoke = voice.speak(text, actor, {
+      onBoundary: (charIndex, charLength) => {
+        const bubble = stage.bubble;
+        if (!bubble || bubble.actorId !== actor.id) return;
+        bubble.chars = Math.max(bubble.chars, Math.min(text.length, charIndex + (charLength || 0)));
+      },
+      onEnd: () => {
+        const bubble = stage.bubble;
+        if (bubble && bubble.actorId === actor.id) bubble.chars = text.length;
+      },
+      onError: () => {
+        const bubble = stage.bubble;
+        if (bubble && bubble.actorId === actor.id) bubble.speech = false;
+      },
+    });
+    stage.bubble.speech = spoke;
     return;
   }
   if (type === 'LIGHTING') {
@@ -4075,7 +4313,7 @@ function applyActionStart(action, duration) {
   }
   if (type === 'AMBIENT') {
     stage.ambient = String(action.mood || 'none').toLowerCase();
-    if (audio.ctx) audio.setAmbient(stage.ambient);
+    if (audio.ctx && audio.ambientEnabled) audio.setAmbient(stage.ambient);
     return;
   }
   if (type === 'SCENE') {
@@ -4087,13 +4325,17 @@ function applyActionStart(action, duration) {
   }
 }
 
+function dialogueTiming(text, actor) {
+  const speech = voice.enabled ? voice.estimateDuration(text, actor) : 0;
+  const typeDur = speech ? speech * 1.02 : clamp(text.length / 44, 0.45, 3.2);
+  const hold = speech ? 0.7 : clamp(text.length * 0.025, 0.9, 2.8);
+  return { speech, typeDur, hold, duration: 1.0 + typeDur + hold };
+}
+
 function actionDuration(action) {
   const type = action.type;
   if (type === 'DIALOGUE') {
-    const text = String(action.text || '');
-    const typeDur = clamp(text.length / 44, 0.45, 3.2);
-    const hold = clamp(text.length * 0.025, 0.9, 2.8);
-    return 1.0 + typeDur + hold;
+    return dialogueTiming(String(action.text || ''), resolveActor(action.actor)).duration;
   }
   if (type === 'ENTER' || type === 'EXIT') return 1.45;
   if (type === 'MOVE') return 1.15;
@@ -4139,7 +4381,11 @@ function updateBubble(dt) {
   }
   const count = Math.floor(shown);
   if (count - stage.lastClickChar >= 3 && count < b.text.length) {
-    audio.typeClick();
+    const actor = stage.actors.get(b.actorId);
+    if (!b.speech) {
+      if (actor) audio.voiceTick(actor.voicePitch || 170);
+      if (count % 6 === 0) audio.typeClick();
+    }
     stage.lastClickChar = count;
   }
 }
@@ -4272,6 +4518,7 @@ function endAct() {
   stage.bubble = null;
   stage.curtain.target = 0;
   stage.energy = clamp(stage.energy + 0.18, 0, 1);
+  voice.cancel();
   audio.applause(0.95);
   spawnReaction('applaud');
   spawnFx('confetti');
@@ -4415,6 +4662,8 @@ function applyImmediate(action) {
 
 function seekTo(index) {
   if (!stage.actions.length) return;
+  if (stage.awaitingEntry) enterTheatre(true);
+  voice.cancel();
   const target = clamp(index, 0, stage.actions.length - 1);
   resetActorState();
   stage.backdrop = { current: stage.play.backdrop || 'gothic_lab', prev: null, mix: 1 };
@@ -4448,6 +4697,8 @@ function loadPlay(script, options = {}) {
     toast('Script rejected', result.errors[0] || 'The play could not be parsed.', 'error');
     return false;
   }
+  const awaiting = stage.awaitingEntry;
+  voice.cancel();
   const play = result.script;
   stage.play = play;
   stage.cast = play.cast;
@@ -4457,7 +4708,7 @@ function loadPlay(script, options = {}) {
   stage.duration = 1;
   stage.currentAction = null;
   stage.playing = false;
-  stage.startDelay = 1.35;
+  stage.startDelay = awaiting ? 0 : 1.35;
   stage.ended = false;
   stage.endShown = false;
   stage.endTimer = 0;
@@ -4475,7 +4726,7 @@ function loadPlay(script, options = {}) {
   const intensity = firstLight ? clamp(Number(firstLight.intensity) || 0.7, 0, 1) : 0.7;
   stage.light.current = { r: rgb.r, g: rgb.g, b: rgb.b, intensity };
   stage.light.target = { ...stage.light.current };
-  stage.curtain = { open: 0, target: 1 };
+  stage.curtain = awaiting ? { open: 0, target: 0 } : { open: 0, target: 1 };
   stage.ambient = play.ambient || 'none';
   resetActorState();
   $('#endCard').hidden = true;
@@ -4485,9 +4736,9 @@ function loadPlay(script, options = {}) {
   updateProgram(play);
   const editor = $('#scriptEditor');
   if (editor) editor.value = JSON.stringify(play, null, 2);
-  if (audio.ctx) audio.setAmbient(stage.ambient);
+  if (audio.ctx && audio.ambientEnabled) audio.setAmbient(stage.ambient);
   updateHud();
-  if (options.autoplay === false) {
+  if (options.autoplay === false || awaiting) {
     stage.startDelay = 0;
   }
   return true;
@@ -4524,6 +4775,10 @@ function prevAct() {
 }
 
 function togglePlay() {
+  if (stage.awaitingEntry) {
+    enterTheatre(true);
+    return;
+  }
   if (stage.ended) {
     restartAct();
     return;
@@ -4535,7 +4790,12 @@ function togglePlay() {
     return;
   }
   stage.playing = !stage.playing;
-  if (stage.playing && !stage.currentAction) startAction();
+  if (stage.playing) {
+    voice.resume();
+    if (!stage.currentAction) startAction();
+  } else {
+    voice.pause();
+  }
   updateHud();
 }
 
@@ -4552,6 +4812,7 @@ function setSeat(seat, instant = false) {
 }
 
 function react(kind) {
+  if (stage.awaitingEntry) enterTheatre(true);
   audio.unlock();
   const amount = { applaud: 0.13, laugh: 0.09, gasp: 0.08, rose: 0.15 }[kind] || 0.08;
   stage.energy = clamp(stage.energy + amount, 0, 1);
@@ -5033,14 +5294,230 @@ async function generatePlay() {
   }
 }
 
+function updateMuteUI() {
+  const muted = audio.muted;
+  const icon = $('#muteIcon');
+  const btn = $('#muteBtn');
+  if (icon) icon.textContent = muted ? '🔇' : '🔊';
+  if (btn) {
+    btn.setAttribute('aria-pressed', String(muted));
+    btn.setAttribute('aria-label', muted ? 'Unmute audio' : 'Mute audio');
+  }
+}
+
+function showSoundGate() {
+  const gate = $('#soundGate');
+  if (!gate) return;
+  gate.hidden = false;
+  const note = $('#gateNote');
+  const btn = $('#enterTheatreBtn');
+  if (!voice.supported) {
+    if (btn) btn.innerHTML = 'Enter the Theatre <span aria-hidden="true">· Sound On</span>';
+    if (note) note.textContent = 'Speech synthesis is unavailable in this browser; the orchestra will still play.';
+  } else {
+    if (btn) btn.innerHTML = 'Enter the Theatre <span aria-hidden="true">· Voices On</span>';
+    if (note) {
+      note.textContent = voice.voices.length
+        ? `Browsers require one click before voices and music can play. ${voice.voices.length} system voices ready.`
+        : 'Browsers require one click before voices and music can play. Your browser will use its default voice.';
+    }
+  }
+  setTimeout(() => btn?.focus(), 150);
+}
+
+function enterTheatre(withSound = true) {
+  const gate = $('#soundGate');
+  const wasAwaiting = stage.awaitingEntry;
+  if (!wasAwaiting && gate && gate.hidden) {
+    if (withSound) {
+      audio.unlock();
+      if (audio.muted) {
+        audio.setMuted(false);
+        updateMuteUI();
+      }
+    }
+    return;
+  }
+  stage.awaitingEntry = false;
+  if (gate) gate.hidden = true;
+  if (withSound) {
+    audio.unlock();
+    if (audio.muted) {
+      audio.setMuted(false);
+      updateMuteUI();
+    }
+    if (audio.ambientEnabled) audio.setAmbient(stage.ambient);
+    audio.magic();
+    if (voice.enabled) voice.prime();
+    voice.resume();
+  } else {
+    audio.ensure();
+    audio.setMuted(true);
+    updateMuteUI();
+    voice.cancel();
+  }
+  stage.curtain.target = 1;
+  stage.startDelay = 1.45;
+  stage.playing = false;
+  stage.ended = false;
+  stage.endShown = false;
+  stage.endTimer = 0;
+  const endCard = $('#endCard');
+  if (endCard) endCard.hidden = true;
+  updateHud();
+  toast(
+    withSound ? 'The house is live' : 'Watching in silence',
+    withSound
+      ? 'Voices and orchestra are on. The curtain is rising.'
+      : 'The play will continue without voices or sound. Press M to bring the house back.',
+    'ok',
+  );
+}
+
+function soundCheck() {
+  if (!audio.ensure()) {
+    toast('Audio unavailable', 'This browser could not start the Web Audio context.', 'error');
+    return;
+  }
+  audio.unlock();
+  if (audio.muted) {
+    audio.setMuted(false);
+    updateMuteUI();
+  }
+  audio.thunder();
+  setTimeout(() => audio.applause(1), 480);
+  setTimeout(() => audio.magic(), 1250);
+  toast('Sound check', 'Thunder, applause and a chime. The orchestra is live.', 'ok');
+}
+
+function updateVoiceBadge() {
+  const badge = $('#voiceBtn');
+  if (!badge) return;
+  const on = voice.supported && voice.enabled;
+  badge.classList.toggle('is-on', on);
+  badge.classList.toggle('is-off', !on);
+  badge.textContent = on ? '🗣 Voices On' : '🗣 Voices Off';
+  badge.setAttribute('aria-pressed', String(on));
+  badge.title = voice.supported
+    ? 'Open the voice cast (V)'
+    : 'Speech synthesis is not available in this browser';
+}
+
+function buildVoiceCast() {
+  const status = $('#voiceStatus');
+  const toggle = $('#voiceEnabled');
+  const volume = $('#voiceVolume');
+  const container = $('#voiceCast');
+  if (!status || !toggle || !container) return;
+
+  status.classList.remove('is-ok', 'is-warn');
+  if (!voice.supported) {
+    status.textContent = 'Speech synthesis is not available in this browser. The typewriter, orchestra and crowd still work.';
+    status.classList.add('is-warn');
+  } else if (!voice.voices.length) {
+    status.textContent = 'Using the browser default voice. More system voices will appear when they finish loading.';
+  } else {
+    status.textContent = `${voice.voices.length} system voice${voice.voices.length === 1 ? '' : 's'} available. The cast is assigned automatically.`;
+    status.classList.add('is-ok');
+  }
+  if (voice.lastError === 'not-allowed') {
+    status.textContent = 'The browser blocked speech. Click “Enter the Theatre · Voices On” again to grant permission.';
+    status.classList.remove('is-ok');
+    status.classList.add('is-warn');
+  }
+  toggle.checked = voice.enabled;
+  toggle.disabled = !voice.supported;
+  if (volume) volume.value = String(voice.volume);
+  const ambientToggle = $('#ambientEnabled');
+  if (ambientToggle) ambientToggle.checked = audio.ambientEnabled;
+
+  const cast = stage.cast || [];
+  if (!cast.length) {
+    container.innerHTML = '<p class="fineprint">Load a play to cast voices.</p>';
+    return;
+  }
+  container.innerHTML = cast.map((member, index) => {
+    const actor = stage.actors.get(member.id) || buildActor(member, index);
+    const chosen = voice.voiceFor(actor);
+    const voiceName = chosen ? chosen.name : 'System default';
+    const color = member.color || CAST_PALETTE[index % CAST_PALETTE.length];
+    return `
+      <div class="voice-row">
+        <span class="cast-dot" style="background:${escapeHtml(color)}"></span>
+        <div class="voice-row-info">
+          <div class="voice-row-name">${escapeHtml(member.short || member.name)}</div>
+          <div class="voice-row-voice" title="${escapeHtml(voiceName)}">${escapeHtml(voiceName)} · ${escapeHtml(actor.voiceGender)} · pitch ${actor.voicePitch.toFixed(2)}</div>
+        </div>
+        <button class="btn btn-ghost btn-small" data-voice-actor="${escapeHtml(member.id)}">Hear</button>
+      </div>`;
+  }).join('');
+}
+
+function openVoiceModal() {
+  buildVoiceCast();
+  const modal = $('#voiceModal');
+  if (modal && !modal.open) modal.showModal();
+}
+
+function setVoiceEnabled(enabled) {
+  voice.enabled = !!enabled && voice.supported;
+  if (!voice.enabled) voice.cancel();
+  updateVoiceBadge();
+  buildVoiceCast();
+  toast(
+    voice.enabled ? 'The company has voices' : 'Voices are off',
+    voice.enabled ? 'Each player will speak on their next line.' : 'Dialogue will continue as typewriter text and tone.',
+    voice.enabled ? 'ok' : '',
+  );
+}
+
+async function testVoice() {
+  if (!voice.supported) {
+    toast('No voice available', 'This browser does not support speech synthesis.', 'error');
+    return;
+  }
+  if (audio.muted) {
+    audio.setMuted(false);
+    updateMuteUI();
+  }
+  const cast = (stage.cast || []).slice(0, 4);
+  if (!cast.length) {
+    toast('No cast to voice', 'Load a play first.', 'error');
+    return;
+  }
+  const btn = $('#voiceTestBtn');
+  if (btn) btn.disabled = true;
+  toast('Voice check', 'Hear the company introduce themselves.', 'ok');
+  for (const member of cast) {
+    const actor = stage.actors.get(member.id) || buildActor(member, 0);
+    await new Promise((resolve) => {
+      const timer = setTimeout(resolve, 5000);
+      const ok = voice.preview(actor, `I am ${actor.short}. The play is the thing.`, () => {
+        clearTimeout(timer);
+        resolve();
+      });
+      if (!ok) {
+        clearTimeout(timer);
+        resolve();
+      }
+    });
+    await new Promise((resolve) => setTimeout(resolve, 180));
+  }
+  if (btn) btn.disabled = false;
+  toast('The company is ready', 'Each player has a distinct voice and pace.', 'ok');
+}
+
 function toggleMute() {
   audio.ensure();
   audio.setMuted(!audio.muted);
-  const muted = audio.muted;
-  $('#muteIcon').textContent = muted ? '🔇' : '🔊';
-  $('#muteBtn').setAttribute('aria-pressed', String(muted));
-  $('#muteBtn').setAttribute('aria-label', muted ? 'Unmute audio' : 'Mute audio');
-  toast(muted ? 'House muted' : 'House live', muted ? 'The orchestra and crowd are silent.' : 'Sound is back in the room.', 'ok');
+  if (audio.muted) voice.cancel();
+  else if (audio.ambientEnabled) audio.setAmbient(stage.ambient);
+  updateMuteUI();
+  toast(
+    audio.muted ? 'House muted' : 'House live',
+    audio.muted ? 'The orchestra, crowd and voices are silent.' : 'Sound is back in the room. Voices return on the next line.',
+    'ok',
+  );
 }
 
 let audioUnlocked = false;
@@ -5048,7 +5525,9 @@ function unlockAudio() {
   audio.unlock();
   if (!audioUnlocked) {
     audioUnlocked = true;
-    if (stage.ambient && stage.ambient !== 'none') audio.setAmbient(stage.ambient);
+    if (!stage.awaitingEntry && audio.ambientEnabled && stage.ambient && stage.ambient !== 'none') {
+      audio.setAmbient(stage.ambient);
+    }
   }
 }
 
@@ -5080,6 +5559,20 @@ function bindUI() {
   $('#helpBtn').addEventListener('click', openHelp);
   $('#muteBtn').addEventListener('click', toggleMute);
   $('#fullscreenBtn').addEventListener('click', toggleFullscreen);
+  $('#soundCheckBtn').addEventListener('click', soundCheck);
+  $('#helpSoundBtn').addEventListener('click', soundCheck);
+  $('#voiceBtn').addEventListener('click', openVoiceModal);
+  $('#enterTheatreBtn').addEventListener('click', () => enterTheatre(true));
+  $('#silentModeBtn').addEventListener('click', () => enterTheatre(false));
+
+  voice.onVoicesChanged = () => {
+    updateVoiceBadge();
+    const gate = $('#soundGate');
+    if (gate && !gate.hidden) showSoundGate();
+    const modal = $('#voiceModal');
+    if (modal && modal.open) buildVoiceCast();
+  };
+  updateVoiceBadge();
 
   // seats
   $$('.seat-btn').forEach((btn) => {
@@ -5093,6 +5586,7 @@ function bindUI() {
   $('#nextActBtn').addEventListener('click', nextAct);
   $('#speedSelect').addEventListener('change', (e) => {
     stage.speed = clamp(parseFloat(e.target.value) || 1, 0.25, 3);
+    voice.rate = clamp(stage.speed, 0.75, 1.5);
   });
   $('#saveBtn').addEventListener('click', saveCurrentPlay);
   $('#loadBtn').addEventListener('click', () => {
@@ -5189,6 +5683,35 @@ function bindUI() {
   // AI panel
   $('#generateBtn').addEventListener('click', generatePlay);
   $('#copyPromptBtn').addEventListener('click', copyAiPrompt);
+
+  // voice cast
+  $('#voiceEnabled').addEventListener('change', (e) => setVoiceEnabled(e.target.checked));
+  $('#ambientEnabled').addEventListener('change', (e) => {
+    audio.setAmbientEnabled(e.target.checked);
+    if (e.target.checked) audio.setAmbient(stage.ambient);
+    toast(
+      e.target.checked ? 'Ambient bed on' : 'Ambient bed off',
+      e.target.checked ? 'A very quiet drone will sit under the scene.' : 'The stage is now carried by cues and voices alone.',
+      e.target.checked ? '' : 'ok',
+    );
+  });
+  $('#voiceVolume').addEventListener('input', (e) => {
+    voice.volume = clamp(parseFloat(e.target.value) || 0, 0, 1);
+  });
+  $('#voiceTestBtn').addEventListener('click', testVoice);
+  $('#voiceCast').addEventListener('click', (e) => {
+    const btn = e.target.closest('[data-voice-actor]');
+    if (!btn) return;
+    const actor = stage.actors.get(btn.dataset.voiceActor);
+    if (!actor) return;
+    if (audio.muted) {
+      audio.setMuted(false);
+      updateMuteUI();
+    }
+    const chosen = voice.voiceFor(actor);
+    voice.preview(actor);
+    toast('Voice check', `${actor.short} — ${chosen ? chosen.name : 'system default'}`, 'ok');
+  });
   $('#rememberKey').addEventListener('change', (e) => {
     try {
       if (e.target.checked) {
@@ -5267,6 +5790,8 @@ function bindUI() {
       openScriptLab('editor');
     } else if (e.code === 'KeyM') {
       toggleMute();
+    } else if (e.code === 'KeyV') {
+      openVoiceModal();
     } else if (e.code === 'KeyF') {
       toggleFullscreen();
     } else if (e.code === 'KeyH') {
@@ -5306,12 +5831,20 @@ function bindUI() {
 buildPlaybill();
 bindUI();
 setSeat('front', true);
-loadPlay(ACTS[0], { autoplay: true });
+stage.awaitingEntry = true;
+loadPlay(ACTS[0], { autoplay: false });
+updateMuteUI();
+updateVoiceBadge();
+showSoundGate();
 requestAnimationFrame(render);
 
-// Keep the stage alive when the tab returns.
+// Keep the stage alive when the tab returns, and pause the company's voices.
 document.addEventListener('visibilitychange', () => {
   lastFrame = performance.now();
+  if (document.hidden) voice.pause();
+  else if (stage.playing) voice.resume();
 });
+
+window.addEventListener('beforeunload', () => voice.cancel());
 
 

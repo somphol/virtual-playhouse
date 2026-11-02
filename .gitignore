@@ -12,3 +12,7 @@ node_modules/
 
 # Temporary files
 *.tmp
+
+# Python
+__pycache__/
+*.pyc

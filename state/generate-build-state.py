@@ -30,7 +30,6 @@ model = json.loads(row["model"]) if row["model"] else {}
 created = datetime.fromtimestamp(row["time_created"] / 1000, timezone.utc)
 completed = datetime.now(timezone.utc)
 seconds = int((completed - created).total_seconds())
-busy_seconds = round((row["time_updated"] - (row["time_busy"] or row["time_created"])) / 1000, 1)
 hours, rem = divmod(seconds, 3600)
 minutes, secs = divmod(rem, 60)
 human = (f"{hours}h " if hours else "") + f"{minutes}m {secs}s"
@@ -69,7 +68,8 @@ state = {
         "completedAt": completed.isoformat().replace("+00:00", "Z"),
         "wallClockSeconds": seconds,
         "wallClockHuman": human,
-        "agentBusySeconds": busy_seconds,
+        "revision": 2,
+        "revisionNote": "Added the full-cast speech engine, sound-on entry gate, Voice Cast panel and optional ambient bed (off by default).",
         "sessionID": row["id"],
         "sessionTitle": row["title"],
         "harness": "OpenCode",
@@ -97,6 +97,7 @@ state = {
     },
     "notes": (
         "Token counts are read from the OpenCode session database at completion time. "
+        "This revision includes the full-cast speech engine and the ambient-drone default-off change. "
         "The final assistant reply is sent after this snapshot, so the live session may be a few tokens higher. "
         "Cache-read tokens are included in total because they represent context processed by the model."
     ),

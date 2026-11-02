@@ -4,10 +4,11 @@
   "liveDemo": "https://somphol.github.io/virtual-playhouse/",
   "build": {
     "startedAt": "2026-11-02T00:05:57.679000Z",
-    "completedAt": "2026-11-02T00:52:09.687085Z",
-    "wallClockSeconds": 2772,
-    "wallClockHuman": "46m 12s",
-    "agentBusySeconds": 2771.2,
+    "completedAt": "2026-11-02T01:25:30.516122Z",
+    "wallClockSeconds": 4772,
+    "wallClockHuman": "1h 19m 32s",
+    "revision": 2,
+    "revisionNote": "Added the full-cast speech engine, sound-on entry gate, Voice Cast panel and optional ambient bed (off by default).",
     "sessionID": "ses_e666c46d8ffezSoPNKbrg0Cbta",
     "sessionTitle": "Virtual Playhouse theatre simulator",
     "harness": "OpenCode",
@@ -20,40 +21,40 @@
     "credits": "Built with OpenCode and DeepSeek V4.1 Flash."
   },
   "tokens": {
-    "input": 261261,
-    "output": 112721,
-    "reasoning": 63906,
-    "cacheRead": 14515584,
+    "input": 308368,
+    "output": 155660,
+    "reasoning": 128049,
+    "cacheRead": 51780608,
     "cacheWrite": 1147,
-    "nonCachedTotal": 437888,
-    "total": 14954619
+    "nonCachedTotal": 592077,
+    "total": 52373832
   },
   "costUSD": 0.0,
   "artifacts": {
     "files": [
       {
         "path": "index.html",
-        "bytes": 20150,
-        "lines": 377
+        "bytes": 23508,
+        "lines": 435
       },
       {
         "path": "style.css",
-        "bytes": 42622,
-        "lines": 1603
+        "bytes": 48131,
+        "lines": 1808
       },
       {
         "path": "script.js",
-        "bytes": 179791,
-        "lines": 5317
+        "bytes": 198843,
+        "lines": 5850
       },
       {
         "path": "README.md",
-        "bytes": 10450,
-        "lines": 245
+        "bytes": 11864,
+        "lines": 256
       },
       {
         "path": "assets/preview.png",
-        "bytes": 1329123
+        "bytes": 1318598
       },
       {
         "path": "LICENSE",
@@ -61,7 +62,7 @@
         "lines": 21
       }
     ],
-    "sourceLines": 7563
+    "sourceLines": 8370
   },
-  "notes": "Token counts are read from the OpenCode session database at completion time. The final assistant reply is sent after this snapshot, so the live session may be a few tokens higher. Cache-read tokens are included in total because they represent context processed by the model."
+  "notes": "Token counts are read from the OpenCode session database at completion time. This revision includes the full-cast speech engine and the ambient-drone default-off change. The final assistant reply is sent after this snapshot, so the live session may be a few tokens higher. Cache-read tokens are included in total because they represent context processed by the model."
 }
