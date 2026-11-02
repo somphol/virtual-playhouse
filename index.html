@@ -177,7 +177,7 @@
       </div>
       <div class="program-cast" id="programCast" aria-label="Cast"></div>
       <div class="program-badges">
-        <span class="badge badge-gold">6 Acts</span>
+        <span class="badge badge-gold">9 Acts</span>
         <span class="badge">Procedural cast</span>
         <button class="badge badge-voice" id="voiceBtn" type="button" title="Open the voice cast (V)">🗣 Voice Cast</button>
         <span class="badge badge-ai">DeepSeek-ready</span>
@@ -199,7 +199,7 @@
       <div>
         <p class="modal-kicker">Tonight at the Virtual Playhouse</p>
         <h2 id="playbillTitle">The Playbill</h2>
-        <p class="playbill-sub">Six classic acts, one impossible stage. Choose where the curtain rises.</p>
+        <p class="playbill-sub">Nine theatrical acts, one impossible stage. Choose where the curtain rises.</p>
       </div>
       <button class="modal-close" data-close="playbillModal" aria-label="Close playbill">✕</button>
     </div>
@@ -281,6 +281,9 @@
                 <option value="fairy_wood">The Fairy Wood</option>
                 <option value="ballroom">Netherfield Ballroom</option>
                 <option value="dracula_castle">Dracula's Castle</option>
+                <option value="belmont">Belmont</option>
+                <option value="venice_court">Venice Court</option>
+                <option value="poetry_room">The Poetry Room</option>
                 <option value="grand_hall">Grand Hall</option>
               </select>
             </label>
@@ -337,9 +340,9 @@
           <dl>
             <dt>position</dt><dd><code>"left"</code>, <code>"center"</code>, <code>"right"</code>, or a number 0–1</dd>
             <dt>lighting</dt><dd>hex colour + intensity 0–1</dd>
-            <dt>sound cues</dt><dd><code>thunder_clap</code>, <code>rain</code>, <code>magic_chime</code>, <code>door_creak</code>, <code>heartbeat</code>, <code>clock_tick</code>, <code>sword_clash</code>, <code>crowd_gasp</code>, <code>applause</code>, <code>wind</code>, <code>bell</code>, <code>waltz</code>, <code>wolf_howl</code>, <code>organ</code></dd>
-            <dt>effects</dt><dd><code>sparks</code>, <code>lightning</code>, <code>fog</code>, <code>petals</code>, <code>confetti</code>, <code>embers</code>, <code>snow</code>, <code>cards</code>, <code>fireflies</code>, <code>bats</code></dd>
-            <dt>backdrops</dt><dd><code>gothic_lab</code>, <code>tea_garden</code>, <code>ramparts</code>, <code>fairy_wood</code>, <code>ballroom</code>, <code>dracula_castle</code>, <code>grand_hall</code></dd>
+            <dt>sound cues</dt><dd><code>thunder_clap</code>, <code>rain</code>, <code>magic_chime</code>, <code>door_creak</code>, <code>heartbeat</code>, <code>clock_tick</code>, <code>sword_clash</code>, <code>crowd_gasp</code>, <code>applause</code>, <code>wind</code>, <code>bell</code>, <code>waltz</code>, <code>wolf_howl</code>, <code>organ</code>, <code>gavel</code>, <code>coins</code></dd>
+            <dt>effects</dt><dd><code>sparks</code>, <code>lightning</code>, <code>fog</code>, <code>petals</code>, <code>confetti</code>, <code>embers</code>, <code>snow</code>, <code>cards</code>, <code>fireflies</code>, <code>bats</code>, <code>coins</code>, <code>leaves</code></dd>
+            <dt>backdrops</dt><dd><code>gothic_lab</code>, <code>tea_garden</code>, <code>ramparts</code>, <code>fairy_wood</code>, <code>ballroom</code>, <code>dracula_castle</code>, <code>belmont</code>, <code>venice_court</code>, <code>poetry_room</code>, <code>grand_hall</code></dd>
             <dt>ambient</dt><dd><code>gothic</code>, <code>wonderland</code>, <code>tragedy</code>, <code>enchanted</code>, <code>ballroom</code>, <code>horror</code>, <code>none</code></dd>
           </dl>
           <p class="fineprint">Unknown fields are ignored; unknown actors are cast automatically. Keep dialogue under ~240 characters per line for the best bubble layout.</p>

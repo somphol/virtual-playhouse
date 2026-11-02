@@ -1090,7 +1090,7 @@ body::before {
 
 .act-art {
   position: relative;
-  height: 128px;
+  height: 110px;
   overflow: hidden;
   background: #20121a;
 }
@@ -1195,6 +1195,51 @@ body::before {
   left: 18%; top: 24%;
   font-size: 34px;
   filter: drop-shadow(0 0 14px rgba(200, 150, 255, 0.5));
+}
+
+.act-art-belmont {
+  background:
+    radial-gradient(circle at 74% 24%, rgba(255, 236, 200, 0.95), transparent 8%),
+    radial-gradient(circle at 74% 24%, rgba(255, 190, 160, 0.3), transparent 36%),
+    linear-gradient(160deg, #3a2040, #8a4a5a 48%, #e09a7a);
+}
+
+.act-art-belmont::before {
+  content: "🌹";
+  position: absolute;
+  left: 18%; top: 22%;
+  font-size: 36px;
+  filter: drop-shadow(0 0 16px rgba(255, 190, 160, 0.6));
+}
+
+.act-art-court {
+  background:
+    radial-gradient(circle at 50% 24%, rgba(240, 235, 220, 0.9), transparent 9%),
+    radial-gradient(circle at 50% 26%, rgba(180, 160, 140, 0.3), transparent 38%),
+    linear-gradient(160deg, #1a1820, #3a3440 48%, #6b1227);
+}
+
+.act-art-court::before {
+  content: "⚖️";
+  position: absolute;
+  right: 18%; top: 22%;
+  font-size: 36px;
+  filter: drop-shadow(0 0 14px rgba(214, 174, 106, 0.5));
+}
+
+.act-art-poetry {
+  background:
+    radial-gradient(circle at 50% 22%, rgba(255, 225, 170, 0.9), transparent 8%),
+    radial-gradient(circle at 50% 28%, rgba(220, 160, 90, 0.3), transparent 38%),
+    linear-gradient(160deg, #241610, #4a3426 50%, #1a120e);
+}
+
+.act-art-poetry::before {
+  content: "📖";
+  position: absolute;
+  left: 18%; top: 22%;
+  font-size: 36px;
+  filter: drop-shadow(0 0 14px rgba(255, 220, 150, 0.55));
 }
 
 .act-number {

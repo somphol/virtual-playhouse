@@ -161,6 +161,10 @@ const COSTUME_SKINS = {
   vampire: '#e6e0d8',
   bride: '#e9e2ea',
   victorian: '#e6c3a8',
+  usurer: '#d9b48f',
+  lawyer: '#e8c6a8',
+  teacher: '#e8c0a0',
+  schoolboy: '#e6c3a8',
   default: '#e6c1a5',
 };
 
@@ -191,6 +195,10 @@ function guessCostume(name) {
   if (/(bottom|donkey|ass\b)/.test(n)) return 'donkey';
   if (/(dracula|vampire|count)/.test(n)) return 'vampire';
   if (/(bride)/.test(n)) return 'bride';
+  if (/(shylock|usurer|moneylender)/.test(n)) return 'usurer';
+  if (/(lawyer|balthazar|judge|doctor of law)/.test(n)) return 'lawyer';
+  if (/(teacher|professor|instructor|mr\.? vale)/.test(n)) return 'teacher';
+  if (/(student|schoolboy|school boy|boy)/.test(n)) return 'schoolboy';
   if (/(bennet|regency|lizzy)/.test(n)) return 'regency';
   if (/(darcy|bingley|dandy)/.test(n)) return 'dandy';
   if (/(harker|jonathan|victorian)/.test(n)) return 'victorian';
@@ -592,6 +600,186 @@ const ACTS = [
       { type: 'EFFECT', effect: 'fog' },
     ],
   },
+  {
+    id: 'merchant-caskets',
+    act: 'Act VII',
+    title: 'The Merchant of Venice',
+    setting: 'Belmont · The Three Caskets',
+    subtitle: 'A terrace above the sea, three caskets, and a choice that cannot be unchosen.',
+    backdrop: 'belmont',
+    ambient: 'ballroom',
+    duration: '≈ 4–5 min',
+    art: 'belmont',
+    cast: [
+      { id: 'nerissa', name: 'Nerissa', short: 'Nerissa', costume: 'regency', color: '#e7a9b8', position: 'far-left', height: 0.94 },
+      { id: 'portia', name: 'Portia', short: 'Portia', costume: 'regency', color: '#e7c27a', position: 'center', height: 0.98 },
+      { id: 'bassanio', name: 'Bassanio', short: 'Bassanio', costume: 'dandy', color: '#7fd6c4', position: 'center-right', height: 1.0 },
+    ],
+    actions: [
+      { type: 'CAPTION', text: 'Belmont. A terrace above the sea, and three caskets waiting for a choice.' },
+      { type: 'BACKDROP', backdrop: 'belmont' },
+      { type: 'LIGHTING', color: '#ffd9a0', intensity: 0.86 },
+      { type: 'SOUND', cue: 'bell' },
+      { type: 'EFFECT', effect: 'petals' },
+      { type: 'ENTER', actor: 'Nerissa', position: 'far-left' },
+      { type: 'ENTER', actor: 'Portia', position: 'center' },
+      { type: 'DIALOGUE', actor: 'Nerissa', text: 'Morocco swore by gold. Aragon swore by silver. Both swore by their own reflections.' },
+      { type: 'DIALOGUE', actor: 'Portia', text: 'Let them. A husband who chooses his own reflection will never see me.' },
+      { type: 'ENTER', actor: 'Bassanio', position: 'center-right' },
+      { type: 'DIALOGUE', actor: 'Bassanio', text: 'Portia, I have come to choose.' },
+      { type: 'DIALOGUE', actor: 'Portia', text: 'Then choose. But the casket that promises most may promise nothing.' },
+      { type: 'DIALOGUE', actor: 'Bassanio', text: 'Gold is the food of fools. Silver is the coin of men who count. I will trust the lead.' },
+      { type: 'GESTURE', actor: 'Bassanio', gesture: 'kneel' },
+      { type: 'SOUND', cue: 'bell' },
+      { type: 'EFFECT', effect: 'petals' },
+      { type: 'LIGHTING', color: '#ffb36b', intensity: 0.92 },
+      { type: 'DIALOGUE', actor: 'Bassanio', text: 'The portrait. Portia, I have chosen you.' },
+      { type: 'DIALOGUE', actor: 'Portia', text: 'Then take me, and take this ring. Do not give it away, or you give away my heart.' },
+      { type: 'DIALOGUE', actor: 'Nerissa', text: 'And I shall take a ring from his friend, if he is foolish enough to offer.' },
+      { type: 'DIALOGUE', actor: 'Bassanio', text: 'I am foolish enough for happiness.' },
+      { type: 'SOUND', cue: 'door_creak' },
+      { type: 'LIGHTING', color: '#6f8dff', intensity: 0.55 },
+      { type: 'CAPTION', text: 'A letter arrives from Venice. Happiness has a price.' },
+      { type: 'DIALOGUE', actor: 'Nerissa', text: 'A letter from Antonio. His ships are lost, and the Jew\u2019s bond is forfeit.' },
+      { type: 'DIALOGUE', actor: 'Portia', text: 'Then we shall go to Venice. The law must have a woman\u2019s voice.' },
+      { type: 'DIALOGUE', actor: 'Bassanio', text: 'Portia, no.' },
+      { type: 'DIALOGUE', actor: 'Portia', text: 'Bassanio, yes.' },
+      { type: 'CAPTION', text: 'She sends him ahead, and follows in a lawyer\u2019s robe.' },
+      { type: 'BOW', actor: 'Portia' },
+      { type: 'BOW', actor: 'Bassanio' },
+      { type: 'BOW', actor: 'Nerissa' },
+      { type: 'EFFECT', effect: 'confetti' },
+    ],
+  },
+  {
+    id: 'merchant-trial',
+    act: 'Act VIII',
+    title: 'The Merchant of Venice',
+    setting: 'Venice · The Quality of Mercy',
+    subtitle: 'The Doge\u2019s court. A bond, a knife, and a woman in a lawyer\u2019s robe.',
+    backdrop: 'venice_court',
+    ambient: 'tragedy',
+    duration: '≈ 4–5 min',
+    art: 'court',
+    cast: [
+      { id: 'duke', name: 'The Duke', short: 'Duke', costume: 'royal', color: '#d6ae6a', position: 'far-left', height: 1.0 },
+      { id: 'shylock', name: 'Shylock', short: 'Shylock', costume: 'usurer', color: '#c9a86a', position: 'center-left', height: 0.98 },
+      { id: 'portia', name: 'Portia', short: 'Portia', costume: 'lawyer', color: '#7fd6c4', position: 'center', height: 0.98 },
+      { id: 'antonio', name: 'Antonio', short: 'Antonio', costume: 'victorian', color: '#b8c7ff', position: 'center-right', height: 1.0 },
+      { id: 'bassanio', name: 'Bassanio', short: 'Bassanio', costume: 'dandy', color: '#e7a9b8', position: 'far-right', height: 1.0 },
+    ],
+    actions: [
+      { type: 'CAPTION', text: 'Venice. The Doge\u2019s court. A bond, a knife, and a woman in a lawyer\u2019s robe.' },
+      { type: 'BACKDROP', backdrop: 'venice_court' },
+      { type: 'LIGHTING', color: '#b9c7ff', intensity: 0.45 },
+      { type: 'SOUND', cue: 'gavel' },
+      { type: 'EFFECT', effect: 'fog' },
+      { type: 'ENTER', actor: 'Duke', position: 'far-left' },
+      { type: 'ENTER', actor: 'Shylock', position: 'center-left' },
+      { type: 'ENTER', actor: 'Antonio', position: 'center-right' },
+      { type: 'ENTER', actor: 'Bassanio', position: 'far-right' },
+      { type: 'DIALOGUE', actor: 'Duke', text: 'Shylock, the court has heard your bond. The law is the law.' },
+      { type: 'DIALOGUE', actor: 'Shylock', text: 'Three thousand ducats for a pound of his flesh. The bond is sealed.' },
+      { type: 'SOUND', cue: 'coins' },
+      { type: 'DIALOGUE', actor: 'Antonio', text: 'I am ready. The flesh is mine to lose.' },
+      { type: 'DIALOGUE', actor: 'Bassanio', text: 'Antonio, no. Take my life instead.' },
+      { type: 'SOUND', cue: 'gavel' },
+      { type: 'ENTER', actor: 'Portia', position: 'center' },
+      { type: 'DIALOGUE', actor: 'Portia', text: 'The quality of mercy is not strained. It droppeth as the gentle rain from heaven.' },
+      { type: 'DIALOGUE', actor: 'Shylock', text: 'I crave the law. The penalty and forfeit of my bond.' },
+      { type: 'DIALOGUE', actor: 'Portia', text: 'Then take your bond. But if you shed one drop of Christian blood, your lands and goods are forfeit to the state.' },
+      { type: 'DIALOGUE', actor: 'Shylock', text: 'Is that the law?' },
+      { type: 'DIALOGUE', actor: 'Portia', text: 'It is. The law is the law.' },
+      { type: 'GESTURE', actor: 'Shylock', gesture: 'recoil' },
+      { type: 'LIGHTING', color: '#ff2f4f', intensity: 0.8 },
+      { type: 'DIALOGUE', actor: 'Shylock', text: 'Then let me take the money. Let me go.' },
+      { type: 'DIALOGUE', actor: 'Portia', text: 'The money is forfeit. The bond is broken.' },
+      { type: 'DIALOGUE', actor: 'Duke', text: 'The court grants you your life, Shylock. Half your wealth to Antonio, half to the state.' },
+      { type: 'DIALOGUE', actor: 'Shylock', text: 'I am content.' },
+      { type: 'DIALOGUE', actor: 'Antonio', text: 'Use his half in trust for Jessica. Let her be free.' },
+      { type: 'DIALOGUE', actor: 'Portia', text: 'Then mercy has done its work.' },
+      { type: 'SOUND', cue: 'gavel' },
+      { type: 'EFFECT', effect: 'coins' },
+      { type: 'DIALOGUE', actor: 'Bassanio', text: 'Balthazar, take this ring as thanks.' },
+      { type: 'DIALOGUE', actor: 'Portia', text: 'I will take it. And I will ask for it again.' },
+      { type: 'DIALOGUE', actor: 'Duke', text: 'The court is adjourned.' },
+      { type: 'CAPTION', text: 'The court adjourns. The ring will have its own trial.' },
+      { type: 'BOW', actor: 'Portia' },
+      { type: 'BOW', actor: 'Shylock' },
+      { type: 'BOW', actor: 'Antonio' },
+      { type: 'BOW', actor: 'Bassanio' },
+      { type: 'BOW', actor: 'Duke' },
+      { type: 'EFFECT', effect: 'petals' },
+    ],
+  },
+  {
+    id: 'lantern-society',
+    act: 'Act IX',
+    title: 'The Lantern Society',
+    setting: 'A New England Boarding School · 1959',
+    subtitle: 'An original homage to the classroom film: one last lesson in seeing the world sideways.',
+    backdrop: 'poetry_room',
+    ambient: 'ballroom',
+    duration: '≈ 4–5 min',
+    art: 'poetry',
+    cast: [
+      { id: 'arthur', name: 'Arthur', short: 'Arthur', costume: 'schoolboy', color: '#8fc7ff', position: 'far-left', height: 0.96 },
+      { id: 'julian', name: 'Julian', short: 'Julian', costume: 'schoolboy', color: '#c9a86a', position: 'center-left', height: 0.98 },
+      { id: 'vale', name: 'Mr. Vale', short: 'Mr. Vale', costume: 'teacher', color: '#e7c27a', position: 'center', height: 1.02 },
+      { id: 'peter', name: 'Peter', short: 'Peter', costume: 'schoolboy', color: '#d6a273', position: 'center-right', height: 0.97 },
+    ],
+    actions: [
+      { type: 'CAPTION', text: 'A boys\u2019 school in New England, 1959. The last class of the day.' },
+      { type: 'BACKDROP', backdrop: 'poetry_room' },
+      { type: 'LIGHTING', color: '#ffcf8a', intensity: 0.8 },
+      { type: 'SOUND', cue: 'bell' },
+      { type: 'EFFECT', effect: 'leaves' },
+      { type: 'ENTER', actor: 'Arthur', position: 'far-left' },
+      { type: 'ENTER', actor: 'Julian', position: 'center-left' },
+      { type: 'ENTER', actor: 'Peter', position: 'right' },
+      { type: 'ENTER', actor: 'Mr. Vale', position: 'center' },
+      { type: 'DIALOGUE', actor: 'Mr. Vale', text: 'Gentlemen, close your books. The examination is not until June, and the world is already happening.' },
+      { type: 'DIALOGUE', actor: 'Arthur', text: 'Sir, the syllabus says we are to finish the Romantics.' },
+      { type: 'DIALOGUE', actor: 'Mr. Vale', text: 'Then we shall finish them by beginning. What is poetry for?' },
+      { type: 'DIALOGUE', actor: 'Julian', text: 'To pass the examination?' },
+      { type: 'DIALOGUE', actor: 'Mr. Vale', text: 'That is one use. A poor one, but a use.' },
+      { type: 'DIALOGUE', actor: 'Peter', text: 'To say something true?' },
+      { type: 'DIALOGUE', actor: 'Mr. Vale', text: 'To say something true when the room is full of comfortable lies. Stand on your desks.' },
+      { type: 'GESTURE', actor: 'Arthur', gesture: 'elevate' },
+      { type: 'GESTURE', actor: 'Julian', gesture: 'elevate' },
+      { type: 'GESTURE', actor: 'Peter', gesture: 'elevate' },
+      { type: 'DIALOGUE', actor: 'Arthur', text: 'All of us?' },
+      { type: 'DIALOGUE', actor: 'Mr. Vale', text: 'Every one. A different view is not a decoration. It is a moral act.' },
+      { type: 'SOUND', cue: 'clock_tick' },
+      { type: 'EFFECT', effect: 'leaves' },
+      { type: 'CAPTION', text: 'They climb onto the desks. The room tilts, and does not fall.' },
+      { type: 'DIALOGUE', actor: 'Mr. Vale', text: 'Now look at the room from here. What do you see?' },
+      { type: 'DIALOGUE', actor: 'Julian', text: 'The same room.' },
+      { type: 'DIALOGUE', actor: 'Mr. Vale', text: 'Look longer.' },
+      { type: 'DIALOGUE', actor: 'Peter', text: 'The window. The light. The dust.' },
+      { type: 'DIALOGUE', actor: 'Mr. Vale', text: 'Yes. The ordinary, seen long enough, becomes extraordinary.' },
+      { type: 'DIALOGUE', actor: 'Arthur', text: 'And if we fall?' },
+      { type: 'DIALOGUE', actor: 'Mr. Vale', text: 'Then you will have fallen while looking. That is better than standing still and seeing nothing.' },
+      { type: 'DIALOGUE', actor: 'Mr. Vale', text: 'I have a poem for you. Not for the examination. For the rest of your lives.' },
+      { type: 'DIALOGUE', actor: 'Mr. Vale', text: 'O Captain! my Captain! our fearful trip is done, / The ship has weather\u2019d every rack, the prize we sought is won.' },
+      { type: 'SOUND', cue: 'bell' },
+      { type: 'LIGHTING', color: '#ffb36b', intensity: 0.9 },
+      { type: 'DIALOGUE', actor: 'Peter', text: 'Who is the captain?' },
+      { type: 'DIALOGUE', actor: 'Mr. Vale', text: 'Anyone who taught you to see. Sometimes that is a teacher. Sometimes it is a friend. Sometimes it is a book that refuses to leave you.' },
+      { type: 'DIALOGUE', actor: 'Arthur', text: 'And sometimes it is a room.' },
+      { type: 'DIALOGUE', actor: 'Mr. Vale', text: 'Then let this room remember you standing in it.' },
+      { type: 'CAPTION', text: 'The bell rings. No one moves.' },
+      { type: 'DIALOGUE', actor: 'Mr. Vale', text: 'You may get down now. Carefully. The world is still there.' },
+      { type: 'GESTURE', actor: 'Arthur', gesture: 'idle' },
+      { type: 'GESTURE', actor: 'Julian', gesture: 'idle' },
+      { type: 'GESTURE', actor: 'Peter', gesture: 'idle' },
+      { type: 'BOW', actor: 'Mr. Vale' },
+      { type: 'BOW', actor: 'Arthur' },
+      { type: 'BOW', actor: 'Julian' },
+      { type: 'BOW', actor: 'Peter' },
+      { type: 'EFFECT', effect: 'leaves' },
+    ],
+  },
 ];
 
 /* ─────────────────────────────────────────────────────────────────────────────
@@ -861,6 +1049,22 @@ class AudioEngine {
     this.tone({ freq: 32.7, dur: 3.0, type: 'triangle', gain: 0.08 });
   }
 
+  gavel() {
+    if (!this.ensure()) return;
+    this.noiseBurst({ dur: 0.08, type: 'lowpass', freq: 420, q: 1.5, gain: 0.16 });
+    this.tone({ freq: 150, freqEnd: 90, dur: 0.16, type: 'triangle', gain: 0.1 });
+    this.noiseBurst({ dur: 0.05, type: 'bandpass', freq: 900, q: 4, gain: 0.05, when: 0.02 });
+  }
+
+  coins() {
+    if (!this.ensure()) return;
+    for (let i = 0; i < 12; i++) {
+      const when = rand(0, 0.8);
+      this.tone({ freq: rand(1600, 3200), dur: rand(0.08, 0.2), type: 'sine', gain: rand(0.012, 0.03), when });
+    }
+    this.noiseBurst({ dur: 0.7, type: 'bandpass', freq: 2400, q: 2, gain: 0.02 });
+  }
+
   play(cue) {
     const map = {
       thunder_clap: () => this.thunder(),
@@ -880,6 +1084,8 @@ class AudioEngine {
       waltz: () => this.waltz(),
       wolf_howl: () => this.wolfHowl(),
       organ: () => this.organ(),
+      gavel: () => this.gavel(),
+      coins: () => this.coins(),
     };
     const fn = map[String(cue || '').toLowerCase()];
     if (fn) fn();
@@ -1200,6 +1406,9 @@ const BACKDROP_LABELS = {
   fairy_wood: 'The Fairy Wood',
   ballroom: 'Netherfield Ballroom',
   dracula_castle: "Dracula's Castle",
+  belmont: 'Belmont · The Three Caskets',
+  venice_court: 'Venice · The Doge’s Court',
+  poetry_room: 'The Poetry Room',
 };
 
 function paintGothicLab(g) {
@@ -2656,6 +2865,485 @@ function paintDraculaCastle(g) {
   g.fillRect(0, 0, W, 660);
 }
 
+function paintBelmont(g) {
+  const rng = mulberry32(0xbe1);
+  const sky = g.createLinearGradient(0, 0, 0, 660);
+  sky.addColorStop(0, '#2a2040');
+  sky.addColorStop(0.35, '#6b4a6a');
+  sky.addColorStop(0.62, '#d98a7a');
+  sky.addColorStop(0.8, '#f3c18e');
+  sky.addColorStop(1, '#f6d7a8');
+  g.fillStyle = sky;
+  g.fillRect(0, 0, W, 660);
+
+  // sea
+  const sea = g.createLinearGradient(0, 380, 0, 540);
+  sea.addColorStop(0, '#4a5a78');
+  sea.addColorStop(0.5, '#2f3f5e');
+  sea.addColorStop(1, '#1c2a44');
+  g.fillStyle = sea;
+  g.fillRect(0, 380, W, 180);
+  for (let i = 0; i < 40; i++) {
+    g.strokeStyle = `rgba(255,220,190,${0.05 + rng() * 0.1})`;
+    g.lineWidth = 1.5;
+    const x = rng() * W;
+    const y = 400 + rng() * 120;
+    g.beginPath();
+    g.moveTo(x, y);
+    g.lineTo(x + 30 + rng() * 60, y);
+    g.stroke();
+  }
+
+  // distant hills
+  g.fillStyle = '#3a2a3a';
+  g.beginPath();
+  g.moveTo(0, 420);
+  for (let x = 0; x <= W; x += 80) {
+    g.lineTo(x, 350 + Math.sin(x * 0.008) * 30 + rng() * 20);
+  }
+  g.lineTo(W, 460);
+  g.lineTo(0, 460);
+  g.closePath();
+  g.fill();
+
+  // moon
+  const moon = g.createRadialGradient(1180, 130, 10, 1180, 130, 150);
+  moon.addColorStop(0, 'rgba(255,240,210,0.5)');
+  moon.addColorStop(1, 'rgba(255,240,210,0)');
+  g.fillStyle = moon;
+  g.beginPath();
+  g.arc(1180, 130, 150, 0, Math.PI * 2);
+  g.fill();
+  g.fillStyle = '#f6e7c8';
+  g.beginPath();
+  g.arc(1180, 130, 38, 0, Math.PI * 2);
+  g.fill();
+
+  // cypress trees
+  [120, 300, 1320, 1480].forEach((x, i) => {
+    g.fillStyle = i % 2 ? '#1d2a24' : '#243a2c';
+    g.beginPath();
+    g.moveTo(x, 540);
+    g.quadraticCurveTo(x - 34, 420, x, 260 - (i % 2) * 40);
+    g.quadraticCurveTo(x + 34, 420, x, 540);
+    g.closePath();
+    g.fill();
+  });
+
+  // balustrade
+  g.fillStyle = '#d8c7a8';
+  g.fillRect(0, 530, W, 16);
+  g.fillStyle = '#b8a68a';
+  for (let x = 30; x < W; x += 70) {
+    g.fillRect(x, 546, 26, 74);
+    g.beginPath();
+    g.ellipse(x + 13, 546, 18, 6, 0, 0, Math.PI * 2);
+    g.fill();
+  }
+  g.fillStyle = '#d8c7a8';
+  g.fillRect(0, 620, W, 16);
+
+  // hedges
+  for (let i = 0; i < 10; i++) {
+    const x = 40 + i * 170;
+    g.fillStyle = 'rgba(40,80,55,0.55)';
+    g.beginPath();
+    g.ellipse(x, 620, 120, 40, 0, 0, Math.PI * 2);
+    g.fill();
+  }
+
+  // caskets on pedestals
+  const caskets = [
+    { x: 540, color: '#c9a15b', label: 'GOLD', h: 58 },
+    { x: 800, color: '#b9c3cc', label: 'SILVER', h: 52 },
+    { x: 1060, color: '#6f6a5a', label: 'LEAD', h: 46 },
+  ];
+  caskets.forEach((c) => {
+    g.fillStyle = '#7a6a58';
+    g.fillRect(c.x - 44, 470, 88, 120);
+    g.fillStyle = '#5a4a3a';
+    g.fillRect(c.x - 50, 580, 100, 12);
+    g.fillStyle = c.color;
+    g.fillRect(c.x - 38, 470 - c.h, 76, c.h);
+    g.strokeStyle = 'rgba(40,20,20,0.5)';
+    g.lineWidth = 2;
+    g.strokeRect(c.x - 38, 470 - c.h, 76, c.h);
+    g.fillStyle = 'rgba(255,240,200,0.25)';
+    g.fillRect(c.x - 30, 470 - c.h + 8, 60, 4);
+    g.fillStyle = 'rgba(30,20,20,0.65)';
+    g.font = '11px "Cinzel", serif';
+    g.textAlign = 'center';
+    g.fillText(c.label, c.x, 500);
+  });
+
+  // roses
+  for (let i = 0; i < 30; i++) {
+    const x = rng() * W;
+    const y = 590 + rng() * 40;
+    g.fillStyle = 'rgba(80,130,80,0.5)';
+    g.beginPath();
+    g.ellipse(x, y + 10, 8, 4, 0, 0, Math.PI * 2);
+    g.fill();
+    g.fillStyle = ['#e7a9b8', '#f6ead0', '#c94b63'][i % 3];
+    g.beginPath();
+    g.arc(x, y, 3 + rng() * 3, 0, Math.PI * 2);
+    g.fill();
+  }
+
+  // lanterns
+  [380, 1220].forEach((x) => {
+    const glow = g.createRadialGradient(x, 300, 4, x, 300, 90);
+    glow.addColorStop(0, 'rgba(255,210,140,0.28)');
+    glow.addColorStop(1, 'rgba(255,210,140,0)');
+    g.fillStyle = glow;
+    g.beginPath();
+    g.arc(x, 300, 90, 0, Math.PI * 2);
+    g.fill();
+    g.strokeStyle = '#3b2614';
+    g.lineWidth = 2;
+    g.beginPath();
+    g.moveTo(x, 0);
+    g.lineTo(x, 280);
+    g.stroke();
+    g.fillStyle = 'rgba(255,210,140,0.85)';
+    g.fillRect(x - 14, 280, 28, 40);
+    g.strokeStyle = '#d6ae6a';
+    g.lineWidth = 2;
+    g.strokeRect(x - 14, 280, 28, 40);
+    g.fillStyle = '#3b2614';
+    g.fillRect(x - 16, 276, 32, 5);
+    g.fillRect(x - 10, 320, 20, 4);
+  });
+
+  const vg = g.createRadialGradient(W / 2, 360, 240, W / 2, 420, 900);
+  vg.addColorStop(0, 'rgba(0,0,0,0)');
+  vg.addColorStop(1, 'rgba(20,8,20,0.4)');
+  g.fillStyle = vg;
+  g.fillRect(0, 0, W, 660);
+}
+
+function paintVeniceCourt(g) {
+  const rng = mulberry32(0x5e1);
+  const wall = g.createLinearGradient(0, 0, 0, 660);
+  wall.addColorStop(0, '#2a2630');
+  wall.addColorStop(0.5, '#3a3440');
+  wall.addColorStop(1, '#1a161e');
+  g.fillStyle = wall;
+  g.fillRect(0, 0, W, 660);
+
+  // marble panels
+  for (let i = 0; i < 6; i++) {
+    const x = 80 + i * 250;
+    g.fillStyle = 'rgba(240,235,225,0.045)';
+    g.fillRect(x, 90, 210, 440);
+    g.strokeStyle = 'rgba(214,174,106,0.24)';
+    g.lineWidth = 2;
+    g.strokeRect(x, 90, 210, 440);
+    g.strokeStyle = 'rgba(214,174,106,0.12)';
+    g.strokeRect(x + 14, 104, 182, 412);
+  }
+
+  // tall windows
+  [270, 1150].forEach((x) => {
+    const w = 170;
+    const h = 400;
+    const y = 100;
+    g.save();
+    g.beginPath();
+    g.moveTo(x, y + h);
+    g.lineTo(x, y + 90);
+    g.quadraticCurveTo(x, y, x + w / 2, y);
+    g.quadraticCurveTo(x + w, y, x + w, y + 90);
+    g.lineTo(x + w, y + h);
+    g.closePath();
+    const night = g.createLinearGradient(0, y, 0, y + h);
+    night.addColorStop(0, '#1a2448');
+    night.addColorStop(1, '#070d1c');
+    g.fillStyle = night;
+    g.fill();
+    g.clip();
+    for (let i = 0; i < 20; i++) {
+      g.fillStyle = `rgba(230,240,255,${0.15 + rng() * 0.4})`;
+      g.beginPath();
+      g.arc(x + rng() * w, y + rng() * h, 1.2, 0, Math.PI * 2);
+      g.fill();
+    }
+    g.restore();
+    g.strokeStyle = '#8d6f3f';
+    g.lineWidth = 8;
+    g.beginPath();
+    g.moveTo(x, y + h);
+    g.lineTo(x, y + 90);
+    g.quadraticCurveTo(x, y, x + w / 2, y);
+    g.quadraticCurveTo(x + w, y, x + w, y + 90);
+    g.lineTo(x + w, y + h);
+    g.stroke();
+    g.strokeStyle = 'rgba(214,174,106,0.4)';
+    g.lineWidth = 3;
+    g.beginPath();
+    g.moveTo(x + w / 2, y + 8);
+    g.lineTo(x + w / 2, y + h);
+    g.stroke();
+    // red drape
+    g.fillStyle = 'rgba(110,20,40,0.55)';
+    g.beginPath();
+    g.moveTo(x - 18, y - 10);
+    g.lineTo(x + 30, y - 10);
+    for (let yy = 0; yy <= h; yy += 50) g.lineTo(x + 30 - Math.sin(yy * 0.03) * 16, y + yy);
+    g.lineTo(x - 18, y + h);
+    g.closePath();
+    g.fill();
+  });
+
+  // columns
+  [150, 1450].forEach((cx) => {
+    const grad = g.createLinearGradient(cx - 30, 0, cx + 30, 0);
+    grad.addColorStop(0, '#4a4040');
+    grad.addColorStop(0.45, '#e8dcc8');
+    grad.addColorStop(0.6, '#b8a88c');
+    grad.addColorStop(1, '#3a3030');
+    g.fillStyle = grad;
+    g.fillRect(cx - 28, 70, 56, 580);
+    g.fillStyle = '#d6ae6a';
+    g.fillRect(cx - 42, 58, 84, 20);
+    g.fillRect(cx - 40, 636, 80, 24);
+  });
+
+  // Doge's bench
+  g.fillStyle = '#3b2614';
+  g.fillRect(640, 470, 320, 24);
+  g.fillStyle = '#2a1a10';
+  g.fillRect(660, 494, 20, 120);
+  g.fillRect(920, 494, 20, 120);
+  g.fillStyle = '#6b1227';
+  g.fillRect(620, 450, 360, 20);
+  g.strokeStyle = '#d6ae6a';
+  g.lineWidth = 2;
+  g.strokeRect(620, 450, 360, 20);
+
+  // red banner
+  g.fillStyle = '#6b1227';
+  g.beginPath();
+  g.moveTo(760, 100);
+  g.lineTo(840, 100);
+  g.lineTo(840, 300);
+  g.lineTo(800, 330);
+  g.lineTo(760, 300);
+  g.closePath();
+  g.fill();
+  g.strokeStyle = 'rgba(214,174,106,0.5)';
+  g.stroke();
+  g.fillStyle = '#d6ae6a';
+  g.font = '36px serif';
+  g.textAlign = 'center';
+  g.fillText('⚖', 800, 220);
+
+  // scales of justice
+  const sx = 1180;
+  g.strokeStyle = '#d6ae6a';
+  g.lineWidth = 4;
+  g.beginPath();
+  g.moveTo(sx, 300);
+  g.lineTo(sx, 480);
+  g.moveTo(sx - 60, 320);
+  g.lineTo(sx + 60, 320);
+  g.stroke();
+  g.beginPath();
+  g.arc(sx - 60, 350, 24, 0, Math.PI);
+  g.arc(sx + 60, 350, 24, 0, Math.PI);
+  g.stroke();
+  g.fillStyle = '#d6ae6a';
+  g.beginPath();
+  g.arc(sx, 300, 8, 0, Math.PI * 2);
+  g.fill();
+
+  // candles
+  [520, 1080].forEach((x) => {
+    const glow = g.createRadialGradient(x, 430, 4, x, 430, 100);
+    glow.addColorStop(0, 'rgba(255,210,140,0.2)');
+    glow.addColorStop(1, 'rgba(255,210,140,0)');
+    g.fillStyle = glow;
+    g.beginPath();
+    g.arc(x, 430, 100, 0, Math.PI * 2);
+    g.fill();
+  });
+
+  const vg = g.createRadialGradient(W / 2, 360, 240, W / 2, 420, 900);
+  vg.addColorStop(0, 'rgba(0,0,0,0)');
+  vg.addColorStop(1, 'rgba(0,0,0,0.55)');
+  g.fillStyle = vg;
+  g.fillRect(0, 0, W, 660);
+}
+
+function paintPoetryRoom(g) {
+  const rng = mulberry32(0x9011);
+  const wall = g.createLinearGradient(0, 0, 0, 660);
+  wall.addColorStop(0, '#3a2a20');
+  wall.addColorStop(0.5, '#4a3426');
+  wall.addColorStop(1, '#241812');
+  g.fillStyle = wall;
+  g.fillRect(0, 0, W, 660);
+
+  // wood panelling
+  for (let i = 0; i < 24; i++) {
+    const x = i * 70;
+    g.fillStyle = i % 2 ? 'rgba(90,60,35,0.18)' : 'rgba(30,18,12,0.18)';
+    g.fillRect(x, 80, 68, 520);
+    g.strokeStyle = 'rgba(0,0,0,0.2)';
+    g.lineWidth = 1;
+    g.strokeRect(x, 80, 68, 520);
+  }
+
+  // blackboard
+  g.fillStyle = '#2a3a30';
+  g.fillRect(500, 110, 600, 300);
+  g.strokeStyle = '#7a5a32';
+  g.lineWidth = 12;
+  g.strokeRect(500, 110, 600, 300);
+  g.fillStyle = 'rgba(230,240,220,0.08)';
+  g.fillRect(512, 122, 576, 276);
+  g.fillStyle = 'rgba(240,235,215,0.6)';
+  g.font = 'italic 30px "Cormorant Garamond", Georgia, serif';
+  g.textAlign = 'center';
+  g.fillText('WHAT IS POETRY FOR?', 800, 230);
+  g.font = '20px "Cormorant Garamond", Georgia, serif';
+  g.fillStyle = 'rgba(230,240,220,0.35)';
+  g.fillText('“The ordinary, seen long enough…”', 800, 285);
+  g.strokeStyle = 'rgba(230,240,220,0.2)';
+  g.lineWidth = 1.5;
+  g.beginPath();
+  g.moveTo(620, 330);
+  g.quadraticCurveTo(700, 315, 800, 332);
+  g.quadraticCurveTo(900, 345, 980, 325);
+  g.stroke();
+
+  // windows
+  [160, 1220].forEach((x) => {
+    const w = 220;
+    const h = 330;
+    const y = 120;
+    g.save();
+    g.beginPath();
+    g.moveTo(x, y + h);
+    g.lineTo(x, y + 70);
+    g.quadraticCurveTo(x, y, x + w / 2, y);
+    g.quadraticCurveTo(x + w, y, x + w, y + 70);
+    g.lineTo(x + w, y + h);
+    g.closePath();
+    const autumn = g.createLinearGradient(0, y, 0, y + h);
+    autumn.addColorStop(0, '#8a6a4a');
+    autumn.addColorStop(0.45, '#c98a5a');
+    autumn.addColorStop(1, '#3a2a24');
+    g.fillStyle = autumn;
+    g.fill();
+    g.clip();
+    for (let i = 0; i < 9; i++) {
+      const tx = x + rng() * w;
+      const ty = y + 80 + rng() * 200;
+      g.fillStyle = ['rgba(190,90,50,0.5)', 'rgba(220,160,80,0.4)', 'rgba(140,70,40,0.5)'][i % 3];
+      g.beginPath();
+      g.arc(tx, ty, 24 + rng() * 30, 0, Math.PI * 2);
+      g.fill();
+    }
+    g.restore();
+    g.strokeStyle = '#7a5a32';
+    g.lineWidth = 9;
+    g.beginPath();
+    g.moveTo(x, y + h);
+    g.lineTo(x, y + 70);
+    g.quadraticCurveTo(x, y, x + w / 2, y);
+    g.quadraticCurveTo(x + w, y, x + w, y + 70);
+    g.lineTo(x + w, y + h);
+    g.stroke();
+    g.strokeStyle = 'rgba(90,60,35,0.7)';
+    g.lineWidth = 4;
+    g.beginPath();
+    g.moveTo(x + w / 2, y + 8);
+    g.lineTo(x + w / 2, y + h);
+    g.moveTo(x, y + h * 0.6);
+    g.lineTo(x + w, y + h * 0.6);
+    g.stroke();
+  });
+
+  // bookshelves
+  [40, 1500].forEach((x) => {
+    g.fillStyle = '#3a2418';
+    g.fillRect(x - 20, 180, 80, 420);
+    for (let row = 0; row < 4; row++) {
+      const y = 210 + row * 100;
+      g.fillStyle = '#5a3a22';
+      g.fillRect(x - 18, y + 80, 76, 8);
+      for (let i = 0; i < 6; i++) {
+        g.fillStyle = ['#6b3a3a', '#3a5a4a', '#4a3a6a', '#8a6a3a'][i % 4];
+        g.fillRect(x - 12 + i * 11, y + 30 + rng() * 10, 8, 50 - rng() * 10);
+      }
+    }
+  });
+
+  // teacher's desk
+  g.fillStyle = '#3b2614';
+  g.fillRect(650, 470, 300, 22);
+  g.fillStyle = '#24140c';
+  g.fillRect(670, 492, 18, 120);
+  g.fillRect(912, 492, 18, 120);
+  g.fillStyle = '#f6ead0';
+  g.fillRect(720, 448, 46, 24);
+  g.fillStyle = '#8a2a3a';
+  g.fillRect(770, 452, 34, 20);
+
+  // student desks
+  for (let i = 0; i < 4; i++) {
+    const x = 300 + i * 280;
+    g.fillStyle = '#4a3020';
+    g.fillRect(x, 570, 150, 14);
+    g.fillStyle = '#2a1a10';
+    g.fillRect(x + 10, 584, 12, 60);
+    g.fillRect(x + 128, 584, 12, 60);
+    g.fillStyle = '#f6ead0';
+    g.fillRect(x + 26, 558, 32, 12);
+  }
+
+  // globe
+  g.fillStyle = '#3b2614';
+  g.fillRect(1380, 520, 12, 100);
+  const globe = g.createRadialGradient(1386, 500, 4, 1386, 500, 46);
+  globe.addColorStop(0, '#6a9ac0');
+  globe.addColorStop(1, '#2a4a6a');
+  g.fillStyle = globe;
+  g.beginPath();
+  g.arc(1386, 500, 44, 0, Math.PI * 2);
+  g.fill();
+  g.strokeStyle = 'rgba(255,255,255,0.2)';
+  g.lineWidth = 1.5;
+  g.beginPath();
+  g.ellipse(1386, 500, 20, 44, 0, 0, Math.PI * 2);
+  g.stroke();
+
+  // clock
+  g.fillStyle = '#3b2614';
+  g.beginPath();
+  g.arc(800, 70, 34, 0, Math.PI * 2);
+  g.fill();
+  g.fillStyle = '#f6ead0';
+  g.beginPath();
+  g.arc(800, 70, 27, 0, Math.PI * 2);
+  g.fill();
+  g.strokeStyle = '#3b2614';
+  g.lineWidth = 2;
+  g.beginPath();
+  g.moveTo(800, 70);
+  g.lineTo(800, 54);
+  g.moveTo(800, 70);
+  g.lineTo(812, 76);
+  g.stroke();
+
+  const vg = g.createRadialGradient(W / 2, 360, 240, W / 2, 420, 900);
+  vg.addColorStop(0, 'rgba(0,0,0,0)');
+  vg.addColorStop(1, 'rgba(20,8,4,0.45)');
+  g.fillStyle = vg;
+  g.fillRect(0, 0, W, 660);
+}
+
 const BACKDROP_PAINTERS = {
   gothic_lab: paintGothicLab,
   tea_garden: paintTeaGarden,
@@ -2664,6 +3352,9 @@ const BACKDROP_PAINTERS = {
   fairy_wood: paintFairyWood,
   ballroom: paintBallroom,
   dracula_castle: paintDraculaCastle,
+  belmont: paintBelmont,
+  venice_court: paintVeniceCourt,
+  poetry_room: paintPoetryRoom,
 };
 
 /* ── Shared stage floor ─────────────────────────────────────────────────── */
@@ -2881,6 +3572,101 @@ function drawCastleFloor() {
   drawFrontEdge();
 }
 
+function drawBelmontFloor() {
+  const grad = ctx.createLinearGradient(0, 630, 0, H);
+  grad.addColorStop(0, '#6a4a3a');
+  grad.addColorStop(0.45, '#4a2e26');
+  grad.addColorStop(1, '#241310');
+  ctx.fillStyle = grad;
+  ctx.fillRect(0, 630, W, H - 630);
+  const rng = mulberry32(0xbe1f);
+  // stone terrace slabs
+  ctx.save();
+  ctx.beginPath();
+  ctx.rect(0, 630, W, H - 630);
+  ctx.clip();
+  for (let row = 0; row < 5; row++) {
+    const y = 640 + row * 48;
+    for (let col = -10; col < 24; col++) {
+      const x = col * 96 + (row % 2 ? 48 : 0);
+      ctx.strokeStyle = 'rgba(0,0,0,0.2)';
+      ctx.lineWidth = 1.5;
+      ctx.strokeRect(x, y, 96, 48);
+      ctx.fillStyle = `rgba(255,220,180,${0.015 + rng() * 0.025})`;
+      ctx.fillRect(x + 1, y + 1, 94, 46);
+    }
+  }
+  // rose petals
+  for (let i = 0; i < 45; i++) {
+    const x = rng() * W;
+    const y = 660 + rng() * 230;
+    ctx.fillStyle = ['rgba(231,169,184,0.3)', 'rgba(201,75,99,0.22)', 'rgba(246,234,208,0.18)'][i % 3];
+    ctx.beginPath();
+    ctx.ellipse(x, y, 4 + rng() * 4, 2 + rng() * 2, rng() * Math.PI, 0, Math.PI * 2);
+    ctx.fill();
+  }
+  ctx.restore();
+  drawFrontEdge();
+}
+
+function drawVeniceCourtFloor() {
+  const grad = ctx.createLinearGradient(0, 630, 0, H);
+  grad.addColorStop(0, '#4a4448');
+  grad.addColorStop(0.5, '#2a2428');
+  grad.addColorStop(1, '#121014');
+  ctx.fillStyle = grad;
+  ctx.fillRect(0, 630, W, H - 630);
+  const vpx = 800;
+  const vpy = 610;
+  ctx.save();
+  ctx.beginPath();
+  ctx.rect(0, 630, W, H - 630);
+  ctx.clip();
+  const rows = [640, 674, 716, 768, 832, 900];
+  for (let r = 0; r < rows.length - 1; r++) {
+    const y1 = rows[r];
+    const y2 = rows[r + 1];
+    const t1 = (y1 - 620) / 300;
+    const t2 = (y2 - 620) / 300;
+    for (let c = -12; c <= 24; c++) {
+      const xb1 = c * 84 - 30;
+      const xb2 = (c + 1) * 84 - 30;
+      const x1a = vpx + (xb1 - vpx) * t1;
+      const x1b = vpx + (xb2 - vpx) * t1;
+      const x2a = vpx + (xb1 - vpx) * t2;
+      const x2b = vpx + (xb2 - vpx) * t2;
+      ctx.fillStyle = (r + c) % 2 === 0 ? 'rgba(235,225,210,0.1)' : 'rgba(10,8,12,0.22)';
+      ctx.beginPath();
+      ctx.moveTo(x1a, y1);
+      ctx.lineTo(x1b, y1);
+      ctx.lineTo(x2b, y2);
+      ctx.lineTo(x2a, y2);
+      ctx.closePath();
+      ctx.fill();
+      ctx.strokeStyle = 'rgba(0,0,0,0.22)';
+      ctx.lineWidth = 1;
+      ctx.stroke();
+    }
+  }
+  // red carpet
+  const carpet = ctx.createLinearGradient(0, 630, 0, 900);
+  carpet.addColorStop(0, 'rgba(110,20,40,0.45)');
+  carpet.addColorStop(1, 'rgba(70,10,25,0.7)');
+  ctx.fillStyle = carpet;
+  ctx.beginPath();
+  ctx.moveTo(700, 630);
+  ctx.lineTo(900, 630);
+  ctx.lineTo(980, 900);
+  ctx.lineTo(620, 900);
+  ctx.closePath();
+  ctx.fill();
+  ctx.strokeStyle = 'rgba(214,174,106,0.2)';
+  ctx.lineWidth = 3;
+  ctx.stroke();
+  ctx.restore();
+  drawFrontEdge();
+}
+
 function drawFloor(now) {
   const current = stage.backdrop.current;
   if (current === 'ballroom') {
@@ -2893,6 +3679,14 @@ function drawFloor(now) {
   }
   if (current === 'dracula_castle') {
     drawCastleFloor();
+    return;
+  }
+  if (current === 'belmont') {
+    drawBelmontFloor();
+    return;
+  }
+  if (current === 'venice_court') {
+    drawVeniceCourtFloor();
     return;
   }
   const grad = ctx.createLinearGradient(0, 630, 0, H);
@@ -3184,6 +3978,29 @@ function drawBackdropFX(name, now) {
       ctx.ellipse(x, y, 230, 30, 0, 0, Math.PI * 2);
       ctx.fill();
     }
+  } else if (name === 'poetry_room') {
+    // dust in the afternoon light
+    for (let i = 0; i < 32; i++) {
+      const x = (i * 97 + t * 5) % W;
+      const y = 140 + ((i * 53 + t * 3) % 440);
+      ctx.fillStyle = `rgba(255,235,190,${0.04 + 0.07 * Math.sin(t + i)})`;
+      ctx.beginPath();
+      ctx.arc(x, y, 1.3, 0, Math.PI * 2);
+      ctx.fill();
+    }
+    // leaves beyond the windows
+    for (let i = 0; i < 8; i++) {
+      const x = (i % 2 ? 160 : 1220) + 30 + ((i * 37 + t * 12) % 160);
+      const y = 150 + ((i * 43 + t * 18) % 260);
+      ctx.save();
+      ctx.translate(x, y);
+      ctx.rotate(t + i);
+      ctx.fillStyle = ['rgba(190,90,50,0.5)', 'rgba(220,160,80,0.4)', 'rgba(140,70,40,0.45)'][i % 3];
+      ctx.beginPath();
+      ctx.ellipse(0, 0, 5, 2.5, 0, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.restore();
+    }
   } else {
     // grand hall dust
     for (let i = 0; i < 20; i++) {
@@ -3228,19 +4045,21 @@ function drawActor(a, now) {
   const coat = a.coat;
   const coat2 = a.coat2;
   const accent = a.accent;
+  const elevated = a.pose === 'elevate';
+  const baseY = elevated ? FLOOR_Y - Hh * 0.82 : FLOOR_Y;
 
   // shadow
   ctx.save();
   ctx.globalAlpha = a.alpha * 0.38;
   ctx.fillStyle = '#000';
   ctx.beginPath();
-  ctx.ellipse(a.x, FLOOR_Y + 3, Hh * 0.27, Hh * 0.038, 0, 0, Math.PI * 2);
+  ctx.ellipse(a.x, baseY + 3, Hh * 0.27, Hh * 0.038, 0, 0, Math.PI * 2);
   ctx.fill();
   ctx.restore();
 
   ctx.save();
   ctx.globalAlpha = a.alpha;
-  ctx.translate(a.x, FLOOR_Y + bob);
+  ctx.translate(a.x, baseY + bob);
   ctx.scale(a.facing, 1);
 
   // fairy wings
@@ -3865,6 +4684,123 @@ function drawActor(a, now) {
     ctx.moveTo(-shoulderW * 0.3, shoulderY + 18);
     ctx.quadraticCurveTo(0, shoulderY + 32, shoulderW * 0.3, shoulderY + 18);
     ctx.stroke();
+  } else if (a.costume === 'usurer') {
+    ctx.fillStyle = '#2a1c18';
+    ctx.beginPath();
+    ctx.moveTo(-shoulderW * 0.46, shoulderY);
+    ctx.lineTo(shoulderW * 0.46, shoulderY);
+    ctx.lineTo(shoulderW * 0.32, hipY);
+    ctx.lineTo(-shoulderW * 0.32, hipY);
+    ctx.closePath();
+    ctx.fill();
+    ctx.fillStyle = '#7a1b33';
+    ctx.beginPath();
+    ctx.moveTo(-shoulderW * 0.18, shoulderY + 10);
+    ctx.lineTo(shoulderW * 0.18, shoulderY + 10);
+    ctx.lineTo(shoulderW * 0.12, hipY);
+    ctx.lineTo(-shoulderW * 0.12, hipY);
+    ctx.closePath();
+    ctx.fill();
+    ctx.strokeStyle = 'rgba(214,174,106,0.45)';
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.moveTo(-shoulderW * 0.26, shoulderY + 20);
+    ctx.quadraticCurveTo(0, shoulderY + 36, shoulderW * 0.26, shoulderY + 20);
+    ctx.stroke();
+    // purse
+    ctx.fillStyle = '#8a6a3a';
+    ctx.beginPath();
+    ctx.ellipse(shoulderW * 0.38, hipY - 8, 12, 15, 0, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.strokeStyle = '#d6ae6a';
+    ctx.lineWidth = 1.5;
+    ctx.stroke();
+  } else if (a.costume === 'lawyer') {
+    ctx.fillStyle = '#101018';
+    ctx.beginPath();
+    ctx.moveTo(-shoulderW * 0.5, shoulderY);
+    ctx.lineTo(shoulderW * 0.5, shoulderY);
+    ctx.lineTo(shoulderW * 0.36, hipY + 2);
+    ctx.lineTo(-shoulderW * 0.36, hipY + 2);
+    ctx.closePath();
+    ctx.fill();
+    ctx.fillStyle = '#f6ead0';
+    ctx.beginPath();
+    ctx.moveTo(-shoulderW * 0.16, shoulderY + 2);
+    ctx.lineTo(0, shoulderY + Hh * 0.09);
+    ctx.lineTo(shoulderW * 0.16, shoulderY + 2);
+    ctx.lineTo(shoulderW * 0.1, shoulderY + Hh * 0.12);
+    ctx.lineTo(-shoulderW * 0.1, shoulderY + Hh * 0.12);
+    ctx.closePath();
+    ctx.fill();
+    // scroll
+    ctx.fillStyle = '#e8d6b4';
+    ctx.fillRect(shoulderW * 0.3, hipY - 30, 14, 34);
+    ctx.fillStyle = '#c9a15b';
+    ctx.fillRect(shoulderW * 0.28, hipY - 32, 18, 5);
+  } else if (a.costume === 'teacher') {
+    ctx.fillStyle = '#5a3e24';
+    ctx.beginPath();
+    ctx.moveTo(-shoulderW * 0.48, shoulderY);
+    ctx.lineTo(shoulderW * 0.48, shoulderY);
+    ctx.lineTo(shoulderW * 0.34, hipY);
+    ctx.lineTo(-shoulderW * 0.34, hipY);
+    ctx.closePath();
+    ctx.fill();
+    ctx.fillStyle = '#d6b88a';
+    ctx.beginPath();
+    ctx.moveTo(-shoulderW * 0.18, shoulderY + 10);
+    ctx.lineTo(shoulderW * 0.18, shoulderY + 10);
+    ctx.lineTo(shoulderW * 0.12, hipY);
+    ctx.lineTo(-shoulderW * 0.12, hipY);
+    ctx.closePath();
+    ctx.fill();
+    // tie
+    ctx.fillStyle = '#6b1227';
+    ctx.beginPath();
+    ctx.moveTo(0, shoulderY + 6);
+    ctx.lineTo(shoulderW * 0.05, shoulderY + Hh * 0.08);
+    ctx.lineTo(0, hipY - 8);
+    ctx.lineTo(-shoulderW * 0.05, shoulderY + Hh * 0.08);
+    ctx.closePath();
+    ctx.fill();
+    // elbow patches
+    ctx.fillStyle = 'rgba(120,80,40,0.7)';
+    ctx.beginPath();
+    ctx.ellipse(-shoulderW * 0.52, shoulderY + Hh * 0.16, 9, 12, 0.2, 0, Math.PI * 2);
+    ctx.ellipse(shoulderW * 0.52, shoulderY + Hh * 0.16, 9, 12, -0.2, 0, Math.PI * 2);
+    ctx.fill();
+  } else if (a.costume === 'schoolboy') {
+    ctx.fillStyle = '#24344f';
+    ctx.beginPath();
+    ctx.moveTo(-shoulderW * 0.46, shoulderY);
+    ctx.lineTo(shoulderW * 0.46, shoulderY);
+    ctx.lineTo(shoulderW * 0.32, hipY);
+    ctx.lineTo(-shoulderW * 0.32, hipY);
+    ctx.closePath();
+    ctx.fill();
+    ctx.fillStyle = '#6b4a2a';
+    ctx.beginPath();
+    ctx.moveTo(-shoulderW * 0.18, shoulderY + 10);
+    ctx.lineTo(shoulderW * 0.18, shoulderY + 10);
+    ctx.lineTo(shoulderW * 0.12, hipY);
+    ctx.lineTo(-shoulderW * 0.12, hipY);
+    ctx.closePath();
+    ctx.fill();
+    // tie
+    ctx.fillStyle = '#8a2a3a';
+    ctx.beginPath();
+    ctx.moveTo(0, shoulderY + 4);
+    ctx.lineTo(shoulderW * 0.04, shoulderY + Hh * 0.08);
+    ctx.lineTo(0, hipY - 6);
+    ctx.lineTo(-shoulderW * 0.04, shoulderY + Hh * 0.08);
+    ctx.closePath();
+    ctx.fill();
+    // crest
+    ctx.fillStyle = '#d6ae6a';
+    ctx.beginPath();
+    ctx.arc(-shoulderW * 0.28, shoulderY + 18, 4, 0, Math.PI * 2);
+    ctx.fill();
   } else {
     ctx.fillStyle = coat2;
     ctx.beginPath();
@@ -4072,6 +5008,36 @@ function drawActor(a, now) {
     ctx.fill();
   } else if (a.costume === 'dandy' || a.costume === 'victorian') {
     ctx.fillStyle = a.costume === 'victorian' ? '#4a3020' : '#2a1f1c';
+    ctx.beginPath();
+    ctx.ellipse(0, -headR * 0.2, headR * 1.12, headR * 1.05, 0, Math.PI, Math.PI * 2);
+    ctx.fill();
+  } else if (a.costume === 'usurer') {
+    ctx.fillStyle = '#5a5048';
+    ctx.beginPath();
+    ctx.ellipse(0, -headR * 0.15, headR * 1.1, headR * 1.05, 0, Math.PI, Math.PI * 2);
+    ctx.fill();
+    ctx.fillStyle = '#6a6058';
+    ctx.beginPath();
+    ctx.ellipse(0, headR * 0.55, headR * 0.7, headR * 0.5, 0, 0, Math.PI * 2);
+    ctx.fill();
+  } else if (a.costume === 'lawyer') {
+    ctx.fillStyle = '#4a3020';
+    ctx.beginPath();
+    ctx.ellipse(0, -headR * 0.15, headR * 1.14, headR * 1.1, 0, Math.PI, Math.PI * 2);
+    ctx.fill();
+    ctx.beginPath();
+    ctx.arc(0, -headR * 1.2, headR * 0.38, 0, Math.PI * 2);
+    ctx.fill();
+  } else if (a.costume === 'teacher') {
+    ctx.fillStyle = '#6a6258';
+    ctx.beginPath();
+    ctx.ellipse(0, -headR * 0.2, headR * 1.12, headR * 1.05, 0, Math.PI, Math.PI * 2);
+    ctx.fill();
+    ctx.beginPath();
+    ctx.ellipse(-headR * 0.95, headR * 0.35, headR * 0.24, headR * 0.5, 0.2, 0, Math.PI * 2);
+    ctx.fill();
+  } else if (a.costume === 'schoolboy') {
+    ctx.fillStyle = '#3a2a1c';
     ctx.beginPath();
     ctx.ellipse(0, -headR * 0.2, headR * 1.12, headR * 1.05, 0, Math.PI, Math.PI * 2);
     ctx.fill();
@@ -4503,6 +5469,80 @@ function drawActor(a, now) {
     ctx.moveTo(-headR * 0.16, mouthY);
     ctx.quadraticCurveTo(0, mouthY + headR * 0.1, headR * 0.16, mouthY);
     ctx.stroke();
+  } else if (a.costume === 'usurer') {
+    // cap
+    ctx.fillStyle = '#2a1c18';
+    ctx.beginPath();
+    ctx.ellipse(0, -headR * 0.95, headR * 0.62, headR * 0.22, 0, 0, Math.PI * 2);
+    ctx.fill();
+    // beard
+    ctx.fillStyle = '#6a6058';
+    ctx.beginPath();
+    ctx.moveTo(-headR * 0.6, headR * 0.25);
+    ctx.quadraticCurveTo(-headR * 0.5, headR * 1.1, 0, headR * 1.35);
+    ctx.quadraticCurveTo(headR * 0.5, headR * 1.1, headR * 0.6, headR * 0.25);
+    ctx.quadraticCurveTo(0, headR * 0.6, -headR * 0.6, headR * 0.25);
+    ctx.fill();
+    // brows
+    ctx.strokeStyle = '#4a4038';
+    ctx.lineWidth = 2.4;
+    ctx.beginPath();
+    ctx.moveTo(-eyeX - 5, eyeY - headR * 0.24);
+    ctx.lineTo(-eyeX + 5, eyeY - headR * 0.18);
+    ctx.moveTo(eyeX + 5, eyeY - headR * 0.24);
+    ctx.lineTo(eyeX - 5, eyeY - headR * 0.18);
+    ctx.stroke();
+  } else if (a.costume === 'lawyer') {
+    // white collar
+    ctx.strokeStyle = '#f6ead0';
+    ctx.lineWidth = 3;
+    ctx.beginPath();
+    ctx.moveTo(-headR * 0.7, headR * 0.9);
+    ctx.quadraticCurveTo(0, headR * 1.25, headR * 0.7, headR * 0.9);
+    ctx.stroke();
+    // small legal cap
+    ctx.fillStyle = '#1a1a22';
+    ctx.beginPath();
+    ctx.ellipse(0, -headR * 1.0, headR * 0.55, headR * 0.18, 0, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.fillRect(-headR * 0.4, -headR * 1.12, headR * 0.8, headR * 0.18);
+  } else if (a.costume === 'teacher') {
+    // glasses
+    ctx.strokeStyle = '#3a2a1c';
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.arc(-eyeX, eyeY, headR * 0.22, 0, Math.PI * 2);
+    ctx.arc(eyeX, eyeY, headR * 0.22, 0, Math.PI * 2);
+    ctx.moveTo(-eyeX + headR * 0.22, eyeY);
+    ctx.lineTo(eyeX - headR * 0.22, eyeY);
+    ctx.stroke();
+    ctx.fillStyle = 'rgba(220,235,240,0.15)';
+    ctx.beginPath();
+    ctx.arc(-eyeX, eyeY, headR * 0.18, 0, Math.PI * 2);
+    ctx.arc(eyeX, eyeY, headR * 0.18, 0, Math.PI * 2);
+    ctx.fill();
+    // moustache
+    ctx.strokeStyle = '#6a6258';
+    ctx.lineWidth = 3;
+    ctx.beginPath();
+    ctx.moveTo(-headR * 0.28, mouthY - 2);
+    ctx.quadraticCurveTo(0, mouthY + headR * 0.12, headR * 0.28, mouthY - 2);
+    ctx.stroke();
+  } else if (a.costume === 'schoolboy') {
+    // short fringe
+    ctx.fillStyle = '#3a2a1c';
+    ctx.beginPath();
+    ctx.moveTo(-headR * 0.9, -headR * 0.55);
+    ctx.quadraticCurveTo(-headR * 0.2, -headR * 1.1, headR * 0.5, -headR * 0.7);
+    ctx.quadraticCurveTo(headR * 0.2, -headR * 0.45, -headR * 0.9, -headR * 0.55);
+    ctx.fill();
+    // freckles
+    ctx.fillStyle = 'rgba(120,70,50,0.4)';
+    for (let i = 0; i < 4; i++) {
+      ctx.beginPath();
+      ctx.arc((i % 2 ? 1 : -1) * headR * 0.4, headR * 0.18 + (i % 2) * 3, 1.2, 0, Math.PI * 2);
+      ctx.fill();
+    }
   } else if (a.costume === 'gown') {
     ctx.fillStyle = '#d6ae6a';
     ctx.beginPath();
@@ -4717,7 +5757,8 @@ function drawBubble(now) {
   const lineH = 28 * bs;
   const nameH = 26 * bs;
   const bubbleH = (30 + 18) * bs + nameH + lines.length * lineH;
-  const headTop = FLOOR_Y - 170 * actor.height;
+  const lift = actor.pose === 'elevate' ? 190 * actor.height * 0.82 : 0;
+  const headTop = FLOOR_Y - lift - 170 * actor.height;
   const bx = clamp(actor.x - bubbleW / 2, OPENING.x + 180, OPENING.x + OPENING.w - bubbleW - 24);
   let by = headTop - bubbleH - 26 * bs;
   by = clamp(by, OPENING.y + 24, OPENING.y + OPENING.h - bubbleH - 40);
@@ -5032,6 +6073,40 @@ function spawnFx(kind) {
         vr: rand(-1.2, 1.2),
       });
     }
+  } else if (kind === 'coins') {
+    for (let i = 0; i < 34; i++) {
+      stage.fxParticles.push({
+        kind: 'coin',
+        x: rand(OPENING.x + 80, OPENING.x + OPENING.w - 80),
+        y: rand(200, 380),
+        vx: rand(-40, 40),
+        vy: rand(30, 90),
+        g: 340,
+        life: rand(2.2, 3.6),
+        maxLife: 3.6,
+        size: rand(4, 8),
+        color: '#e6b94f',
+        rot: rand(0, Math.PI * 2),
+        vr: rand(-5, 5),
+      });
+    }
+  } else if (kind === 'leaves') {
+    for (let i = 0; i < 36; i++) {
+      stage.fxParticles.push({
+        kind: 'leaf',
+        x: rand(OPENING.x, OPENING.x + OPENING.w),
+        y: rand(OPENING.y, 300),
+        vx: rand(-26, 26),
+        vy: rand(24, 58),
+        g: 4,
+        life: rand(4, 7),
+        maxLife: 7,
+        size: rand(4, 9),
+        color: pick(['#c9783a', '#e0a14a', '#9a4a2a', '#d8b05a']),
+        rot: rand(0, Math.PI * 2),
+        vr: rand(-2.5, 2.5),
+      });
+    }
   }
   // avoid unused warning
   void t;
@@ -5251,6 +6326,33 @@ function drawFxParticles() {
       ctx.quadraticCurveTo(s * 1.2, 0, s * 2.2, -s * 0.1);
       ctx.quadraticCurveTo(s, -s * 0.9, 0, 0);
       ctx.fill();
+    } else if (p.kind === 'coin') {
+      ctx.translate(p.x, p.y);
+      ctx.rotate(p.rot);
+      ctx.fillStyle = p.color;
+      ctx.beginPath();
+      ctx.ellipse(0, 0, p.size, p.size * 0.72, 0, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.strokeStyle = 'rgba(120,80,20,0.7)';
+      ctx.lineWidth = 1.2;
+      ctx.stroke();
+      ctx.fillStyle = 'rgba(255,245,200,0.6)';
+      ctx.beginPath();
+      ctx.ellipse(-p.size * 0.25, -p.size * 0.2, p.size * 0.3, p.size * 0.18, 0, 0, Math.PI * 2);
+      ctx.fill();
+    } else if (p.kind === 'leaf') {
+      ctx.translate(p.x, p.y);
+      ctx.rotate(p.rot);
+      ctx.fillStyle = p.color;
+      ctx.beginPath();
+      ctx.ellipse(0, 0, p.size, p.size * 0.48, 0, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.strokeStyle = 'rgba(80,40,20,0.45)';
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.moveTo(-p.size, 0);
+      ctx.lineTo(p.size, 0);
+      ctx.stroke();
     }
     ctx.restore();
   });
@@ -5821,10 +6923,10 @@ const ACTION_TYPES = new Set([
 const SOUND_CUES = new Set([
   'thunder_clap', 'thunder', 'rain', 'wind', 'magic_chime', 'door_creak', 'heartbeat',
   'clock_tick', 'bell', 'sword_clash', 'crowd_gasp', 'applause', 'laugh', 'rose',
-  'waltz', 'wolf_howl', 'organ',
+  'waltz', 'wolf_howl', 'organ', 'gavel', 'coins',
 ]);
 
-const EFFECTS = new Set(['sparks', 'lightning', 'fog', 'petals', 'confetti', 'embers', 'snow', 'cards', 'fireflies', 'bats']);
+const EFFECTS = new Set(['sparks', 'lightning', 'fog', 'petals', 'confetti', 'embers', 'snow', 'cards', 'fireflies', 'bats', 'coins', 'leaves']);
 
 const CAST_PALETTE = ['#7fd6c4', '#a9d98d', '#e7a9b8', '#b98cff', '#ffb36b', '#8fc7ff', '#ff8fa3', '#c9a86a'];
 
@@ -5848,6 +6950,10 @@ const COSTUME_STYLES = {
   vampire: { coat: '#1a1018', coat2: '#0f080e', pants: '#1a1018', boots: '#0a0508' },
   bride: { coat: '#d8d0e0', coat2: '#b8b0c8', pants: '#e8e0f0', boots: '#5a4a5a' },
   victorian: { coat: '#4a3a2a', coat2: '#32261a', pants: '#2a2018', boots: '#14100c' },
+  usurer: { coat: '#3a2a24', coat2: '#241814', pants: '#2a1c16', boots: '#14100c' },
+  lawyer: { coat: '#1a1a22', coat2: '#0f0f14', pants: '#1a1a22', boots: '#0a0a0e' },
+  teacher: { coat: '#6a4a2a', coat2: '#4a321c', pants: '#3a2a1a', boots: '#241a10' },
+  schoolboy: { coat: '#2a3a5a', coat2: '#1f2a44', pants: '#2a2a30', boots: '#141018' },
   default: { coat: '#3b2a3a', coat2: '#2a1d2a', pants: '#2a2220', boots: '#171210' },
 };
 
@@ -5902,6 +7008,10 @@ function buildActor(def, index) {
     vampire: 0.5,
     bride: 1.14,
     victorian: 0.94,
+    usurer: 0.72,
+    lawyer: 1.08,
+    teacher: 0.9,
+    schoolboy: 1.12,
     default: 1,
   };
   const rateMap = {
@@ -5924,6 +7034,10 @@ function buildActor(def, index) {
     vampire: 0.76,
     bride: 0.86,
     victorian: 0.95,
+    usurer: 0.88,
+    lawyer: 0.98,
+    teacher: 0.92,
+    schoolboy: 1.06,
     default: 1,
   };
   return {
@@ -6130,9 +7244,19 @@ function applyActionStart(action, duration) {
     if (!actor) return;
     actor.visible = true;
     actor.walking = false;
-    actor.gesture = String(action.gesture || 'raise').toLowerCase();
-    actor.pose = actor.gesture === 'kneel' ? 'kneel' : 'gesture';
-    actor.poseT = duration;
+    const gesture = String(action.gesture || 'raise').toLowerCase();
+    actor.gesture = gesture;
+    if (gesture === 'elevate') {
+      actor.pose = 'elevate';
+      actor.poseT = 9999;
+    } else if (gesture === 'idle' || gesture === 'down') {
+      actor.pose = 'idle';
+      actor.gesture = 'idle';
+      actor.poseT = 0;
+    } else {
+      actor.pose = gesture === 'kneel' ? 'kneel' : 'gesture';
+      actor.poseT = duration;
+    }
     return;
   }
   if (type === 'BOW') {
@@ -6194,7 +7318,7 @@ function actionDuration(action) {
   if (type === 'BACKDROP') return 1.5;
   if (type === 'SOUND') return 0.85;
   if (type === 'EFFECT') return 1.6;
-  if (type === 'GESTURE') return 1.5;
+  if (type === 'GESTURE') return clamp(Number(action.duration) || 1.5, 0.5, 20);
   if (type === 'BOW') return 2.1;
   if (type === 'CAPTION') return 2.7;
   if (type === 'CURTAIN') return 2.0;
@@ -6479,8 +7603,18 @@ function applyImmediate(action) {
     actor.walking = false;
     if (type === 'DIALOGUE' || type === 'FACE') faceCenter(actor);
     if (type === 'GESTURE') {
-      actor.gesture = String(action.gesture || 'raise').toLowerCase();
-      actor.pose = actor.gesture === 'kneel' ? 'kneel' : 'gesture';
+      const gesture = String(action.gesture || 'raise').toLowerCase();
+      actor.gesture = gesture;
+      if (gesture === 'elevate') {
+        actor.pose = 'elevate';
+        actor.poseT = 9999;
+      } else if (gesture === 'idle' || gesture === 'down') {
+        actor.pose = 'idle';
+        actor.gesture = 'idle';
+        actor.poseT = 0;
+      } else {
+        actor.pose = gesture === 'kneel' ? 'kneel' : 'gesture';
+      }
     }
     if (type === 'BOW') {
       if (!actor.visible || actor.x < OPENING.x + 30 || actor.x > OPENING.x + OPENING.w - 30) {
@@ -7023,10 +8157,10 @@ Return ONLY a JSON object with this exact shape:
   "act": "Act IV",
   "setting": "short location",
   "subtitle": "one sentence",
-  "backdrop": "gothic_lab" | "tea_garden" | "ramparts" | "fairy_wood" | "ballroom" | "dracula_castle" | "grand_hall",
+  "backdrop": "gothic_lab" | "tea_garden" | "ramparts" | "fairy_wood" | "ballroom" | "dracula_castle" | "belmont" | "venice_court" | "poetry_room" | "grand_hall",
   "ambient": "gothic" | "wonderland" | "tragedy" | "enchanted" | "ballroom" | "horror" | "none",
   "cast": [
-    { "id": "unique-id", "name": "Full Name", "short": "Short", "costume": "scientist|creature|alice|hatter|hare|queen|prince|ghost|royal|gown|fairy_queen|fairy_king|puck|donkey|regency|dandy|vampire|bride|victorian|default", "color": "#7fd6c4", "position": "left|center-left|center|center-right|right|far-left|far-right", "height": 1.0 }
+    { "id": "unique-id", "name": "Full Name", "short": "Short", "costume": "scientist|creature|alice|hatter|hare|queen|prince|ghost|royal|gown|fairy_queen|fairy_king|puck|donkey|regency|dandy|vampire|bride|victorian|usurer|lawyer|teacher|schoolboy|default", "color": "#7fd6c4", "position": "left|center-left|center|center-right|right|far-left|far-right", "height": 1.0 }
   ],
   "actions": [
     { "type": "ENTER", "actor": "Short", "position": "left" },
@@ -7041,10 +8175,10 @@ Allowed action types and fields:
 - FACE {actor, target}
 - DIALOGUE {actor, text}
 - LIGHTING {color: "#rrggbb", intensity: 0..1}
-- SOUND {cue: thunder_clap|rain|wind|magic_chime|door_creak|heartbeat|clock_tick|bell|sword_clash|crowd_gasp|applause|laugh|rose|waltz|wolf_howl|organ}
+- SOUND {cue: thunder_clap|rain|wind|magic_chime|door_creak|heartbeat|clock_tick|bell|sword_clash|crowd_gasp|applause|laugh|rose|waltz|wolf_howl|organ|gavel|coins}
 - BACKDROP {backdrop}
-- EFFECT {effect: sparks|lightning|fog|petals|confetti|embers|snow|cards|fireflies|bats}
-- GESTURE {actor, gesture: raise|point|beckon|recoil|clasp|kneel|talk}
+- EFFECT {effect: sparks|lightning|fog|petals|confetti|embers|snow|cards|fireflies|bats|coins|leaves}
+- GESTURE {actor, gesture: raise|point|beckon|recoil|clasp|kneel|talk|elevate|idle}
 - BOW {actor}
 - CAPTION {text}
 - WAIT {duration}

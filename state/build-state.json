@@ -4,11 +4,11 @@
   "liveDemo": "https://somphol.github.io/virtual-playhouse/",
   "build": {
     "startedAt": "2026-11-02T00:05:57.679000Z",
-    "completedAt": "2026-11-02T02:15:35.563304Z",
-    "wallClockSeconds": 7777,
-    "wallClockHuman": "2h 9m 37s",
-    "revision": 3,
-    "revisionNote": "Added Acts IV\u2013VI (A Midsummer Night's Dream, Pride and Prejudice, Dracula) with new backdrops, costumes, effects and sound cues.",
+    "completedAt": "2026-11-02T02:53:55.849854Z",
+    "wallClockSeconds": 10078,
+    "wallClockHuman": "2h 47m 58s",
+    "revision": 4,
+    "revisionNote": "Added Acts VII\u2013IX: The Merchant of Venice (Belmont and the Venice court) and The Lantern Society, with new sets, costumes, effects and court cues.",
     "sessionID": "ses_e666c46d8ffezSoPNKbrg0Cbta",
     "sessionTitle": "Virtual Playhouse theatre simulator",
     "harness": "OpenCode",
@@ -21,40 +21,40 @@
     "credits": "Built with OpenCode and DeepSeek V4.1 Flash."
   },
   "tokens": {
-    "input": 366318,
-    "output": 218799,
-    "reasoning": 161791,
-    "cacheRead": 101449856,
+    "input": 1518688,
+    "output": 266787,
+    "reasoning": 189741,
+    "cacheRead": 150094336,
     "cacheWrite": 1147,
-    "nonCachedTotal": 746908,
-    "total": 102197911
+    "nonCachedTotal": 1975216,
+    "total": 152070699
   },
   "costUSD": 0.0,
   "artifacts": {
     "files": [
       {
         "path": "index.html",
-        "bytes": 24032,
-        "lines": 439
+        "bytes": 24385,
+        "lines": 442
       },
       {
         "path": "style.css",
-        "bytes": 49431,
-        "lines": 1853
+        "bytes": 50725,
+        "lines": 1898
       },
       {
         "path": "script.js",
-        "bytes": 266623,
-        "lines": 7703
+        "bytes": 308677,
+        "lines": 8837
       },
       {
         "path": "README.md",
-        "bytes": 12655,
-        "lines": 261
+        "bytes": 13410,
+        "lines": 264
       },
       {
         "path": "assets/preview.png",
-        "bytes": 1367578
+        "bytes": 1348738
       },
       {
         "path": "LICENSE",
@@ -62,7 +62,7 @@
         "lines": 21
       }
     ],
-    "sourceLines": 10277
+    "sourceLines": 11462
   },
-  "notes": "Token counts are read from the OpenCode session database at completion time. This revision adds Acts IV\u2013VI and their new sets, costumes, effects and sound cues. The final assistant reply is sent after this snapshot, so the live session may be a few tokens higher. Cache-read tokens are included in total because they represent context processed by the model."
+  "notes": "Token counts are read from the OpenCode session database at completion time. This revision adds Acts VII\u2013IX, including the Merchant of Venice scenes and The Lantern Society homage. The final assistant reply is sent after this snapshot, so the live session may be a few tokens higher. Cache-read tokens are included in total because they represent context processed by the model."
 }

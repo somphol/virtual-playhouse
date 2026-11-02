@@ -68,8 +68,8 @@ state = {
         "completedAt": completed.isoformat().replace("+00:00", "Z"),
         "wallClockSeconds": seconds,
         "wallClockHuman": human,
-        "revision": 3,
-        "revisionNote": "Added Acts IV–VI (A Midsummer Night's Dream, Pride and Prejudice, Dracula) with new backdrops, costumes, effects and sound cues.",
+        "revision": 4,
+        "revisionNote": "Added Acts VII–IX: The Merchant of Venice (Belmont and the Venice court) and The Lantern Society, with new sets, costumes, effects and court cues.",
         "sessionID": row["id"],
         "sessionTitle": row["title"],
         "harness": "OpenCode",
@@ -97,7 +97,7 @@ state = {
     },
     "notes": (
         "Token counts are read from the OpenCode session database at completion time. "
-        "This revision adds Acts IV–VI and their new sets, costumes, effects and sound cues. "
+        "This revision adds Acts VII–IX, including the Merchant of Venice scenes and The Lantern Society homage. "
         "The final assistant reply is sent after this snapshot, so the live session may be a few tokens higher. "
         "Cache-read tokens are included in total because they represent context processed by the model."
     ),
