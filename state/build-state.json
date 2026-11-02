@@ -4,10 +4,10 @@
   "liveDemo": "https://somphol.github.io/virtual-playhouse/",
   "build": {
     "startedAt": "2026-11-02T00:05:57.679000Z",
-    "completedAt": "2026-11-02T00:51:56.838038Z",
-    "wallClockSeconds": 2759,
-    "wallClockHuman": "45m 59s",
-    "agentBusySeconds": 2753.1,
+    "completedAt": "2026-11-02T00:52:09.687085Z",
+    "wallClockSeconds": 2772,
+    "wallClockHuman": "46m 12s",
+    "agentBusySeconds": 2771.2,
     "sessionID": "ses_e666c46d8ffezSoPNKbrg0Cbta",
     "sessionTitle": "Virtual Playhouse theatre simulator",
     "harness": "OpenCode",
@@ -20,13 +20,13 @@
     "credits": "Built with OpenCode and DeepSeek V4.1 Flash."
   },
   "tokens": {
-    "input": 260984,
-    "output": 112297,
-    "reasoning": 63081,
-    "cacheRead": 14079744,
+    "input": 261261,
+    "output": 112721,
+    "reasoning": 63906,
+    "cacheRead": 14515584,
     "cacheWrite": 1147,
-    "nonCachedTotal": 436362,
-    "total": 14517253
+    "nonCachedTotal": 437888,
+    "total": 14954619
   },
   "costUSD": 0.0,
   "artifacts": {
@@ -48,7 +48,7 @@
       },
       {
         "path": "README.md",
-        "bytes": 10452,
+        "bytes": 10450,
         "lines": 245
       },
       {

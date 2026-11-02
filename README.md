@@ -232,10 +232,10 @@ The exact wall-clock build time, token consumption and session metadata are reco
 
 | Build receipt | |
 | --- | --- |
-| Wall clock | ≈ 43 minutes |
+| Wall clock | ≈ 46 minutes |
 | Model | DeepSeek V4.1 Flash |
 | Harness | OpenCode |
-| Tokens processed | ≈ 10.3 million (≈ 410k non-cached) |
+| Tokens processed | ≈ 15 million (≈ 450k non-cached) |
 | Deployment | GitHub Pages, live at [somphol.github.io/virtual-playhouse](https://somphol.github.io/virtual-playhouse/) |
 
 ---
