@@ -1,0 +1,14 @@
+# OS
+.DS_Store
+
+# Local previews / test captures
+.preview*.png
+*.log
+
+# Tooling
+node_modules/
+.vscode/
+.idea/
+
+# Temporary files
+*.tmp

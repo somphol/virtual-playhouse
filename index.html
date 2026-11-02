@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#120a10" />
+  <meta name="description" content="The Virtual Playhouse — an AI-ready classic theatre and audience simulator. Watch Frankenstein, Wonderland and Hamlet come alive on a 2.5D proscenium stage, react with the crowd, and load your own DeepSeek-generated plays." />
+  <meta property="og:title" content="The Virtual Playhouse — AI Classic Theatre &amp; Audience Simulator" />
+  <meta property="og:description" content="An animated 2.5D proscenium stage with procedural actors, synthesized sound, audience reactions and a JSON script engine ready for DeepSeek." />
+  <meta property="og:type" content="website" />
+  <title>The Virtual Playhouse — AI Classic Theatre &amp; Audience Simulator</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="page-grain" aria-hidden="true"></div>
+  <div class="aurora" aria-hidden="true"></div>
+
+  <header class="topbar">
+    <a class="brand" href="#" aria-label="The Virtual Playhouse home">
+      <span class="brand-mark" aria-hidden="true">🎭</span>
+      <span class="brand-text">
+        <span class="brand-eyebrow">The</span>
+        <strong class="brand-title">Virtual Playhouse</strong>
+        <span class="brand-tagline">AI Classic Theatre &amp; Audience Simulator</span>
+      </span>
+    </a>
+
+    <nav class="top-actions" aria-label="Playhouse menu">
+      <button class="btn btn-ghost" id="playbillBtn" title="Open the playbill (P)">
+        <span aria-hidden="true">📜</span><span class="btn-label">Playbill</span>
+      </button>
+      <button class="btn btn-ghost" id="scriptBtn" title="Open the script lab (S)">
+        <span aria-hidden="true">🧪</span><span class="btn-label">Script Lab</span>
+      </button>
+      <button class="btn btn-icon" id="muteBtn" title="Mute / unmute (M)" aria-pressed="false" aria-label="Mute audio">
+        <span id="muteIcon" aria-hidden="true">🔊</span>
+      </button>
+      <button class="btn btn-icon" id="helpBtn" title="Help &amp; shortcuts (H)" aria-label="Help">
+        <span aria-hidden="true">?</span>
+      </button>
+    </nav>
+  </header>
+
+  <main class="page">
+    <section class="stage-shell" id="stageShell" aria-label="Theatre stage">
+      <div class="stage-frame" id="stageFrame">
+        <canvas id="stage" width="1600" height="900" role="img" aria-label="Animated proscenium stage. Use the reaction bar below to respond to the performance."></canvas>
+
+        <div class="stage-topline">
+          <span class="pill pill-act" id="actBadge">Act I</span>
+          <span class="pill pill-scene" id="sceneBadge">Gothic Laboratory</span>
+          <span class="pill pill-live"><span class="live-dot" aria-hidden="true"></span>LIVE</span>
+        </div>
+
+        <div class="seat-switch" role="group" aria-label="Seat perspective">
+          <button class="seat-btn is-active" data-seat="front" aria-pressed="true" title="Front row">Front Row</button>
+          <button class="seat-btn" data-seat="balcony" aria-pressed="false" title="Balcony">Balcony</button>
+          <button class="seat-btn" data-seat="box" aria-pressed="false" title="Box seat">Box Seat</button>
+        </div>
+
+        <div class="house-meter" aria-label="House energy">
+          <div class="house-meter-head">
+            <span>House Energy</span>
+            <strong id="energyValue">32%</strong>
+          </div>
+          <div class="house-meter-track"><div class="house-meter-fill" id="energyFill"></div></div>
+        </div>
+
+        <div class="caption-bar" id="captionBar">
+          <span class="caption-ornament" aria-hidden="true">❦</span>
+          <span id="captionText" aria-live="polite">The house lights dim. The curtain is about to rise…</span>
+        </div>
+
+        <div class="end-card" id="endCard" hidden>
+          <div class="end-card-inner">
+            <p class="end-kicker">The curtain falls</p>
+            <h2 id="endTitle">Act I — Frankenstein's Awakening</h2>
+            <p id="endSubtitle">A thunderous night in Ingolstadt.</p>
+            <div class="end-actions">
+              <button class="btn btn-gold" id="endNextBtn">Next Act <span aria-hidden="true">▸</span></button>
+              <button class="btn btn-ghost" id="endReplayBtn">Replay <span aria-hidden="true">↻</span></button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="deck">
+        <div class="deck-row deck-main">
+          <div class="transport" role="group" aria-label="Playback controls">
+            <button class="round-btn" id="prevActBtn" title="Previous act (←)" aria-label="Previous act">⏮</button>
+            <button class="round-btn" id="restartBtn" title="Restart act (R)" aria-label="Restart act">↻</button>
+            <button class="round-btn round-play" id="playBtn" title="Play / pause (Space)" aria-label="Pause">❚❚</button>
+            <button class="round-btn" id="nextActBtn" title="Next act (→)" aria-label="Next act">⏭</button>
+            <label class="speed-control" title="Playback speed">
+              <span class="sr-only">Playback speed</span>
+              <select id="speedSelect">
+                <option value="0.75">0.75×</option>
+                <option value="1" selected>1×</option>
+                <option value="1.25">1.25×</option>
+                <option value="1.5">1.5×</option>
+              </select>
+            </label>
+          </div>
+
+          <div class="timeline" aria-label="Act progress">
+            <div class="timeline-track" id="timelineTrack" role="slider" aria-label="Seek within act" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" tabindex="0">
+              <div class="timeline-fill" id="timelineFill"></div>
+              <div class="timeline-knob" id="timelineKnob"></div>
+            </div>
+            <div class="timeline-meta">
+              <span id="lineNow">Overture</span>
+              <span id="lineCount">0 / 0</span>
+            </div>
+          </div>
+
+          <div class="deck-tools">
+            <button class="btn btn-ghost btn-small" id="saveBtn" title="Export the current script as theatre_play.json">💾 Save Play</button>
+            <button class="btn btn-ghost btn-small" id="loadBtn" title="Import a play script JSON">📂 Load Play</button>
+            <button class="btn btn-ghost btn-small" id="fullscreenBtn" title="Fullscreen (F)">⛶</button>
+          </div>
+        </div>
+
+        <div class="deck-row deck-reactions">
+          <div class="reaction-intro">
+            <span class="reaction-eyebrow">Audience</span>
+            <span class="reaction-hint">Make some noise — the actors can feel it.</span>
+          </div>
+          <div class="reaction-bar" role="group" aria-label="Audience reactions">
+            <button class="reaction-btn" data-reaction="applaud" title="Applaud (1)">
+              <span class="reaction-emoji" aria-hidden="true">👏</span>
+              <span class="reaction-name">Applaud</span>
+              <kbd>1</kbd>
+            </button>
+            <button class="reaction-btn" data-reaction="laugh" title="Laugh (2)">
+              <span class="reaction-emoji" aria-hidden="true">😂</span>
+              <span class="reaction-name">Laugh</span>
+              <kbd>2</kbd>
+            </button>
+            <button class="reaction-btn" data-reaction="gasp" title="Gasp (3)">
+              <span class="reaction-emoji" aria-hidden="true">😱</span>
+              <span class="reaction-name">Gasp</span>
+              <kbd>3</kbd>
+            </button>
+            <button class="reaction-btn reaction-rose" data-reaction="rose" title="Throw a rose (4)">
+              <span class="reaction-emoji" aria-hidden="true">🌹</span>
+              <span class="reaction-name">Throw Rose</span>
+              <kbd>4</kbd>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="program-strip" aria-label="Now showing">
+      <div class="program-now">
+        <span class="program-kicker">Now Showing</span>
+        <h1 class="program-title" id="programTitle">Frankenstein's Awakening</h1>
+        <p class="program-sub" id="programSubtitle">A gothic laboratory. A storm. A spark of forbidden life.</p>
+      </div>
+      <div class="program-cast" id="programCast" aria-label="Cast"></div>
+      <div class="program-badges">
+        <span class="badge badge-gold">3 Acts</span>
+        <span class="badge">Procedural cast</span>
+        <span class="badge badge-ai">DeepSeek-ready</span>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>
+      Built with <span class="footer-mark">OpenCode</span> &amp; <span class="footer-mark">DeepSeek V4.1 Flash</span>.
+      Every curtain, cue and crowd reaction is generated in vanilla HTML, CSS &amp; JavaScript.
+    </p>
+    <p class="footer-small">No assets, no frameworks, no audience members were harmed. <a href="state/build-state.json">Build state</a></p>
+  </footer>
+
+  <!-- ══════════════════ PLAYBILL ══════════════════ -->
+  <dialog class="modal modal-paper" id="playbillModal" aria-labelledby="playbillTitle">
+    <div class="playbill-head">
+      <div>
+        <p class="modal-kicker">Tonight at the Virtual Playhouse</p>
+        <h2 id="playbillTitle">The Playbill</h2>
+        <p class="playbill-sub">Three classic acts, one impossible stage. Choose where the curtain rises.</p>
+      </div>
+      <button class="modal-close" data-close="playbillModal" aria-label="Close playbill">✕</button>
+    </div>
+    <div class="playbill-grid" id="playbillGrid"></div>
+    <div class="playbill-foot">
+      <p><strong>Programme note:</strong> each act is a JSON script. Bring your own play from the Script Lab, or ask DeepSeek to write one.</p>
+      <button class="btn btn-ghost" id="playbillCustomBtn">Open Script Lab</button>
+    </div>
+  </dialog>
+
+  <!-- ══════════════════ SCRIPT LAB ══════════════════ -->
+  <dialog class="modal modal-dark modal-wide" id="scriptModal" aria-labelledby="scriptTitle">
+    <div class="modal-head">
+      <div>
+        <p class="modal-kicker">The Prompt Booth</p>
+        <h2 id="scriptTitle">Script Lab</h2>
+      </div>
+      <button class="modal-close" data-close="scriptModal" aria-label="Close script lab">✕</button>
+    </div>
+
+    <div class="tabs" role="tablist" aria-label="Script lab sections">
+      <button class="tab is-active" id="tabEditor" role="tab" aria-selected="true" aria-controls="panelEditor">JSON Editor</button>
+      <button class="tab" id="tabAi" role="tab" aria-selected="false" aria-controls="panelAi">AI Playwright</button>
+      <button class="tab" id="tabSchema" role="tab" aria-selected="false" aria-controls="panelSchema">Script Schema</button>
+    </div>
+
+    <section class="tab-panel is-active" id="panelEditor" role="tabpanel" aria-labelledby="tabEditor">
+      <div class="editor-toolbar">
+        <span class="editor-label">theatre_play.json</span>
+        <div class="editor-actions">
+          <button class="btn btn-ghost btn-small" id="formatBtn">Beautify</button>
+          <button class="btn btn-ghost btn-small" id="validateBtn">Validate</button>
+          <button class="btn btn-ghost btn-small" id="editorSaveBtn">💾 Save</button>
+          <button class="btn btn-ghost btn-small" id="editorLoadBtn">📂 Load</button>
+        </div>
+      </div>
+      <textarea id="scriptEditor" spellcheck="false" aria-label="Play script JSON"></textarea>
+      <div class="editor-status" id="editorStatus">Edit the script, then take it to the stage.</div>
+      <div class="editor-footer">
+        <button class="btn btn-gold" id="stageItBtn">Raise the Curtain <span aria-hidden="true">▸</span></button>
+      </div>
+    </section>
+
+    <section class="tab-panel" id="panelAi" role="tabpanel" aria-labelledby="tabAi" hidden>
+      <div class="ai-layout">
+        <div class="ai-form">
+          <div class="field-row">
+            <label class="field">
+              <span>DeepSeek API key</span>
+              <input type="password" id="apiKeyInput" placeholder="sk-…" autocomplete="off" />
+            </label>
+            <label class="field">
+              <span>Model</span>
+              <input type="text" id="modelInput" list="modelSuggestions" value="deepseek-v4.1-flash" />
+              <datalist id="modelSuggestions">
+                <option value="deepseek-v4.1-flash"></option>
+                <option value="deepseek-chat"></option>
+                <option value="deepseek-reasoner"></option>
+              </datalist>
+            </label>
+          </div>
+          <label class="checkline">
+            <input type="checkbox" id="rememberKey" />
+            <span>Remember this key in this browser (localStorage)</span>
+          </label>
+
+          <label class="field">
+            <span>What should the company perform?</span>
+            <textarea id="aiPrompt" rows="5">A three-minute gothic stage scene set in a rain-lashed laboratory. Victor Frankenstein finally succeeds — and immediately regrets it. Give the Creature a tender, unsettling monologue. End on a thunderclap and a knock at the door.</textarea>
+          </label>
+
+          <div class="field-row">
+            <label class="field">
+              <span>Backdrop</span>
+              <select id="aiBackdrop">
+                <option value="gothic_lab">Gothic Lab</option>
+                <option value="tea_garden">Tea Party Garden</option>
+                <option value="ramparts">Castle Ramparts</option>
+              </select>
+            </label>
+            <label class="field">
+              <span>Temperature</span>
+              <input type="range" id="aiTemperature" min="0.2" max="1.2" step="0.1" value="0.8" />
+            </label>
+          </div>
+
+          <div class="ai-actions">
+            <button class="btn btn-gold" id="generateBtn">✨ Generate Play</button>
+            <button class="btn btn-ghost" id="copyPromptBtn" title="Copy a ready-made prompt for any AI">Copy Prompt</button>
+          </div>
+          <p class="fineprint">The key is sent only to <code>api.deepseek.com</code> from your browser. Nothing passes through a server. If the API blocks browser requests, use the JSON editor instead.</p>
+        </div>
+
+        <aside class="ai-aside">
+          <h3>How the AI writes for the stage</h3>
+          <ol>
+            <li>It returns a single JSON object with a cast and an ordered list of actions.</li>
+            <li>Every action is one of <code>ENTER</code>, <code>EXIT</code>, <code>MOVE</code>, <code>DIALOGUE</code>, <code>LIGHTING</code>, <code>SOUND</code>, <code>BACKDROP</code>, <code>EFFECT</code>, <code>GESTURE</code>, <code>BOW</code>, <code>CAPTION</code>, <code>WAIT</code> or <code>CURTAIN</code>.</li>
+            <li>The stage engine handles blocking, typewriter bubbles, lights and Web Audio cues.</li>
+          </ol>
+          <div class="ai-status" id="aiStatus" role="status">Ready when you are.</div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="tab-panel" id="panelSchema" role="tabpanel" aria-labelledby="tabSchema" hidden>
+      <div class="schema-layout">
+        <pre class="schema-code"><code>{
+  "title": "Frankenstein's Awakening",
+  "act": "Act I",
+  "backdrop": "gothic_lab",
+  "ambient": "gothic",
+  "cast": [
+    { "id": "victor", "name": "Victor", "costume": "scientist",
+      "color": "#7fd6c4", "position": "left" }
+  ],
+  "actions": [
+    { "type": "CAPTION", "text": "A storm-torn night in Ingolstadt." },
+    { "type": "LIGHTING", "color": "#4f7fff", "intensity": 0.5 },
+    { "type": "SOUND", "cue": "thunder_clap" },
+    { "type": "ENTER", "actor": "Victor", "position": "left" },
+    { "type": "DIALOGUE", "actor": "Victor",
+      "text": "It's alive. It's alive!" },
+    { "type": "GESTURE", "actor": "Victor", "gesture": "point" },
+    { "type": "EFFECT", "effect": "sparks" },
+    { "type": "BOW", "actor": "Victor" }
+  ]
+}</code></pre>
+        <div class="schema-notes">
+          <h3>Quick reference</h3>
+          <dl>
+            <dt>position</dt><dd><code>"left"</code>, <code>"center"</code>, <code>"right"</code>, or a number 0–1</dd>
+            <dt>lighting</dt><dd>hex colour + intensity 0–1</dd>
+            <dt>sound cues</dt><dd><code>thunder_clap</code>, <code>rain</code>, <code>magic_chime</code>, <code>door_creak</code>, <code>heartbeat</code>, <code>clock_tick</code>, <code>sword_clash</code>, <code>crowd_gasp</code>, <code>applause</code>, <code>wind</code>, <code>bell</code></dd>
+            <dt>effects</dt><dd><code>sparks</code>, <code>lightning</code>, <code>fog</code>, <code>petals</code>, <code>confetti</code>, <code>embers</code>, <code>snow</code>, <code>cards</code></dd>
+            <dt>backdrops</dt><dd><code>gothic_lab</code>, <code>tea_garden</code>, <code>ramparts</code>, <code>grand_hall</code></dd>
+            <dt>ambient</dt><dd><code>gothic</code>, <code>wonderland</code>, <code>tragedy</code>, <code>none</code></dd>
+          </dl>
+          <p class="fineprint">Unknown fields are ignored; unknown actors are cast automatically. Keep dialogue under ~240 characters per line for the best bubble layout.</p>
+        </div>
+      </div>
+    </section>
+  </dialog>
+
+  <!-- ══════════════════ HELP ══════════════════ -->
+  <dialog class="modal modal-dark" id="helpModal" aria-labelledby="helpTitle">
+    <div class="modal-head">
+      <div>
+        <p class="modal-kicker">Front of House</p>
+        <h2 id="helpTitle">A Word with the Usher</h2>
+      </div>
+      <button class="modal-close" data-close="helpModal" aria-label="Close help">✕</button>
+    </div>
+    <div class="help-grid">
+      <section>
+        <h3>Watching the play</h3>
+        <ul class="key-list">
+          <li><kbd>Space</kbd><span>Play / pause</span></li>
+          <li><kbd>←</kbd><kbd>→</kbd><span>Previous / next act</span></li>
+          <li><kbd>R</kbd><span>Restart the act</span></li>
+          <li><kbd>P</kbd><span>Open the playbill</span></li>
+          <li><kbd>S</kbd><span>Open the script lab</span></li>
+          <li><kbd>M</kbd><span>Mute / unmute</span></li>
+          <li><kbd>F</kbd><span>Fullscreen stage</span></li>
+          <li><kbd>H</kbd><span>This help card</span></li>
+        </ul>
+      </section>
+      <section>
+        <h3>Reactions</h3>
+        <ul class="key-list">
+          <li><kbd>1</kbd><span>👏 Applaud — gold sparks and a crowd swell</span></li>
+          <li><kbd>2</kbd><span>😂 Laugh — laughter carries across the stalls</span></li>
+          <li><kbd>3</kbd><span>😱 Gasp — the house catches its breath</span></li>
+          <li><kbd>4</kbd><span>🌹 Throw a rose — for a performance worth it</span></li>
+        </ul>
+        <h3>Seats</h3>
+        <p class="help-copy">Front Row puts you in the dust of the footlights. The Balcony pulls the whole proscenium into view. The Box Seat leans in from the side, velvet and gilt in your eyeline.</p>
+      </section>
+    </div>
+    <div class="help-foot">
+      <p>Audio is synthesised live with the Web Audio API — no sound files. Click or press any key once to let the browser start the orchestra.</p>
+      <button class="btn btn-gold" data-close="helpModal">Take my seat</button>
+    </div>
+  </dialog>
+
+  <input type="file" id="fileInput" accept="application/json,.json" hidden />
+  <div class="toast-stack" id="toastStack" aria-live="polite" aria-atomic="false"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>

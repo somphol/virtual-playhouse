@@ -1,0 +1,67 @@
+{
+  "project": "The Virtual Playhouse: AI Classic Theatre & Audience Simulator",
+  "repository": "https://github.com/somphol/virtual-playhouse",
+  "liveDemo": "https://somphol.github.io/virtual-playhouse/",
+  "build": {
+    "startedAt": "2026-11-02T00:05:57.679000Z",
+    "completedAt": "2026-11-02T00:49:53.898582Z",
+    "wallClockSeconds": 2636,
+    "wallClockHuman": "43m 56s",
+    "agentBusySeconds": 2627.2,
+    "sessionID": "ses_e666c46d8ffezSoPNKbrg0Cbta",
+    "sessionTitle": "Virtual Playhouse theatre simulator",
+    "harness": "OpenCode",
+    "agent": "build",
+    "model": {
+      "name": "DeepSeek V4.1 Flash",
+      "id": "deepseek-v4.1-flash",
+      "provider": "opencode-go"
+    },
+    "credits": "Built with OpenCode and DeepSeek V4.1 Flash."
+  },
+  "tokens": {
+    "input": 243900,
+    "output": 110067,
+    "reasoning": 61318,
+    "cacheRead": 11526912,
+    "cacheWrite": 1147,
+    "nonCachedTotal": 415285,
+    "total": 11943344
+  },
+  "costUSD": 0.0,
+  "artifacts": {
+    "files": [
+      {
+        "path": "index.html",
+        "bytes": 20150,
+        "lines": 377
+      },
+      {
+        "path": "style.css",
+        "bytes": 42622,
+        "lines": 1603
+      },
+      {
+        "path": "script.js",
+        "bytes": 179791,
+        "lines": 5317
+      },
+      {
+        "path": "README.md",
+        "bytes": 10145,
+        "lines": 237
+      },
+      {
+        "path": "assets/preview.png",
+        "bytes": 1329123
+      },
+      {
+        "path": "LICENSE",
+        "bytes": 1073,
+        "lines": 21
+      }
+    ],
+    "sourceLines": 7555
+  },
+  "notes": "Token counts are read from the OpenCode session database at completion time. The final assistant reply is sent after this snapshot, so the live session may be a few tokens higher. Cache-read tokens are included in total because they represent context processed by the model."
+}
