@@ -239,6 +239,20 @@ virtual-playhouse/
 
 ---
 
+## Documentation
+
+| Document | Purpose |
+| --- | --- |
+| [README.md](README.md) | Overview, setup, controls, script format, architecture |
+| [AGENTS.md](AGENTS.md) | Handoff for the next maintainer or agent |
+| [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) | File map, script model, renderer, audio, voices, parser |
+| [docs/REPRODUCTION.md](docs/REPRODUCTION.md) | How to rebuild the project from scratch |
+| [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md) | Branch-root Pages hosting, external requests, rollback |
+| [docs/TESTING.md](docs/TESTING.md) | Evidence, headless checks, manual test matrix |
+| [CHANGELOG.md](CHANGELOG.md) | Notable changes and release history |
+| [state/build-state.json](state/build-state.json) | Original build receipt and token snapshot |
+| [LICENSE](LICENSE) | MIT licence |
+
 ## Build receipt & credits
 
 This project was designed, written, tested and published in a single session with:
